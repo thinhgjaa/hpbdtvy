@@ -458,6 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "🍄 Bạn nhận được Đèn Phục Hồi! Chúc sức khoẻ của Thanh Vy luôn dồi dào và tràn đầy năng lượng! ⚡",
         "🌟 Túi Thần Kỳ của Doraemon tặng Thanh Vy vô vàn may mắn và bình an trong tuổi mới! 🥰"
     ];
+    
+    let availableWishes = [...randomWishes];
+    
     allBalloons.forEach(balloon => {
         const tag = balloon.querySelector('.paper-tag');
         const tooltip = balloon.querySelector('.balloon-tooltip');
@@ -560,8 +563,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Tạm dừng game
                 document.querySelector('.balloons').classList.remove('interactive');
                 
-                // Pick a random wish
-                const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
+                // Pick a random wish without replacement
+                if (availableWishes.length === 0) {
+                    availableWishes = [...randomWishes]; // reset if we run out of unique wishes
+                }
+                const randomIndex = Math.floor(Math.random() * availableWishes.length);
+                const randomWish = availableWishes.splice(randomIndex, 1)[0];
+                
                 tooltip.innerHTML = randomWish;
                 
                 // Play paper crinkle sound
