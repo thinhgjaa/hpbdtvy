@@ -132,6 +132,27 @@
         </div>
     </div>
 
+    <!-- Wish Bag Button (Floating Icon for collected wishes) -->
+    <div id="wishBagBtn" class="wish-bag-btn hidden" title="Mở Túi Bảo Bối">
+        <span class="bag-icon">🎒</span>
+        <span class="bag-text">Túi Bảo Bối</span>
+        <span id="wishBagCount" class="bag-badge">0</span>
+    </div>
+
+    <!-- Wish Bag Modal (Collection View) -->
+    <div id="wishBagModal" class="wish-bag-modal hidden">
+        <div class="wish-bag-content">
+            <div class="wish-bag-header">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Túi Bảo Bối Của Thanh Vy</h3>
+                <button id="closeWishBagBtn" class="close-bag-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="wish-bag-subtitle">Những món quà & lời chúc may mắn cậu đã mở được:</p>
+            <div id="wishBagList" class="wish-bag-list">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
     <!-- The Interactive Book Wrapper -->
     <div id="bookWrapper" class="book-wrapper in-corner hidden">
         <div class="book-hint-bubble">Nhấp để mở</div>
@@ -139,7 +160,7 @@
         <div class="book-container">
             <div class="book-scaler">
                 <div class="book" id="book">
-                    <!-- Page 1: Cover -->
+                    <!-- Page 1: Cover & Photo 1 -->
                     <div class="paper" id="p1">
                         <div class="front">
                             <div class="page-content cover">
@@ -152,16 +173,16 @@
                                     <span>✦</span>
                                 </div>
                                 <p class="subtitle">Thanh Vy - 03.09</p>
+                                <p class="swipe-hint-text"><i class="fa-solid fa-hand-point-left"></i> Vuốt hoặc bấm mũi tên để mở</p>
                             </div>
                         </div>
                         <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
-                                        <!-- TODO: Replace with Thanh Vy photo -->
-                                        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659795.png" alt="Thanh Vy smiling" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/1.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
                                     </div>
-                                    <div class="polaroid-text">Thanh Vy ✨</div>
+                                    <div class="polaroid-text">Thanh Vy rạng rỡ ✨</div>
                                 </div>
                             </div>
                         </div>
@@ -171,10 +192,10 @@
                     <div class="paper" id="p2">
                         <div class="front">
                             <div class="page-content message-page">
-                                <h2>Chúc mừng sinh nhật Thanh Vy!</h2>
+                                <h2>Chúc Mừng Sinh Nhật!</h2>
                                 <div class="msg-body">
-                                    <p>Tuổi mới đến rồi! Một ngày thật đặc biệt, chúc cậu sẽ nhận được vô vàn những niềm vui kỳ diệu như bước ra từ túi thần kỳ của Doraemon vậy.</p>
-                                    <p>Chúc cậu luôn vui vẻ, có một túi thần kỳ chứa đầy tiếng cười và hạnh phúc.</p>
+                                    <p>Tuổi mới đến rồi! Một ngày thật đặc biệt, chúc Thanh Vy sẽ nhận được vô vàn những niềm vui kỳ diệu như bước ra từ chiếc túi thần kỳ của Doraemon vậy.</p>
+                                    <p>Chúc cậu luôn giữ nụ cười thật tươi, mỗi ngày đều tràn ngập may mắn, bình an và hạnh phúc.</p>
                                 </div>
                             </div>
                         </div>
@@ -182,26 +203,56 @@
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
-                                        <!-- TODO: Replace with Thanh Vy's cool/cute photo -->
-                                        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Thanh Vy cool photo" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/2.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
                                     </div>
-                                    <div class="polaroid-text">Cùng bay với chong chóng tre ✌️</div>
+                                    <div class="polaroid-text">Nụ cười tỏa nắng ☀️</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 3: Message 2 & Closing -->
+                    <!-- Page 3: Dual Photos & Photo 5 -->
                     <div class="paper" id="p3">
+                        <div class="front">
+                            <div class="page-content photo-page gallery-page">
+                                <h3 class="gallery-title">Khoảnh Khắc Đẹp 📸</h3>
+                                <div class="polaroid-dual-container">
+                                    <div class="polaroid polaroid-mini p-tilt-left">
+                                        <div class="polaroid-img polaroid-img-mini">
+                                            <img src="image/tvy/3.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        </div>
+                                    </div>
+                                    <div class="polaroid polaroid-mini p-tilt-right">
+                                        <div class="polaroid-img polaroid-img-mini">
+                                            <img src="image/tvy/4.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="page-content photo-page">
+                                <div class="polaroid">
+                                    <div class="polaroid-img">
+                                        <img src="image/tvy/5.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                    </div>
+                                    <div class="polaroid-text">Mãi luôn xinh đẹp & rạng ngời 🌸</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 4: Message 2 & Closing Page -->
+                    <div class="paper" id="p4">
                         <div class="front">
                             <div class="page-content message-page">
                                 <h2>Cỗ Máy Thời Gian</h2>
                                 <div class="msg-body mt-4">
-                                    <p>Cho dù sau này có lớn lên, mong cậu vẫn luôn giữ được sự hồn nhiên như những nhân vật trong truyện nhé.</p>
-                                    <p>Chúc những điều ước của cậu đều trở thành hiện thực! Happy Birthday! ✨</p>
+                                    <p>Cho dù thời gian có trôi nhanh đến đâu, mong cậu vẫn luôn giữ được sự hồn nhiên, sự ấm áp và sự yêu đời nhé.</p>
+                                    <p>Chúc cho mọi điều ước khi thổi nến của cậu đều sẽ sớm trở thành hiện thực! Happy Birthday! ✨</p>
                                 </div>
                                 <div class="signature">
-                                    <p>With love,</p>
+                                    <p>With lots of love,</p>
                                     <p class="sender">- Từ một người bạn -</p>
                                 </div>
                             </div>
@@ -209,8 +260,15 @@
                         <div class="back">
                             <div class="page-content back-cover">
                                 <div class="border-decor"></div>
-                                <h2 class="closing">Enjoy your day!</h2>
-                                <button class="close-book-btn" id="closeBookBtn">Đóng sách lại</button>
+                                <div class="polaroid polaroid-mini" style="margin-bottom: 10px;">
+                                    <div class="polaroid-img polaroid-img-mini" style="width: 90px; height: 90px;">
+                                        <img src="image/tvy/7.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                    </div>
+                                </div>
+                                <h2 class="closing">Enjoy your day! 💖</h2>
+                                <div class="book-action-buttons">
+                                    <button class="close-book-btn" id="closeBookBtn"><i class="fa-solid fa-bookmark"></i> Đóng sách lại</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -219,8 +277,8 @@
 
             <!-- Controls for Book -->
             <div class="controls" id="bookControls">
-                <button id="prev-btn" class="nav-btn prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
-                <button id="next-btn" class="nav-btn next-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                <button id="prev-btn" class="nav-btn prev-btn" aria-label="Trang trước"><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="next-btn" class="nav-btn next-btn" aria-label="Trang sau"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </div>

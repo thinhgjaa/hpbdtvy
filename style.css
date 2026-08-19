@@ -1542,15 +1542,251 @@ body::after {
 }
 
 #p1 {
-    z-index: 3;
+    z-index: 4;
 }
 
 #p2 {
-    z-index: 2;
+    z-index: 3;
 }
 
 #p3 {
+    z-index: 2;
+}
+
+#p4 {
     z-index: 1;
+}
+
+/* Golden Glow on Book Grand Finale Reveal */
+.book-wrapper.book-grand-reveal {
+    animation: grandBookPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, bookGoldenGlow 2.5s infinite alternate;
+}
+
+@keyframes grandBookPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2) rotate(-15deg);
+        opacity: 0;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.06) rotate(2deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes bookGoldenGlow {
+    0% {
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)) drop-shadow(0 25px 35px rgba(0, 0, 0, 0.35));
+    }
+    100% {
+        filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.85)) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.45));
+    }
+}
+
+.gallery-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #ff6b81;
+    margin-bottom: 12px;
+}
+
+.polaroid-dual-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.polaroid-mini {
+    padding: 6px;
+    padding-bottom: 15px;
+}
+
+.polaroid-img-mini {
+    width: 95px;
+    height: 95px;
+}
+
+.p-tilt-left {
+    transform: rotate(-6deg);
+}
+
+.p-tilt-right {
+    transform: rotate(6deg);
+}
+
+.swipe-hint-text {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    animation: pulse 1.8s infinite;
+}
+
+/* Wish Bag Floating Button */
+.wish-bag-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid #ff9ff3;
+    border-radius: 30px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.25);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.wish-bag-btn:hover {
+    transform: scale(1.06);
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4);
+}
+
+.wish-bag-btn.bounce {
+    animation: bagBounce 0.6s ease;
+}
+
+@keyframes bagBounce {
+    0%, 100% { transform: scale(1); }
+    40% { transform: scale(1.25) rotate(-8deg); }
+    70% { transform: scale(1.1) rotate(5deg); }
+}
+
+.wish-bag-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
+
+.bag-icon {
+    font-size: 1.3rem;
+}
+
+.bag-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ff6b81;
+}
+
+.bag-badge {
+    background: #ff4757;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 12px;
+}
+
+/* Wish Bag Modal */
+.wish-bag-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+.wish-bag-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wish-bag-content {
+    background: #fff9e6;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    border: 3px solid #ff9ff3;
+    animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.wish-bag-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #ffb8b8;
+    padding-bottom: 12px;
+}
+
+.wish-bag-header h3 {
+    font-family: 'Pacifico', cursive;
+    color: #ff4757;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.close-bag-btn {
+    background: #ff6b81;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.close-bag-btn:hover {
+    background: #ff4757;
+}
+
+.wish-bag-subtitle {
+    font-size: 0.85rem;
+    color: #747d8c;
+    margin: 12px 0 10px 0;
+    font-style: italic;
+}
+
+.wish-bag-list {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wish-bag-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 15px;
+    border-left: 4px solid #ff6b81;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    font-size: 0.95rem;
+    color: #2f3542;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .crown-icon {
