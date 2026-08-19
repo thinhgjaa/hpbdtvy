@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = document.getElementById('scene');
     const book = document.getElementById('book');
     const audio = document.getElementById('bgMusic');
+    const countdownAudio = document.getElementById('countdownMusic');
     const soundBtn = document.getElementById('soundBtn');
     
     // Page Elements
@@ -24,24 +25,111 @@ document.addEventListener('DOMContentLoaded', () => {
     let isMuted = false;
     if (soundBtn) {
         soundBtn.addEventListener('click', () => {
-            if (audio) {
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                soundBtn.innerHTML = isMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
-            }
+            isMuted = !isMuted;
+            if (audio) audio.muted = isMuted;
+            if (countdownAudio) countdownAudio.muted = isMuted;
+            soundBtn.innerHTML = isMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
         });
     }
+
+    // Cinematic Flow Elements
+    const startBtn = document.getElementById('start-btn');
+    const mysteryGate = document.getElementById('mystery-gate');
+    const countdownScreen = document.getElementById('countdown-screen');
+    const countdownNum = document.getElementById('countdown-number');
+    const countdownText = document.getElementById('countdown-text');
+    const clickBookHint = document.getElementById('clickBookHint');
+    const candle = document.querySelector('.candle');
+    const blowCandleBtn = document.getElementById('blowCandleBtn');
+    const wishContainer = document.querySelector('.wish-container');
+
+    const countdownMessages = [
+        "Một ngày đặc biệt...",
+        "Dành cho một người vô cùng đặc biệt...",
+        "Tuổi 21 rực rỡ bắt đầu!"
+    ];
+
+    let countdownValue = 3;
+
+    function typeWriter(text, i, cb) {
+        if (i < text.length) {
+            countdownText.innerHTML += text.charAt(i);
+            setTimeout(() => typeWriter(text, i + 1, cb), 30);
+        } else {
+            setTimeout(cb, 500);
+        }
+    }
+
+    startBtn.addEventListener('click', () => {
+        // Start Countdown Audio
+        if (countdownAudio && countdownAudio.paused) {
+            countdownAudio.volume = 0.6;
+            countdownAudio.play().catch(e => console.log(e));
+        }
+        
+        // Hide Mystery Gate, Show Countdown
+        mysteryGate.classList.add('hidden');
+        countdownScreen.classList.remove('hidden');
+
+        runCountdown();
+    });
+
+    function runCountdown() {
+        if (countdownValue > 0) {
+            countdownNum.innerText = countdownValue;
+            countdownText.innerHTML = "";
+            typeWriter(countdownMessages[3 - countdownValue], 0, () => {
+                countdownValue--;
+                setTimeout(runCountdown, 200);
+            });
+        } else {
+            // Stop Countdown Audio
+            if (countdownAudio) {
+                countdownAudio.pause();
+                countdownAudio.currentTime = 0;
+            }
+            // Play Grand Reveal Audio
+            if (audio && audio.paused) {
+                audio.volume = 0.8;
+                audio.play().catch(e => console.log(e));
+            }
+
+            // Slow Gradual Reveal
+            countdownScreen.style.transition = "opacity 3s ease";
+            countdownScreen.classList.add('hidden');
+            scene.classList.remove('hidden');
+            
+            // Pop confetti after the screen has partially faded in
+            setTimeout(() => {
+                firePremiumConfetti(1.5);
+            }, 2000);
+        }
+    }
+
+    // Candle Blowing Logic
+    // Interactive Candle - via Button
+    blowCandleBtn.addEventListener('click', () => {
+        if (!candle.classList.contains('blown-out')) {
+            candle.classList.add('blown-out');
+            wishContainer.classList.add('hidden'); // Hide instructions
+            
+            // Wait a moment for fire to go out, then pop confetti again and show book
+            setTimeout(() => {
+                firePremiumConfetti(1);
+                bookWrapper.classList.remove('hidden');
+                
+                // Show hint after book appears
+                setTimeout(() => {
+                    document.getElementById('clickBookHint').classList.remove('hidden');
+                }, 1000);
+            }, 800);
+        }
+    });
 
     // 1. Open Book (Move from corner to center)
     bookWrapper.addEventListener('click', (e) => {
         // Prevent opening again if already open
         if (bookWrapper.classList.contains('in-center')) return;
-        
-        // Play Audio
-        if (audio && audio.paused) {
-            audio.volume = 0.6;
-            audio.play().catch(err => console.log('Audio autoplay blocked'));
-        }
 
         // Fire Confetti on open
         firePremiumConfetti(1);
@@ -50,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bookWrapper.classList.remove('in-corner');
         bookWrapper.classList.add('in-center');
         scene.classList.add('blurred');
+        clickBookHint.classList.add('hidden');
         
         updateNavButtons();
     });
@@ -141,14 +230,22 @@ document.addEventListener('DOMContentLoaded', () => {
             bookWrapper.classList.remove('in-center');
             bookWrapper.classList.add('in-corner');
             scene.classList.remove('blurred');
+            clickBookHint.classList.remove('hidden');
         }, 500);
     });
 
     // Premium Confetti
     const colors = ['#ff9ff3', '#feca57', '#48dbfb', '#ff6b81'];
+    
+    // Custom confetti instance without web workers to bypass file:// CORS
+    const confettiCanvas = document.getElementById('confetti');
+    const myConfetti = confetti.create(confettiCanvas, {
+        resize: true,
+        useWorker: false
+    });
 
     function firePremiumConfetti(ratio) {
-        confetti({
+        myConfetti({
             particleCount: Math.floor(150 * ratio),
             spread: 120,
             origin: { y: 0.6 },
@@ -162,14 +259,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const end = Date.now() + duration;
 
         (function frame() {
-            confetti({
+            myConfetti({
                 particleCount: 5,
                 angle: 60,
                 spread: 55,
                 origin: { x: 0 },
                 colors: colors
             });
-            confetti({
+            myConfetti({
                 particleCount: 5,
                 angle: 120,
                 spread: 55,

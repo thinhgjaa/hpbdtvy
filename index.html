@@ -16,12 +16,30 @@
         <i class="fa-solid fa-volume-high"></i>
     </button>
     
-    <audio id="bgMusic" loop>
+    <!-- Audio Elements -->
+    <audio id="countdownMusic" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-piano-amp-strings-10711.mp3" type="audio/mpeg">
     </audio>
+    <audio id="bgMusic" loop>
+        <source src="music/hpbd.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="birthday-scene" id="scene">
-        <!-- Bunting / Dây cờ -->
+    <!-- 1. Mystery Gate -->
+    <div id="mystery-gate" class="screen active">
+        <button id="start-btn" class="glowing-btn">Dành riêng cho VV.<br>Hãy bật loa to lên và chạm vào đây...</button>
+    </div>
+
+    <!-- 2. Countdown Screen -->
+    <div id="countdown-screen" class="screen hidden">
+        <div class="countdown-content">
+            <h1 id="countdown-number" class="countdown-num">3</h1>
+            <p id="countdown-text" class="typewriter-text"></p>
+        </div>
+    </div>
+
+    <!-- 3. Birthday Scene -->
+    <div class="birthday-scene hidden" id="scene">
+        <!-- Elegant Bunting -->
         <div class="bunting">
             <div class="triangle t1"></div>
             <div class="triangle t2"></div>
@@ -31,6 +49,16 @@
             <div class="triangle t6"></div>
             <div class="triangle t7"></div>
             <div class="triangle t8"></div>
+        </div>
+        
+        <!-- Sparkles / Kim tuyến -->
+        <div class="sparkles-container">
+            <div class="sparkle s1">✨</div>
+            <div class="sparkle s2">✨</div>
+            <div class="sparkle s3">✨</div>
+            <div class="sparkle s4">✨</div>
+            <div class="sparkle s5">✨</div>
+            <div class="sparkle s6">✨</div>
         </div>
 
         <!-- Floating Balloons -->
@@ -57,12 +85,17 @@
                 </div>
             </div>
             
-            <p class="click-book-hint"><i class="fa-solid fa-arrow-down-right"></i> Mở quyển nhật ký ở góc dưới nhé!</p>
+            <div class="wish-container">
+                <p class="wish-text">Hãy nhắm mắt lại và ước một điều ước nhé... ✨</p>
+                <button id="blowCandleBtn" class="glowing-btn blow-btn">Thổi Nến 🌬️</button>
+            </div>
+            
+            <p class="click-book-hint hidden" id="clickBookHint"><i class="fa-solid fa-arrow-down-right"></i> Mở quyển nhật ký ở góc dưới nhé!</p>
         </div>
     </div>
 
     <!-- The Interactive Book Wrapper -->
-    <div id="bookWrapper" class="book-wrapper in-corner">
+    <div id="bookWrapper" class="book-wrapper in-corner hidden">
         <div class="book-hint-bubble">Nhấp để mở</div>
         
         <div class="book-container">
@@ -84,48 +117,50 @@
                             </div>
                         </div>
                         <div class="back">
-                            <div class="page-content inside-cover">
-                                <h2>Chương 1: Khởi đầu mới</h2>
-                                <p>Tuổi 21 - Độ tuổi đẹp nhất của thanh xuân đã chính thức gõ cửa...</p>
-                                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659795.png" width="100" alt="Cute decor" style="margin-top: 20px;">
+                            <div class="page-content photo-page">
+                                <div class="polaroid">
+                                    <div class="polaroid-img">
+                                        <!-- TODO: Replace with VV's smiling photo -->
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659795.png" alt="VV smiling" style="width:100%; height:100%; object-fit:cover;">
+                                    </div>
+                                    <div class="polaroid-text">Smile! ✨</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 2: Message -->
+                    <!-- Page 2: Message 1 & Photo 2 -->
                     <div class="paper" id="p2">
                         <div class="front">
                             <div class="page-content message-page">
-                                <h2>Gửi người bạn tuyệt vời,</h2>
+                                <h2>Chúc mừng VV!</h2>
                                 <div class="msg-body">
-                                    <p>Chúc VV một tuổi 21 rực rỡ, luôn tươi vui như những quả bóng bay và ngọt ngào như chiếc bánh kem kia.</p>
-                                    <p>Hãy cứ tự tin sải bước, toả sáng lấp lánh theo cách riêng của bạn. Đừng ngại ước mơ lớn, vì bạn xứng đáng với mọi điều tuyệt vời nhất.</p>
+                                    <p>Chính thức bước sang tuổi 21! Cột mốc đánh dấu sự trưởng thành, rực rỡ và xinh đẹp nhất của thanh xuân.</p>
+                                    <p>Mong rằng tuổi mới của cậu sẽ tràn ngập tiếng cười và tự do bay cao như những quả bóng bay ngoài kia.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="back">
-                            <div class="page-content message-page">
-                                <h2>Chương 2: Tương lai</h2>
-                                <div class="msg-body">
-                                    <p>Hành trình phía trước còn dài, mong rằng mỗi bước bạn đi đều có bình an kề bước, may mắn đồng hành.</p>
-                                    <p>Mỗi thử thách chỉ là một nấc thang để bạn bước lên cao hơn.</p>
+                            <div class="page-content photo-page">
+                                <div class="polaroid">
+                                    <div class="polaroid-img">
+                                        <!-- TODO: Replace with VV's cool/cute photo -->
+                                        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="VV cool photo" style="width:100%; height:100%; object-fit:cover;">
+                                    </div>
+                                    <div class="polaroid-text">Cool & Cute ✌️</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 3: Closing -->
+                    <!-- Page 3: Message 2 & Closing -->
                     <div class="paper" id="p3">
                         <div class="front">
                             <div class="page-content message-page">
-                                <div class="polaroid">
-                                    <div class="polaroid-img">
-                                        <i class="fa-solid fa-heart" style="color: #ff6b81; font-size: 4rem;"></i>
-                                    </div>
-                                    <div class="polaroid-text">Stay Happy ✨</div>
-                                </div>
+                                <h2>Tuổi 21 rực rỡ</h2>
                                 <div class="msg-body mt-4">
-                                    <p>Happy 21st Birthday!</p>
+                                    <p>Hãy cứ mạnh mẽ, tự tin bước đi trên con đường cậu chọn nhé.</p>
+                                    <p>Dù có chuyện gì, mong những điều tốt đẹp và bình an nhất sẽ luôn đồng hành cùng cậu. Happy Birthday! ✨</p>
                                 </div>
                                 <div class="signature">
                                     <p>With love,</p>
