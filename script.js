@@ -216,7 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     const initialWishText = document.querySelector('.wish-text');
                     if (initialWishText) {
-                        typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40);
+                        typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40, () => {
+                            // Chờ 3 giây để nhắm mắt ước rồi mới hiện nút Thổi Nến
+                            setTimeout(() => {
+                                if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
+                            }, 3000);
+                        });
                     }
                 }, 5500);
             }, 3500); // Kéo dài thời gian bóng tối lên 3.5 giây
