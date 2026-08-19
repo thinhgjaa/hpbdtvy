@@ -41,7 +41,7 @@ Hệ thống âm thanh & rung được lập trình trực tiếp bằng code đ
   - Xung quanh rợp bóng bay lơ lửng và kim tuyến rơi.
 - **Tương tác Ước Nguyện:** 
   - Dòng chữ *"Hãy nhắm mắt lại và ước một điều ước nhé... ✨"* từ từ được gõ ra.
-  - Cố tình đợi thêm **3 giây** (để Thanh Vy nhắm mắt ước) rồi nút phát sáng **"Thổi Nến 🌬️"** mới bắt đầu xuất hiện.
+  - Cố tình đợi thêm **3 giây** (để Thanh Vy nhắm mắt ước) rồi nút phát sáng **"Thổi Nến ✨"** mới bắt đầu xuất hiện.
   - Khi thổi nến: Ngọn lửa tắt, làn khói bốc lên kèm pháo hoa kim tuyến bay rợp trời.
 
 ### 4. Minigame "Đập Bóng Bay & Thu Thập Bảo Bối" (The Balloon Hunt & Wish Bag)

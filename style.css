@@ -1237,16 +1237,31 @@ body::after {
 
 .blow-btn {
     font-size: 1.1rem;
-    padding: 12px 35px;
-    background: #ff6b81;
-    border: none;
-    box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 107, 129, 0.45);
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    cursor: pointer;
     animation: glowPulse 2s infinite alternate;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.blow-btn i {
+    font-size: 1.15rem;
+    color: #ffd700;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6));
 }
 
 .blow-btn:hover {
-    background: #ff4757;
-    box-shadow: 0 5px 25px rgba(255, 107, 129, 0.6);
+    transform: scale(1.06) translateY(-2px);
+    background: linear-gradient(135deg, #ff4757, #ee5253);
+    box-shadow: 0 8px 25px rgba(255, 107, 129, 0.65);
 }
 
 /* Balloon Tooltip (Replaces Wish Modal) */
