@@ -255,6 +255,8 @@ body::after {
     bottom: -120px;
     box-shadow: inset -10px -10px 15px rgba(0,0,0,0.15), 0 10px 15px rgba(0,0,0,0.1);
     animation: floatUp 15s linear infinite, sway 4s ease-in-out infinite alternate;
+    pointer-events: auto; /* Allow clicking */
+    cursor: pointer;
 }
 .balloon::after {
     content: ''; position: absolute;
@@ -286,6 +288,34 @@ body::after {
     0% { margin-left: -20px; }
     100% { margin-left: 20px; }
 }
+
+/* Paper Tag attached to Balloon */
+.paper-tag {
+    position: absolute;
+    bottom: -65px; /* Hangs at the end of the string */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px; height: 35px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 3px;
+    display: flex; justify-content: center; align-items: center;
+    color: #ff6b81; font-size: 1rem;
+    animation: swingPaper 3s infinite alternate ease-in-out;
+    transform-origin: top center;
+    transition: transform 0.2s, opacity 0.5s;
+}
+.paper-tag:hover { transform: translateX(-50%) scale(1.2); }
+.paper-tag::before {
+    content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+    width: 3px; height: 5px; background: rgba(0,0,0,0.2); border-radius: 50%;
+}
+@keyframes swingPaper {
+    0% { transform: translateX(-50%) rotate(15deg); }
+    100% { transform: translateX(-50%) rotate(-15deg); }
+}
+.paper-tag.opened { opacity: 0; pointer-events: none; }
 
 /* Centerpiece Cake & Text */
 .centerpiece {
@@ -443,6 +473,37 @@ body::after {
 .blow-btn:hover {
     background: #ff4757;
     box-shadow: 0 5px 25px rgba(255,107,129,0.6);
+}
+
+/* Balloon Tooltip (Replaces Wish Modal) */
+.balloon-tooltip {
+    position: absolute;
+    top: 110px; /* Treo dưới quả bóng, trên sợi dây */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: rgba(255, 255, 255, 0.95);
+    color: #ff4757;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 220px;
+    white-space: normal;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+    opacity: 0;
+    z-index: 20;
+    font-family: 'Montserrat', sans-serif;
+}
+.balloon-tooltip.show {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+.balloon-tooltip::after {
+    content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    border-width: 0 8px 8px; border-style: solid; border-color: transparent transparent rgba(255, 255, 255, 0.95);
 }
 
 /* THE BOOK WRAPPER (Interactive states) */

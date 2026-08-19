@@ -279,4 +279,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }());
     }
+
+    // Wish Tooltip logic (Balloons)
+    const paperTags = document.querySelectorAll('.paper-tag');
+    
+    const randomWishes = [
+        "Tuổi mới vui vẻ, mãi xinh đẹp và rạng rỡ nha! 💖",
+        "Chúc cậu luôn mạnh khỏe, hay ăn chóng lớn và lúc nào cũng vui vẻ! 🌸",
+        "Hãy luôn tự tin vào bản thân nhé, cậu tuyệt vời lắm đó! ✨",
+        "Chúc mọi dự định trong tuổi 21 của cậu đều trở thành hiện thực! 🌟",
+        "Mong mỗi ngày của cậu đều tràn ngập niềm vui và tiếng cười! 🎉",
+        "Chúc cậu một đời bình an, đi qua giông bão vẫn giữ được nụ cười! 🌈",
+        "Tuổi 21 thật rực rỡ nhé, hãy làm những điều cậu thích và yêu những gì cậu làm! 🎨",
+        "Tiền nhiều như nước, tình duyên phơi phới nhé cô gái! 💸",
+        "Sớm thành đại gia để bao nuôi bạn bè nha! 😂",
+        "Chúc cậu đi du lịch muôn nơi, ăn ngon mặc đẹp không lo nghĩ! ✈️",
+        "Luôn giữ được năng lượng tích cực và truyền cảm hứng cho mọi người nhé! 🌻",
+        "Gặp nhiều may mắn, vạn sự như ý trong tuổi mới! 🍀",
+        "Tuổi 21 dáng xinh, da trắng bóc mịn màng nhé! 💅",
+        "Công việc thuận lợi, học hành thi cử đều đỗ đạt điểm cao! 📚",
+        "Chỉ mong cậu luôn được hạnh phúc trọn vẹn với những lựa chọn của mình! ❤️"
+    ];
+
+    paperTags.forEach(tag => {
+        tag.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(tag.classList.contains('opened')) return; // Already opened
+            
+            // Find the tooltip in the same balloon
+            const balloon = tag.closest('.balloon');
+            const tooltip = balloon.querySelector('.balloon-tooltip');
+            
+            if (tooltip) {
+                // Pick a random wish
+                const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
+                tooltip.innerHTML = randomWish;
+                
+                // Show tooltip
+                tooltip.classList.add('show');
+                
+                // Hide the tag
+                tag.classList.add('opened');
+                
+                // Confetti pop!
+                myConfetti({ particleCount: 20, spread: 50, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
+            }
+        });
+    });
 });

@@ -35,8 +35,9 @@ Dưới đây là kịch bản trải nghiệm từng giây một (User Flow) đ
   - Màn hình chớp sáng nhẹ, nền trời rạng rỡ (Pastel hồng/cam) với các khối cầu ánh sáng mờ ảo hiện ra.
   - Sau đó 0.5s: **Dải cờ (Bunting)** từ từ rủ xuống từ cạnh trên.
   - Sau đó 1.5s: **Bánh kem 3D** và dòng chữ **"HAPPY 21ST BIRTHDAY, VV!"** từ từ hiện lên ở trung tâm.
-  - Sau đó 2.5s: **Bóng bay bóng bẩy 3D** từ dưới bay vút lên trời.
+  - Sau đó 2.5s: **Bóng bay bóng bẩy 3D** từ dưới bay vút lên trời. Một số quả bóng bay sẽ mang theo một **mẩu giấy nhỏ (lời chúc)** đung đưa bên dưới.
   - Cùng lúc: Hàng loạt **Kim tuyến (Sparkles)** lấp lánh xuất hiện xung quanh.
+  - **Tương tác phụ:** Khi người dùng tinh mắt và click vào "mẩu giấy" đang bay, một cửa sổ bật lên (Modal) tuyệt đẹp sẽ hiện ra kèm một lời chúc ngẫu nhiên và chùm pháo giấy bắn nhẹ lên.
 
 ### 4. Tương tác Thổi Nến & Điều Ước (Interactive Core)
 - **Giao diện:** 
