@@ -503,14 +503,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            // Thêm hiệu ứng cuốn sổ buộc vào quả bóng cuối cùng
+            // Quả bóng thứ 12 sẽ xuất hiện từ dưới lên khi 11 quả kia đã bị đập
             if (totalBalloons - clickedBalloons === 1) {
-                const lastBalloon = document.querySelector('.balloon:not(.clicked):not(.popped)');
-                if (lastBalloon && !lastBalloon.querySelector('.mini-book-tie')) {
+                const bossBalloon = document.getElementById('bossBalloon');
+                if (bossBalloon && bossBalloon.style.display === 'none') {
+                    bossBalloon.style.display = 'block';
+                    bossBalloon.classList.add('is-last-balloon');
+                    
                     const miniBook = document.createElement('div');
                     miniBook.className = 'mini-book-tie';
-                    miniBook.innerHTML = '📖';
-                    lastBalloon.appendChild(miniBook);
+                    miniBook.innerHTML = '<div class="mini-book-icon"><i class="fa-solid fa-book-journal-whills"></i></div>';
+                    bossBalloon.appendChild(miniBook);
                 }
             }
         }
