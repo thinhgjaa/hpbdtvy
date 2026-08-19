@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40);
                     }
                 }, 5500);
-            }, 2500); // Kéo dài thời gian bóng tối lên 2.5 giây
+            }, 3500); // Kéo dài thời gian bóng tối lên 3.5 giây
         }
     }
 
