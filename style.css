@@ -1307,7 +1307,7 @@ body::after {
 .book-wrapper {
     position: fixed;
     transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 100;
+    z-index: 10000;
 }
 
 /* Corner State (Closed book sitting on desk) */
@@ -1743,23 +1743,23 @@ h2 {
 .mini-book-icon {
     width: 50px;
     height: 65px;
-    background: #fff;
+    background: linear-gradient(145deg, #ff6b81, #ff4757);
     border-radius: 2px 5px 5px 2px;
-    box-shadow: inset 3px 0 0 #f1f2f6;
+    box-shadow: inset 3px 0 0 rgba(0,0,0,0.1), 2px 2px 6px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #ff6b81;
+    color: white;
     position: relative;
-    border: 1px solid rgba(255, 107, 129, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 4px;
 }
 
 .mini-book-icon .border-decor {
     position: absolute;
     top: 2px; left: 2px; right: 2px; bottom: 2px;
-    border: 1px dashed #ff9ff3;
+    border: 1px dashed rgba(255, 255, 255, 0.6);
     border-radius: 2px;
     pointer-events: none;
 }
@@ -1771,11 +1771,12 @@ h2 {
     margin: 3px 0 0 0;
     line-height: 1.1;
     font-family: 'Playfair Display', serif;
+    color: white;
 }
 
 .mini-book-icon i {
     font-size: 14px;
-    color: #ff9ff3;
+    color: white;
 }
 
 @keyframes tieSway {

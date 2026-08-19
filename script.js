@@ -510,9 +510,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     bossBalloon.style.display = 'block';
                     bossBalloon.classList.add('is-last-balloon');
                     
+                    // Nâng z-index của container bóng bay lên cao nhất để đè lên bánh kem và chữ
+                    document.querySelector('.balloons').style.zIndex = '999';
+                    
                     const miniBook = document.createElement('div');
                     miniBook.className = 'mini-book-tie';
-                    miniBook.innerHTML = '<div class="mini-book-icon"><i class="fa-solid fa-book-journal-whills"></i></div>';
+                    miniBook.innerHTML = '<div class="mini-book-icon"><div class="border-decor"></div><i class="fa-solid fa-cake-candles crown-icon"></i><div class="title">Nhật ký tuổi 21</div></div>';
                     bossBalloon.appendChild(miniBook);
                 }
             }
