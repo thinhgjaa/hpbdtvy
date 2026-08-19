@@ -1720,46 +1720,62 @@ h2 {
 /* Sổ tay mini buộc dưới quả bóng cuối cùng */
 .mini-book-tie {
     position: absolute;
-    bottom: -55px;
+    top: 100%;
+    margin-top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
     animation: tieSway 2s infinite alternate ease-in-out;
+    transform-origin: top center;
 }
 
 .mini-book-tie::before {
     content: '';
     position: absolute;
-    top: -20px;
+    top: -15px;
     left: 50%;
     width: 2px;
-    height: 20px;
+    height: 15px;
     background: rgba(255,255,255,0.8);
     transform: translateX(-50%);
 }
 
 .mini-book-icon {
-    width: 35px;
-    height: 45px;
-    background: linear-gradient(135deg, #ff9ff3, #feca57);
-    border-radius: 3px 6px 6px 3px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.4), inset 2px 0 0 rgba(255,255,255,0.8);
+    width: 50px;
+    height: 65px;
+    background: #fff;
+    border-radius: 2px 5px 5px 2px;
+    box-shadow: inset 3px 0 0 #f1f2f6;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 20px;
+    color: #ff6b81;
     position: relative;
+    border: 1px solid rgba(255, 107, 129, 0.3);
+    padding: 4px;
 }
 
-.mini-book-icon::after {
-    content: '';
+.mini-book-icon .border-decor {
     position: absolute;
-    right: 4px;
-    top: 4px;
-    bottom: 4px;
-    width: 2px;
-    background: rgba(255,255,255,0.6);
+    top: 2px; left: 2px; right: 2px; bottom: 2px;
+    border: 1px dashed #ff9ff3;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.mini-book-icon .title {
+    font-size: 8px;
+    font-weight: 700;
+    text-align: center;
+    margin: 3px 0 0 0;
+    line-height: 1.1;
+    font-family: 'Playfair Display', serif;
+}
+
+.mini-book-icon i {
+    font-size: 14px;
+    color: #ff9ff3;
 }
 
 @keyframes tieSway {
