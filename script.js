@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const miniBook = document.createElement('div');
                     miniBook.className = 'mini-book-tie';
-                    miniBook.innerHTML = '<div class="mini-book-icon"><div class="border-decor"></div><i class="fa-solid fa-cake-candles crown-icon"></i><div class="title">Nhật ký tuổi 21</div></div>';
+                    miniBook.innerHTML = '<div class="mini-book-icon"><div class="border-decor"></div><i class="fa-solid fa-cake-candles crown-icon"></i><div class="title">Những Lời<br>Muốn Nói</div></div>';
                     bossBalloon.appendChild(miniBook);
                 }
             }
