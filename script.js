@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function updateHUD() {
             const totalBalloons = allBalloons.length;
-            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
+            const clickedBalloons = document.querySelectorAll('.balloon.clicked, .balloon.popped').length;
             const counterEl = document.getElementById('balloonCounterText');
             if (counterEl) {
                 counterEl.innerText = `${clickedBalloons}/${totalBalloons}`;
@@ -502,12 +502,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => hud.style.transform = '', 250);
                 }
             }
+            
+            // Thêm hiệu ứng cuốn sổ buộc vào quả bóng cuối cùng
+            if (totalBalloons - clickedBalloons === 1) {
+                const lastBalloon = document.querySelector('.balloon:not(.clicked):not(.popped)');
+                if (lastBalloon && !lastBalloon.querySelector('.mini-book-tie')) {
+                    const miniBook = document.createElement('div');
+                    miniBook.className = 'mini-book-tie';
+                    miniBook.innerHTML = '📖';
+                    lastBalloon.appendChild(miniBook);
+                }
+            }
         }
 
         function checkGameOver() {
             const totalBalloons = allBalloons.length;
-            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
+            const clickedBalloons = document.querySelectorAll('.balloon.clicked, .balloon.popped').length;
             if (clickedBalloons === totalBalloons) {
+                // Hiện ngay lập tức để có cảm giác quyển sổ rơi ra từ quả bóng cuối cùng
                 setTimeout(() => {
                     const hint = document.getElementById('catchBalloonHint');
                     if (hint) hint.classList.add('hidden');
@@ -516,16 +528,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (hud) hud.classList.add('hidden');
                     
                     firePremiumConfetti(1.5);
+                    
+                    // Quyển sổ bắt đầu ở giữa màn hình (như văng ra từ bóng)
                     bookWrapper.classList.remove('hidden');
+                    bookWrapper.classList.remove('in-corner');
+                    bookWrapper.classList.add('in-center');
+                    
+                    // Và ngay lập tức thu nhỏ bay về góc màn hình
                     setTimeout(() => {
-                        const bookHint = document.getElementById('clickBookHint');
-                        if (bookHint) {
-                            bookHint.innerHTML = '';
-                            bookHint.classList.remove('hidden');
-                            typeWriterEffect(bookHint, "Mở quyển nhật ký ở góc dưới nhé!", 40);
-                        }
-                    }, 1000);
-                }, 1500);
+                        bookWrapper.classList.remove('in-center');
+                        bookWrapper.classList.add('in-corner');
+                        
+                        setTimeout(() => {
+                            const bookHint = document.getElementById('clickBookHint');
+                            if (bookHint) {
+                                bookHint.innerHTML = '';
+                                bookHint.classList.remove('hidden');
+                                typeWriterEffect(bookHint, "Mở quyển nhật ký ở góc dưới nhé!", 40);
+                            }
+                        }, 800);
+                    }, 50);
+                    
+                }, 400); // 400ms delay để quả bóng kịp nổ
             }
         }
 
