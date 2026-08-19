@@ -335,6 +335,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 tag.classList.add('opened');
                 balloon.classList.add('clicked');
                 
+                // Show static paper note on screen
+                const wishPaperNote = document.getElementById('wishPaperNote');
+                if (wishPaperNote) {
+                    wishPaperNote.innerHTML = randomWish;
+                    wishPaperNote.classList.remove('hidden');
+                    if (wishPaperNote.timeoutId) clearTimeout(wishPaperNote.timeoutId);
+                    wishPaperNote.timeoutId = setTimeout(() => {
+                        wishPaperNote.classList.add('hidden');
+                    }, 4500); // Hide after 4.5 seconds
+                }
+                
                 // Confetti pop!
                 myConfetti({ particleCount: 20, spread: 50, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
                 
