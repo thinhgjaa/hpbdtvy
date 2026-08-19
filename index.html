@@ -120,6 +120,11 @@
             
             <p class="click-book-hint hidden" id="clickBookHint"><i class="fa-solid fa-arrow-down-right"></i> Mở quyển nhật ký ở góc dưới nhé!</p>
             <p class="catch-balloon-hint hidden" id="catchBalloonHint"><i class="fa-solid fa-hand-pointer"></i> Hãy chạm vào bóng bay để bắt lấy may mắn nhé!</p>
+
+            <!-- Balloon Counter (Minigame HUD) -->
+            <div id="balloonCounter" class="balloon-counter hidden">
+                🎈 <span id="balloonCounterText">0/12</span>
+            </div>
         </div>
     </div>
 
@@ -217,7 +222,10 @@
     </div>
 
     <!-- Wish Paper Note (Center screen) -->
-    <div id="wishPaperNote" class="wish-paper-note hidden"></div>
+    <div id="wishPaperNote" class="wish-paper-note hidden">
+        <div id="wishPaperText"></div>
+        <button id="acceptWishBtn" class="accept-btn hidden">Nhận 💌</button>
+    </div>
 
     <canvas id="confetti"></canvas>
     

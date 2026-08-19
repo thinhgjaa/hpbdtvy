@@ -163,6 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!candle.classList.contains('blown-out')) {
             candle.classList.add('blown-out');
             
+            // Xuyên click qua bánh kem để bấm được bóng bay phía sau
+            const centerpiece = document.querySelector('.centerpiece');
+            if (centerpiece) centerpiece.style.pointerEvents = 'none';
+
             // Hide button and change text instead of hiding the whole container
             blowCandleBtn.classList.add('hidden'); 
             const wishText = document.querySelector('.wish-text');
@@ -183,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                     catchHint.innerHTML = '';
                                     catchHint.classList.remove('hidden');
                                     typeWriterEffect(catchHint, "👆 Hãy chạm vào bóng bay để bắt lấy may mắn nhé!", 40);
+                                    
+                                    // Bật hiển thị bộ đếm bóng bay
+                                    const balloonCounter = document.getElementById('balloonCounter');
+                                    if (balloonCounter) balloonCounter.classList.remove('hidden');
                                 }
                             }, 300);
                         }, 2500);
@@ -394,13 +402,70 @@ document.addEventListener('DOMContentLoaded', () => {
         const tag = balloon.querySelector('.paper-tag');
         const tooltip = balloon.querySelector('.balloon-tooltip');
 
+        // "Nhận" button event
+        const acceptWishBtn = document.getElementById('acceptWishBtn');
+        if (acceptWishBtn) {
+            acceptWishBtn.addEventListener('click', () => {
+                const wishPaperNote = document.getElementById('wishPaperNote');
+                if (wishPaperNote) wishPaperNote.classList.add('hidden');
+                acceptWishBtn.classList.add('hidden');
+                
+                // Resume game
+                document.querySelector('.balloons').classList.add('interactive');
+                
+                // Check game over
+                checkGameOver();
+            });
+        }
+
+        function updateHUD() {
+            const totalBalloons = allBalloons.length;
+            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
+            const counterEl = document.getElementById('balloonCounterText');
+            if (counterEl) {
+                counterEl.innerText = `${clickedBalloons}/${totalBalloons}`;
+                const hud = document.getElementById('balloonCounter');
+                if (hud) {
+                    hud.classList.remove('hidden');
+                    hud.style.transform = 'scale(1.15)';
+                    setTimeout(() => hud.style.transform = '', 250);
+                }
+            }
+        }
+
+        function checkGameOver() {
+            const totalBalloons = allBalloons.length;
+            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
+            if (clickedBalloons === totalBalloons) {
+                setTimeout(() => {
+                    const hint = document.getElementById('catchBalloonHint');
+                    if (hint) hint.classList.add('hidden');
+                    
+                    firePremiumConfetti(1.5);
+                    bookWrapper.classList.remove('hidden');
+                    setTimeout(() => {
+                        const bookHint = document.getElementById('clickBookHint');
+                        if (bookHint) {
+                            bookHint.innerHTML = '';
+                            bookHint.classList.remove('hidden');
+                            typeWriterEffect(bookHint, "Mở quyển nhật ký ở góc dưới nhé!", 40);
+                        }
+                    }, 1000);
+                }, 1500);
+            }
+        }
+
         balloon.addEventListener('click', (e) => {
             e.stopPropagation();
+            if (!document.querySelector('.balloons').classList.contains('interactive')) return;
             if (balloon.classList.contains('clicked')) return;
             
             if (tag && tooltip) {
                 // Balloon WITH a tag -> Open Wish
                 if (tag.classList.contains('opened')) return; // Already opened
+                
+                // Tạm dừng game
+                document.querySelector('.balloons').classList.remove('interactive');
                 
                 // Pick a random wish
                 const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
@@ -413,21 +478,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Show static paper note on screen
                 const wishPaperNote = document.getElementById('wishPaperNote');
-                if (wishPaperNote) {
+                const wishPaperText = document.getElementById('wishPaperText');
+                if (wishPaperNote && wishPaperText) {
                     wishPaperNote.classList.remove('hidden');
-                    if (wishPaperNote.timeoutId) clearTimeout(wishPaperNote.timeoutId);
+                    if (acceptWishBtn) acceptWishBtn.classList.add('hidden');
                     
-                    // Typewriter effect cho mẩu giấy
-                    typeWriterEffect(wishPaperNote, randomWish, 35, () => {
-                        // Hide after 3 seconds AFTER typing is done
-                        wishPaperNote.timeoutId = setTimeout(() => {
-                            wishPaperNote.classList.add('hidden');
-                        }, 3000);
+                    // Typewriter effect cho nội dung
+                    typeWriterEffect(wishPaperText, randomWish, 35, () => {
+                        // Hiển thị nút Nhận sau khi viết xong
+                        if (acceptWishBtn) acceptWishBtn.classList.remove('hidden');
                     });
                 }
                 
                 // Confetti pop!
                 myConfetti({ particleCount: 20, spread: 50, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
+                
+                // Cập nhật HUD
+                updateHUD();
                 
             } else {
                 // Balloon WITHOUT a tag -> Pop!
@@ -436,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 balloon.classList.add('popped');
                 balloon.classList.add('clicked');
                 
-                // Calculate position for confetti (convert to 0-1 range for origin)
+                // Calculate position for confetti
                 const rect = balloon.getBoundingClientRect();
                 const x = (rect.left + rect.width / 2) / window.innerWidth;
                 const y = (rect.top + rect.height / 2) / window.innerHeight;
@@ -448,27 +515,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     colors: colors,
                     zIndex: 3000
                 });
-            }
 
-            // Check if all balloons are clicked
-            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
-            if (clickedBalloons === allBalloons.length) {
-                setTimeout(() => {
-                    // Hide balloon hint
-                    document.getElementById('catchBalloonHint').classList.add('hidden');
-                    
-                    // Show Book
-                    firePremiumConfetti(1.5);
-                    bookWrapper.classList.remove('hidden');
-                    setTimeout(() => {
-                        const bookHint = document.getElementById('clickBookHint');
-                        if (bookHint) {
-                            bookHint.innerHTML = '';
-                            bookHint.classList.remove('hidden');
-                            typeWriterEffect(bookHint, "Mở quyển nhật ký ở góc dưới nhé!", 40);
-                        }
-                    }, 1000);
-                }, 1500); // 1.5s delay after the last balloon is clicked
+                // Cập nhật HUD
+                updateHUD();
+
+                // Kiểm tra game over ngay lập tức
+                checkGameOver();
             }
         });
     });
