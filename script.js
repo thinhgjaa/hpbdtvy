@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadProgress += Math.random() * 15;
             if (loadProgress > 90) loadProgress = 90;
             if (loadingBar) loadingBar.style.width = `${loadProgress}%`;
-            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị điều bất ngờ cho VV... ${Math.floor(loadProgress)}%`;
+            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị điều bất ngờ cho Xuân Thịnh... ${Math.floor(loadProgress)}%`;
         }
     }, 150);
 
@@ -173,34 +173,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(runCountdown, 200);
             });
         } else {
-            // Stop Countdown Audio
             if (countdownAudio) {
-                countdownAudio.pause();
-                countdownAudio.currentTime = 0;
+                // Làm âm lượng nhỏ dần (fade out)
+                let vol = countdownAudio.volume;
+                const fadeAudio = setInterval(() => {
+                    if (vol > 0.05) {
+                        vol -= 0.05;
+                        countdownAudio.volume = vol;
+                    } else {
+                        clearInterval(fadeAudio);
+                        countdownAudio.pause();
+                        countdownAudio.currentTime = 0;
+                    }
+                }, 100); // Mỗi 100ms giảm âm lượng một chút
             }
-            // Play Grand Reveal Audio
-            if (audio && audio.paused) {
-                audio.volume = 0.8;
-                audio.play().catch(e => console.log(e));
-            }
+            // Xóa chữ số nhưng giữ nguyên màn hình đếm ngược (nền đen)
+            countdownNum.style.transition = "opacity 0.5s ease";
+            countdownText.style.transition = "opacity 0.5s ease";
+            countdownNum.style.opacity = "0";
+            countdownText.style.opacity = "0";
 
-            // Slow Gradual Reveal
-            countdownScreen.style.transition = "opacity 3s ease";
-            countdownScreen.classList.add('hidden');
-            scene.classList.remove('hidden');
-            
-            // Pop confetti after the screen has partially faded in
+            // Màn hình đen hoàn toàn trong 2.5 giây rồi mới bắt đầu
             setTimeout(() => {
-                firePremiumConfetti(1.5);
-            }, 2000);
-
-            // Type out the first wish instruction when the container fades in (5.5s)
-            setTimeout(() => {
-                const initialWishText = document.querySelector('.wish-text');
-                if (initialWishText) {
-                    typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40);
+                // Fade out nền đen của countdown screen
+                countdownScreen.classList.add('hidden');
+                
+                // Play Grand Reveal Audio
+                if (audio && audio.paused) {
+                    audio.volume = 0.8;
+                    audio.play().catch(e => console.log(e));
                 }
-            }, 5500);
+
+                // Show the scene (elements inside will animate in)
+                scene.classList.remove('hidden');
+                
+                // Pop confetti after the scene starts revealing
+                setTimeout(() => {
+                    firePremiumConfetti(1.5);
+                }, 2000);
+
+                // Type out the first wish instruction when the container fades in (5.5s)
+                setTimeout(() => {
+                    const initialWishText = document.querySelector('.wish-text');
+                    if (initialWishText) {
+                        typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40);
+                    }
+                }, 5500);
+            }, 2500); // Kéo dài thời gian bóng tối lên 2.5 giây
         }
     }
 
