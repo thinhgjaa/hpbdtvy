@@ -441,6 +441,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const hint = document.getElementById('catchBalloonHint');
                     if (hint) hint.classList.add('hidden');
                     
+                    const hud = document.getElementById('balloonCounter');
+                    if (hud) hud.classList.add('hidden');
+                    
                     firePremiumConfetti(1.5);
                     bookWrapper.classList.remove('hidden');
                     setTimeout(() => {

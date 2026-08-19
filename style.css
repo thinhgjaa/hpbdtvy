@@ -1235,9 +1235,9 @@ body::after {
 
 /* Balloon Counter (Minigame HUD) */
 .balloon-counter {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
+    position: relative;
+    display: inline-block;
+    margin-top: 15px;
     background: rgba(255, 255, 255, 0.85);
     color: #ff6b81;
     padding: 10px 20px;
