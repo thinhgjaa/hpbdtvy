@@ -697,86 +697,143 @@ body::after {
 }
 
 .balloon1 {
-    left: 15%;
+    left: 8%;
     background: radial-gradient(circle at 30% 30%, #ffcbf2, #ff9ff3);
-    animation-duration: 12s;
+    animation-duration: 13s;
+    animation-delay: 0s;
 }
 
 .balloon2 {
-    left: 35%;
+    left: 22%;
     background: radial-gradient(circle at 30% 30%, #c7ecee, #48dbfb);
     animation-duration: 15s;
     animation-delay: 2s;
 }
 
 .balloon3 {
-    left: 50%;
+    left: 36%;
     background: radial-gradient(circle at 30% 30%, #ffeaa7, #feca57);
-    animation-duration: 10s;
-    animation-delay: 5s;
+    animation-duration: 11s;
+    animation-delay: 4.5s;
 }
 
 .balloon4 {
-    left: 70%;
+    left: 52%;
     background: radial-gradient(circle at 30% 30%, #ff9f43, #ff6b6b);
     animation-duration: 14s;
     animation-delay: 1s;
 }
 
 .balloon5 {
-    left: 85%;
+    left: 68%;
     background: radial-gradient(circle at 30% 30%, #55efc4, #1dd1a1);
     animation-duration: 16s;
-    animation-delay: 4s;
+    animation-delay: 3.5s;
 }
 
 .balloon6 {
-    left: 5%;
+    left: 84%;
     background: radial-gradient(circle at 30% 30%, #ffcbf2, #fd79a8);
-    animation-duration: 18s;
-    animation-delay: 3s;
+    animation-duration: 12s;
+    animation-delay: 1.5s;
 }
 
 .balloon7 {
-    left: 25%;
+    left: 14%;
     background: radial-gradient(circle at 30% 30%, #c7ecee, #00cec9);
-    animation-duration: 13s;
-    animation-delay: 6s;
+    animation-duration: 14s;
+    animation-delay: 5s;
 }
 
 .balloon8 {
-    left: 45%;
+    left: 30%;
     background: radial-gradient(circle at 30% 30%, #ffeaa7, #fdcb6e);
     animation-duration: 17s;
-    animation-delay: 8s;
-}
-
-.balloon9 {
-    left: 60%;
-    background: radial-gradient(circle at 30% 30%, #ff9f43, #e17055);
-    animation-duration: 11s;
-    animation-delay: 3s;
-}
-
-.balloon10 {
-    left: 80%;
-    background: radial-gradient(circle at 30% 30%, #55efc4, #00b894);
-    animation-duration: 19s;
     animation-delay: 7s;
 }
 
+.balloon9 {
+    left: 46%;
+    background: radial-gradient(circle at 30% 30%, #ff9f43, #e17055);
+    animation-duration: 13s;
+    animation-delay: 2.5s;
+}
+
+.balloon10 {
+    left: 62%;
+    background: radial-gradient(circle at 30% 30%, #55efc4, #00b894);
+    animation-duration: 18s;
+    animation-delay: 6s;
+}
+
 .balloon11 {
-    left: 95%;
+    left: 78%;
     background: radial-gradient(circle at 30% 30%, #a29bfe, #6c5ce7);
+    animation-duration: 15s;
+    animation-delay: 3s;
+}
+
+.balloon12 {
+    left: 92%;
+    background: radial-gradient(circle at 30% 30%, #fab1a0, #ff7675);
+    animation-duration: 16s;
+    animation-delay: 8s;
+}
+
+.balloon13 {
+    left: 5%;
+    background: radial-gradient(circle at 30% 30%, #ffeaa7, #f39c12);
+    animation-duration: 14s;
+    animation-delay: 4s;
+}
+
+.balloon14 {
+    left: 18%;
+    background: radial-gradient(circle at 30% 30%, #dff9fb, #22a6b3);
+    animation-duration: 16s;
+    animation-delay: 6.5s;
+}
+
+.balloon15 {
+    left: 34%;
+    background: radial-gradient(circle at 30% 30%, #f8a5c2, #f78fb3);
+    animation-duration: 12s;
+    animation-delay: 1s;
+}
+
+.balloon16 {
+    left: 50%;
+    background: radial-gradient(circle at 30% 30%, #e056fd, #be2edd);
+    animation-duration: 15s;
+    animation-delay: 5.5s;
+}
+
+.balloon17 {
+    left: 66%;
+    background: radial-gradient(circle at 30% 30%, #badc58, #6ab04c);
+    animation-duration: 13s;
+    animation-delay: 3s;
+}
+
+.balloon18 {
+    left: 82%;
+    background: radial-gradient(circle at 30% 30%, #7ed6df, #22a6b3);
+    animation-duration: 17s;
+    animation-delay: 7.5s;
+}
+
+.balloon19 {
+    left: 95%;
+    background: radial-gradient(circle at 30% 30%, #ffbe76, #f0932b);
     animation-duration: 14s;
     animation-delay: 2s;
 }
 
-.balloon12 {
-    left: 40%;
-    background: radial-gradient(circle at 30% 30%, #fab1a0, #ff7675);
+.balloon20 {
+    left: 50%;
+    background: radial-gradient(circle at 30% 30%, #fab1a0, #ff4757);
     animation-duration: 20s;
-    animation-delay: 9s;
+    animation-delay: 0s;
 }
 
 @keyframes floatUp {

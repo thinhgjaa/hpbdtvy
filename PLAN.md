@@ -45,11 +45,12 @@ Hệ thống âm thanh & rung được lập trình trực tiếp bằng code đ
   - Khi thổi nến: Ngọn lửa tắt, làn khói bốc lên kèm pháo hoa kim tuyến bay rợp trời.
 
 ### 4. Minigame "Đập Bóng Bay & Thu Thập Bảo Bối" (The Balloon Hunt & Wish Bag)
-- **Hành động:** Sau khi thổi nến, 12 quả bóng bay sẽ bay tứ tung lên trời. Bảng đếm số bắt đầu nhảy số ở góc (`0/12`).
-- **Tương tác:** Thanh Vy chạm ngón tay để đập vỡ từng quả bóng (kèm tiếng "Bốp" & rung phản hồi). 
-  - Quả bóng nào chứa lời chúc sẽ vang lên tiếng "mở giấy", hiện lá thư chúc ngẫu nhiên trên màn hình.
-  - Khi bấm "Nhận 💌", lời chúc sẽ tự động bay vào **🎒 Túi Bảo Bối Kỷ Niệm** ở góc màn hình. Thanh Vy có thể chạm vào Túi Bảo Bối bất kỳ lúc nào để xem lại danh sách các lời chúc đã mở.
-  - Bộ đếm nhấp nháy cập nhật liên tục (Ví dụ: `8/12`).
+- **Hành động:** Sau khi thổi nến, 20 quả bóng bay rực rỡ sẽ bay lơ lửng khắp màn hình. Bảng đếm số bắt đầu nhảy số ở góc (`0/20`).
+- **Tương tác 100% Thiệp Chúc:** **Tất cả các quả bóng bay đều mang theo một phong thư chứa bảo bối thần kỳ** (không còn quả bóng rỗng nào).
+  - Mỗi khi chạm nổ bóng $\rightarrow$ Tiếng mở giấy xột xoạt, hiện lá thư chúc ngẫu nhiên với một món bảo bối độc nhất từ kho 35 bảo bối.
+  - Khi bấm "Nhận 💌", lời chúc sẽ tự động bay vào **🎒 Túi Bảo Bối Kỷ Niệm** ở góc màn hình để xem lại bất cứ lúc nào.
+  - Bộ đếm nhấp nháy cập nhật liên tục (Ví dụ: `15/20`).
+  - Quả bóng thứ 20 (Boss Balloon) xuất hiện đặc biệt mang theo cuốn sổ nhỏ, đập nổ quả cuối cùng này sẽ mở ra cuốn sổ 3D hào quang.
 
 ### 5. Cú Chót - Lật Mở Cuốn Sổ Kỷ Niệm 3D (The Grand Finale)
 - **Hiệu ứng đặc biệt:** Khi quả bóng **cuối cùng** (quả bóng số 12 mang cuốn sổ nhỏ) bị đập nổ tung:
