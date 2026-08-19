@@ -60,6 +60,28 @@ body::after {
     pointer-events: none;
 }
 
+#preloader {
+    background-color: #050505;
+    z-index: 100;
+}
+.loader-content { text-align: center; }
+.heart-loader {
+    color: #ff6b81; font-size: 3rem; margin-bottom: 20px;
+    animation: heartBeat 1s infinite alternate;
+}
+.loading-bar-container {
+    width: 250px; height: 6px; background: rgba(255,255,255,0.1);
+    border-radius: 10px; overflow: hidden; margin: 0 auto 15px;
+}
+.loading-bar {
+    height: 100%; width: 0%; background: linear-gradient(90deg, #ff9ff3, #ff6b81);
+    transition: width 0.3s ease;
+}
+.loading-text {
+    color: #a4b0be; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 1px;
+}
+@keyframes heartBeat { 0% { transform: scale(0.8); } 100% { transform: scale(1.2); filter: drop-shadow(0 0 15px rgba(255,107,129,0.8)); } }
+
 #mystery-gate {
     background-color: #050505;
     z-index: 50;
@@ -92,7 +114,72 @@ body::after {
     100% { box-shadow: 0 0 25px rgba(255,255,255,0.5); }
 }
 
-/* Countdown */
+/* --- SCREEN 1: Mystery Gate --- */
+#mystery-gate {
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    overflow: hidden;
+}
+/* Subtle stars */
+#mystery-gate::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(white, rgba(255,255,255,0.2) 2px, transparent 40px);
+    background-size: 200px 200px;
+    background-position: 0 0, 100px 100px;
+    opacity: 0.3; animation: starTwinkle 5s infinite alternate;
+}
+@keyframes starTwinkle { 0% { opacity: 0.1; } 100% { opacity: 0.5; } }
+
+.mystery-content {
+    text-align: center; margin-bottom: 50px; z-index: 10;
+}
+.mystery-text {
+    color: #fff; font-family: 'Pacifico', cursive; font-size: 2.5rem;
+    letter-spacing: 2px; margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.6);
+    animation: pulseGlow 2s infinite alternate;
+}
+.mystery-subtext {
+    color: #a4b0be; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;
+}
+@keyframes pulseGlow {
+    from { text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+    to { text-shadow: 0 0 25px rgba(255,255,255,0.9), 0 0 10px rgba(72,219,251,0.5); }
+}
+
+/* Pull Cord Mechanism */
+.pull-cord-container {
+    position: absolute; top: 0; right: 15%; height: 250px;
+    display: flex; flex-direction: column; align-items: center;
+    cursor: pointer; z-index: 20;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pull-cord-container:active {
+    transform: translateY(40px); /* Simulated pull */
+}
+.cord {
+    width: 4px; height: 180px; 
+    background: repeating-linear-gradient(to bottom, #dcdde1 0%, #dcdde1 5px, #718093 5px, #718093 10px);
+    box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+}
+.ring {
+    width: 35px; height: 35px;
+    border: 6px solid #fbc531;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 2px 4px rgba(0,0,0,0.3);
+    margin-top: -3px; /* Connect to cord */
+}
+.pull-hint {
+    margin-top: 15px; color: #fbc531; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 600;
+    animation: bounceUpDown 1.5s infinite; text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    white-space: nowrap;
+}
+@keyframes bounceUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* --- SCREEN 2: Countdown --- */
 .countdown-content {
     text-align: center;
     color: white;
@@ -482,6 +569,7 @@ body::after {
     margin-bottom: 20px;
     font-weight: 600;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    transition: opacity 0.3s ease;
 }
 .blow-btn {
     font-size: 1.1rem;

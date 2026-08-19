@@ -1,4 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Preloader Logic
+    const preloader = document.getElementById('preloader');
+    const loadingBar = document.getElementById('loadingBar');
+    const loadingText = document.getElementById('loadingText');
+    let loadProgress = 0;
+    
+    // Simulate loading
+    const loadInterval = setInterval(() => {
+        if (loadProgress < 90) {
+            loadProgress += Math.random() * 15;
+            if (loadProgress > 90) loadProgress = 90;
+            if (loadingBar) loadingBar.style.width = `${loadProgress}%`;
+            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị những điều bất ngờ... ${Math.floor(loadProgress)}%`;
+        }
+    }, 150);
+
+    window.addEventListener('load', () => {
+        clearInterval(loadInterval);
+        if (loadingBar) loadingBar.style.width = `100%`;
+        if (loadingText) loadingText.innerHTML = `Hoàn tất! 100%`;
+        setTimeout(() => {
+            if (preloader) preloader.classList.add('hidden');
+        }, 800);
+    });
+
+    // Typewriter Utility Function
+    function typeWriterEffect(element, text, speed, callback) {
+        element.innerHTML = '';
+        let i = 0;
+        if (element.typingTimeout) clearTimeout(element.typingTimeout);
+        
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                element.typingTimeout = setTimeout(type, speed);
+            } else if (callback) {
+                callback();
+            }
+        }
+        type();
+    }
+
     const bookWrapper = document.getElementById('bookWrapper');
     const scene = document.getElementById('scene');
     const book = document.getElementById('book');
@@ -103,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 firePremiumConfetti(1.5);
             }, 2000);
+
+            // Type out the first wish instruction when the container fades in (5.5s)
+            setTimeout(() => {
+                const initialWishText = document.querySelector('.wish-text');
+                if (initialWishText) {
+                    typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40);
+                }
+            }, 5500);
         }
     }
 
@@ -111,15 +162,40 @@ document.addEventListener('DOMContentLoaded', () => {
     blowCandleBtn.addEventListener('click', () => {
         if (!candle.classList.contains('blown-out')) {
             candle.classList.add('blown-out');
-            wishContainer.classList.add('hidden'); // Hide instructions
+            
+            // Hide button and change text instead of hiding the whole container
+            blowCandleBtn.classList.add('hidden'); 
+            const wishText = document.querySelector('.wish-text');
+            if (wishText) {
+                wishText.style.opacity = '0';
+                setTimeout(() => {
+                    wishText.style.opacity = '1';
+                    
+                    // Hiệu ứng đánh chữ
+                    typeWriterEffect(wishText, "Điều ước đó nhất định sẽ thành sự thật... ✨", 40, () => {
+                        // Trì hoãn một lúc rồi mới hiện câu nhắc bóng bay
+                        setTimeout(() => {
+                            wishText.style.opacity = '0';
+                            setTimeout(() => {
+                                wishText.style.display = 'none'; // Ẩn hẳn để nhường chỗ
+                                const catchHint = document.getElementById('catchBalloonHint');
+                                if (catchHint) {
+                                    catchHint.innerHTML = '';
+                                    catchHint.classList.remove('hidden');
+                                    typeWriterEffect(catchHint, "👆 Hãy chạm vào bóng bay để bắt lấy may mắn nhé!", 40);
+                                }
+                            }, 300);
+                        }, 2500);
+                    });
+                }, 300);
+            }
             
             // Wait a moment for fire to go out, then pop confetti and start balloon game
             setTimeout(() => {
                 firePremiumConfetti(1);
                 
-                // Make balloons interactive and show balloon hint
+                // Make balloons interactive (nhưng chưa hiện chữ nhắc ngay)
                 document.querySelector('.balloons').classList.add('interactive');
-                document.getElementById('catchBalloonHint').classList.remove('hidden');
             }, 800);
         }
     });
@@ -338,12 +414,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show static paper note on screen
                 const wishPaperNote = document.getElementById('wishPaperNote');
                 if (wishPaperNote) {
-                    wishPaperNote.innerHTML = randomWish;
                     wishPaperNote.classList.remove('hidden');
                     if (wishPaperNote.timeoutId) clearTimeout(wishPaperNote.timeoutId);
-                    wishPaperNote.timeoutId = setTimeout(() => {
-                        wishPaperNote.classList.add('hidden');
-                    }, 4500); // Hide after 4.5 seconds
+                    
+                    // Typewriter effect cho mẩu giấy
+                    typeWriterEffect(wishPaperNote, randomWish, 35, () => {
+                        // Hide after 3 seconds AFTER typing is done
+                        wishPaperNote.timeoutId = setTimeout(() => {
+                            wishPaperNote.classList.add('hidden');
+                        }, 3000);
+                    });
                 }
                 
                 // Confetti pop!
@@ -381,7 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     firePremiumConfetti(1.5);
                     bookWrapper.classList.remove('hidden');
                     setTimeout(() => {
-                        document.getElementById('clickBookHint').classList.remove('hidden');
+                        const bookHint = document.getElementById('clickBookHint');
+                        if (bookHint) {
+                            bookHint.innerHTML = '';
+                            bookHint.classList.remove('hidden');
+                            typeWriterEffect(bookHint, "Mở quyển nhật ký ở góc dưới nhé!", 40);
+                        }
                     }, 1000);
                 }, 1500); // 1.5s delay after the last balloon is clicked
             }

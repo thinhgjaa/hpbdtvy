@@ -11,6 +11,17 @@
 </head>
 
 <body>
+    <!-- 0. Preloader Screen -->
+    <div id="preloader" class="screen active" style="z-index: 100; background-color: #050505;">
+        <div class="loader-content">
+            <div class="heart-loader"><i class="fa-solid fa-heart"></i></div>
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <p class="loading-text" id="loadingText">Đang chuẩn bị những điều bất ngờ... 0%</p>
+        </div>
+    </div>
+
     <!-- Sound Toggle Button -->
     <button id="soundBtn" class="sound-btn">
         <i class="fa-solid fa-volume-high"></i>
@@ -26,7 +37,17 @@
 
     <!-- 1. Mystery Gate -->
     <div id="mystery-gate" class="screen active">
-        <button id="start-btn" class="glowing-btn">Dành riêng cho VV.<br>Hãy bật loa to lên và chạm vào đây...</button>
+        <div class="mystery-content">
+            <h2 class="mystery-text">Dành riêng cho VV...</h2>
+            <p class="mystery-subtext">Hãy bật loa to lên nhé 🔊</p>
+        </div>
+        
+        <!-- Pull Cord Mechanism -->
+        <div id="start-btn" class="pull-cord-container">
+            <div class="cord"></div>
+            <div class="ring"></div>
+            <p class="pull-hint">Kéo dây để bắt đầu</p>
+        </div>
     </div>
 
     <!-- 2. Countdown Screen -->
@@ -93,7 +114,7 @@
             </div>
             
             <div class="wish-container">
-                <p class="wish-text">Hãy nhắm mắt lại và ước một điều ước nhé... ✨</p>
+                <p class="wish-text"></p>
                 <button id="blowCandleBtn" class="glowing-btn blow-btn">Thổi Nến 🌬️</button>
             </div>
             
