@@ -435,7 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wish Tooltip & Pop Balloon logic
     const allBalloons = document.querySelectorAll('.balloon');
-    
     const randomWishes = [
         "🎒 Bạn nhận được Chong Chóng Tre! Chúc Thanh Vy tuổi mới bay cao bay xa, đạt được mọi ước mơ! 💖",
         "🚪 Bạn nhận được Cánh Cửa Thần Kỳ! Chúc Thanh Vy luôn khám phá được những điều mới mẻ và thú vị! 🌸",
@@ -450,9 +449,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "📞 Bạn nhận được Điện Thoại Yêu Cầu! Bất cứ điều gì Thanh Vy muốn đều sẽ thành sự thật! 🍀",
         "🍰 Bạn nhận được một chiếc Bánh Rán! Chúc Thanh Vy ăn cả thế giới mà không lo béo! 🍔🍰",
         "🎀 Bạn nhận được Nơ Đổi Giọng! Chúc Thanh Vy luôn vui vẻ và mang lại tiếng cười cho mọi người! 😊",
+        "💍 Bạn nhận được Vòng Xuyên Thấu! Chúc Thanh Vy dễ dàng vượt qua mọi rào cản trong cuộc sống! 🚀",
+        "🪞 Bạn nhận được Gương Nhân Đôi! Chúc tiền tài, may mắn và hạnh phúc của Thanh Vy cứ thế mà nhân đôi mãi! 💰",
+        "🧥 Bạn nhận được Áo Choàng Tàng Hình! Chúc Thanh Vy luôn bình an, tránh xa được mọi rắc rối! 🛡️",
+        "✏️ Bạn nhận được Bút Chì Máy Tính! Chúc Thanh Vy luôn xuất sắc vượt qua mọi kỳ thi và thử thách! 🏆",
+        "🌬️ Bạn nhận được Pháo Không Khí! Chúc Thanh Vy thổi bay mọi áp lực và luôn giữ tinh thần thoải mái! 💨",
+        "⏳ Bạn nhận được Đồng Hồ Ngưng Đọng Thời Gian! Chúc Thanh Vy giữ mãi vẻ đẹp tươi trẻ và rạng ngời! 🌺",
+        "🍄 Bạn nhận được Đèn Phục Hồi! Chúc sức khoẻ của Thanh Vy luôn dồi dào và tràn đầy năng lượng! ⚡",
         "🌟 Túi Thần Kỳ của Doraemon tặng Thanh Vy vô vàn may mắn và bình an trong tuổi mới! 🥰"
     ];
-
     allBalloons.forEach(balloon => {
         const tag = balloon.querySelector('.paper-tag');
         const tooltip = balloon.querySelector('.balloon-tooltip');
