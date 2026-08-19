@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadProgress += Math.random() * 15;
             if (loadProgress > 90) loadProgress = 90;
             if (loadingBar) loadingBar.style.width = `${loadProgress}%`;
-            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị những điều bất ngờ... ${Math.floor(loadProgress)}%`;
+            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị điều bất ngờ cho VV... ${Math.floor(loadProgress)}%`;
         }
     }, 150);
 
@@ -59,7 +59,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const closeBookBtn = document.getElementById('closeBookBtn');
+    // --- WEB AUDIO API FOR SOUND EFFECTS ---
+    let audioCtx;
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
 
+    function playPopSound() {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playPaperSound() {
+        if (!audioCtx) return;
+        const bufferSize = audioCtx.sampleRate * 0.2; // 0.2s
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 3000;
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        noise.start();
+    }
+
+    // (moved to top with other nav buttons)
     let currentLocation = 1;
     let numOfPapers = 3;
     let maxLocation = numOfPapers + 1;
@@ -104,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     startBtn.addEventListener('click', () => {
+        initAudio(); // Initialize audio context on first interaction
         // Start Countdown Audio
         if (countdownAudio && countdownAudio.paused) {
             countdownAudio.volume = 0.6;
@@ -474,6 +521,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
                 tooltip.innerHTML = randomWish;
                 
+                // Play paper crinkle sound
+                playPaperSound();
+                
                 // Show tooltip and hide tag
                 tooltip.classList.add('show');
                 tag.classList.add('opened');
@@ -505,6 +555,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 balloon.classList.add('popped');
                 balloon.classList.add('clicked');
+                
+                // Play pop sound
+                playPopSound();
                 
                 // Calculate position for confetti
                 const rect = balloon.getBoundingClientRect();
