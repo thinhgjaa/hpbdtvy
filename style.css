@@ -255,8 +255,17 @@ body::after {
     bottom: -120px;
     box-shadow: inset -10px -10px 15px rgba(0,0,0,0.15), 0 10px 15px rgba(0,0,0,0.1);
     animation: floatUp 15s linear infinite, sway 4s ease-in-out infinite alternate;
-    pointer-events: auto; /* Allow clicking */
+    transition: transform 0.1s, opacity 0.1s;
+    pointer-events: none; /* By default, not clickable */
+}
+.balloons.interactive .balloon {
+    pointer-events: auto;
     cursor: pointer;
+}
+.balloon.popped {
+    transform: scale(0) !important;
+    opacity: 0 !important;
+    pointer-events: none;
 }
 .balloon::after {
     content: ''; position: absolute;
@@ -277,6 +286,13 @@ body::after {
 .balloon3 { left: 50%; background: radial-gradient(circle at 30% 30%, #ffeaa7, #feca57); animation-duration: 10s; animation-delay: 5s; }
 .balloon4 { left: 70%; background: radial-gradient(circle at 30% 30%, #ff9f43, #ff6b6b); animation-duration: 14s; animation-delay: 1s; }
 .balloon5 { left: 85%; background: radial-gradient(circle at 30% 30%, #55efc4, #1dd1a1); animation-duration: 16s; animation-delay: 4s; }
+.balloon6 { left: 5%; background: radial-gradient(circle at 30% 30%, #ffcbf2, #fd79a8); animation-duration: 18s; animation-delay: 3s; }
+.balloon7 { left: 25%; background: radial-gradient(circle at 30% 30%, #c7ecee, #00cec9); animation-duration: 13s; animation-delay: 6s; }
+.balloon8 { left: 45%; background: radial-gradient(circle at 30% 30%, #ffeaa7, #fdcb6e); animation-duration: 17s; animation-delay: 8s; }
+.balloon9 { left: 60%; background: radial-gradient(circle at 30% 30%, #ff9f43, #e17055); animation-duration: 11s; animation-delay: 3s; }
+.balloon10 { left: 80%; background: radial-gradient(circle at 30% 30%, #55efc4, #00b894); animation-duration: 19s; animation-delay: 7s; }
+.balloon11 { left: 95%; background: radial-gradient(circle at 30% 30%, #a29bfe, #6c5ce7); animation-duration: 14s; animation-delay: 2s; }
+.balloon12 { left: 40%; background: radial-gradient(circle at 30% 30%, #fab1a0, #ff7675); animation-duration: 20s; animation-delay: 9s; }
 
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 0; }
@@ -444,6 +460,11 @@ body::after {
 .click-book-hint {
     margin-top: 15px; font-weight: 600; color: #ff6b81;
     animation: pulse 1.5s infinite;
+}
+.catch-balloon-hint {
+    margin-top: 10px; font-weight: 600; color: #48dbfb;
+    animation: pulse 1.5s infinite 0.75s; /* Offset animation slightly */
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 /* Wish Container */

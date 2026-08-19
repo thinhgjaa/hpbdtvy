@@ -113,15 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
             candle.classList.add('blown-out');
             wishContainer.classList.add('hidden'); // Hide instructions
             
-            // Wait a moment for fire to go out, then pop confetti again and show book
+            // Wait a moment for fire to go out, then pop confetti and start balloon game
             setTimeout(() => {
                 firePremiumConfetti(1);
-                bookWrapper.classList.remove('hidden');
                 
-                // Show hint after book appears
-                setTimeout(() => {
-                    document.getElementById('clickBookHint').classList.remove('hidden');
-                }, 1000);
+                // Make balloons interactive and show balloon hint
+                document.querySelector('.balloons').classList.add('interactive');
+                document.getElementById('catchBalloonHint').classList.remove('hidden');
             }, 800);
         }
     });
@@ -280,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }());
     }
 
-    // Wish Tooltip logic (Balloons)
-    const paperTags = document.querySelectorAll('.paper-tag');
+    // Wish Tooltip & Pop Balloon logic
+    const allBalloons = document.querySelectorAll('.balloon');
     
     const randomWishes = [
         "Tuổi mới vui vẻ, mãi xinh đẹp và rạng rỡ nha! 💖",
@@ -298,31 +296,83 @@ document.addEventListener('DOMContentLoaded', () => {
         "Gặp nhiều may mắn, vạn sự như ý trong tuổi mới! 🍀",
         "Tuổi 21 dáng xinh, da trắng bóc mịn màng nhé! 💅",
         "Công việc thuận lợi, học hành thi cử đều đỗ đạt điểm cao! 📚",
-        "Chỉ mong cậu luôn được hạnh phúc trọn vẹn với những lựa chọn của mình! ❤️"
+        "Chỉ mong cậu luôn được hạnh phúc trọn vẹn với những lựa chọn của mình! ❤️",
+        "Mong cậu luôn giữ được ngọn lửa đam mê trong tim mình! 🔥",
+        "Chúc cậu mỗi sáng thức dậy đều có một lý do để mỉm cười! 😊",
+        "Hãy sống một cuộc đời rực rỡ như những đóa hoa hướng dương nhé! 🌻",
+        "Mọi muộn phiền của tuổi cũ sẽ bay đi hết theo gió trời! 🌬️",
+        "Tuổi mới gặp được nhiều người tốt, đi được nhiều nơi đẹp! 🗺️",
+        "Chúc cậu sớm tìm được chân ái của đời mình nhé! 💘",
+        "Ăn cả thế giới mà vẫn không béo lên lạng nào nha! 🍔🍰",
+        "Tuổi 21 trưởng thành nhưng vẫn mãi là cô gái bé nhỏ vô tư nhé! 👧",
+        "Chúc cho mọi nỗ lực của cậu đều sẽ được đền đáp xứng đáng! 🏆",
+        "Hãy luôn yêu thương và trân trọng bản thân mình trước tiên nhé! 💖",
+        "Mong cậu một đời vô âu vô lo, an nhiên tự tại! 🍃",
+        "Gặp dữ hóa lành, đi đến đâu cũng được mọi người yêu mến! 🥰",
+        "Chúc cậu mua sắm không cần nhìn giá! 🛍️",
+        "Bớt chạy deadline lại, chăm sóc sức khỏe nhiều hơn nha! 🛌",
+        "Tuổi 21 đầy những bất ngờ thú vị đang chờ cậu phía trước! 🎁"
     ];
 
-    paperTags.forEach(tag => {
-        tag.addEventListener('click', (e) => {
+    allBalloons.forEach(balloon => {
+        const tag = balloon.querySelector('.paper-tag');
+        const tooltip = balloon.querySelector('.balloon-tooltip');
+
+        balloon.addEventListener('click', (e) => {
             e.stopPropagation();
-            if(tag.classList.contains('opened')) return; // Already opened
+            if (balloon.classList.contains('clicked')) return;
             
-            // Find the tooltip in the same balloon
-            const balloon = tag.closest('.balloon');
-            const tooltip = balloon.querySelector('.balloon-tooltip');
-            
-            if (tooltip) {
+            if (tag && tooltip) {
+                // Balloon WITH a tag -> Open Wish
+                if (tag.classList.contains('opened')) return; // Already opened
+                
                 // Pick a random wish
                 const randomWish = randomWishes[Math.floor(Math.random() * randomWishes.length)];
                 tooltip.innerHTML = randomWish;
                 
-                // Show tooltip
+                // Show tooltip and hide tag
                 tooltip.classList.add('show');
-                
-                // Hide the tag
                 tag.classList.add('opened');
+                balloon.classList.add('clicked');
                 
                 // Confetti pop!
                 myConfetti({ particleCount: 20, spread: 50, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
+                
+            } else {
+                // Balloon WITHOUT a tag -> Pop!
+                if (balloon.classList.contains('popped')) return;
+                
+                balloon.classList.add('popped');
+                balloon.classList.add('clicked');
+                
+                // Calculate position for confetti (convert to 0-1 range for origin)
+                const rect = balloon.getBoundingClientRect();
+                const x = (rect.left + rect.width / 2) / window.innerWidth;
+                const y = (rect.top + rect.height / 2) / window.innerHeight;
+                
+                myConfetti({
+                    particleCount: 40,
+                    spread: 70,
+                    origin: { x: x, y: y },
+                    colors: colors,
+                    zIndex: 3000
+                });
+            }
+
+            // Check if all balloons are clicked
+            const clickedBalloons = document.querySelectorAll('.balloon.clicked').length;
+            if (clickedBalloons === allBalloons.length) {
+                setTimeout(() => {
+                    // Hide balloon hint
+                    document.getElementById('catchBalloonHint').classList.add('hidden');
+                    
+                    // Show Book
+                    firePremiumConfetti(1.5);
+                    bookWrapper.classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('clickBookHint').classList.remove('hidden');
+                    }, 1000);
+                }, 1500); // 1.5s delay after the last balloon is clicked
             }
         });
     });
