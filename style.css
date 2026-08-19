@@ -876,7 +876,17 @@ body::after {
     text-transform: uppercase;
     letter-spacing: 5px;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+}
+
+.date-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #48dbfb;
+    letter-spacing: 3px;
     margin-bottom: 40px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);
 }
 
 @keyframes floatText {
@@ -893,7 +903,7 @@ body::after {
     position: relative;
     width: 260px;
     height: 230px;
-    margin: 40px auto;
+    margin: 160px auto 40px; /* Tăng margin để ngọn nến (nằm ngoài hộp) không bị đè chữ */
     filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
     transform: scale(1.25);
 }
@@ -1817,6 +1827,11 @@ h2 {
         font-size: 1.5rem;
     }
 
+    .date-text {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
     .big-cake {
         transform: scale(0.8);
     }
@@ -1839,6 +1854,11 @@ h2 {
 
     .name-text {
         font-size: 1.3rem;
+    }
+
+    .date-text {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
     }
 
     .big-cake {
