@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         clearInterval(loadInterval);
         if (loadingBar) loadingBar.style.width = `100%`;
-        if (loadingText) loadingText.innerHTML = `Hoàn tất! 100%`;
+        if (loadingText) loadingText.innerHTML = `Đang tải bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
         setTimeout(() => {
             if (preloader) preloader.classList.add('hidden');
-        }, 800);
+        }, 2500);
     });
 
     // Typewriter Utility Function
