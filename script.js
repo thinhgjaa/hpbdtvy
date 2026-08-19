@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simulate loading
     const loadInterval = setInterval(() => {
         if (loadProgress < 90) {
-            loadProgress += Math.random() * 15;
+            loadProgress += Math.random() * 8;
             if (loadProgress > 90) loadProgress = 90;
             if (loadingBar) loadingBar.style.width = `${loadProgress}%`;
-            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị điều bất ngờ cho Xuân Thịnh... ${Math.floor(loadProgress)}%`;
+            if (loadingText) loadingText.innerHTML = `Đang tải bảo bối từ túi thần kỳ cho Thanh Vy... ${Math.floor(loadProgress)}%`;
         }
-    }, 150);
+    }, 250);
 
     window.addEventListener('load', () => {
         clearInterval(loadInterval);
@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const countdownMessages = [
         "Một ngày đặc biệt...",
-        "Dành cho một người vô cùng đặc biệt...",
-        "Tuổi 21 rực rỡ bắt đầu!"
+        "Món quà thần kỳ dành cho Thanh Vy...",
+        "Bắt đầu bữa tiệc nào!"
     ];
 
     let countdownValue = 3;
@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function typeWriter(text, i, cb) {
         if (i < text.length) {
             countdownText.innerHTML += text.charAt(i);
-            setTimeout(() => typeWriter(text, i + 1, cb), 30);
+            setTimeout(() => typeWriter(text, i + 1, cb), 50);
         } else {
-            setTimeout(cb, 500);
+            setTimeout(cb, 1500);
         }
     }
 
@@ -437,36 +437,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const allBalloons = document.querySelectorAll('.balloon');
     
     const randomWishes = [
-        "Tuổi mới vui vẻ, mãi xinh đẹp và rạng rỡ nha! 💖",
-        "Chúc cậu luôn mạnh khỏe, hay ăn chóng lớn và lúc nào cũng vui vẻ! 🌸",
-        "Hãy luôn tự tin vào bản thân nhé, cậu tuyệt vời lắm đó! ✨",
-        "Chúc mọi dự định trong tuổi 21 của cậu đều trở thành hiện thực! 🌟",
-        "Mong mỗi ngày của cậu đều tràn ngập niềm vui và tiếng cười! 🎉",
-        "Chúc cậu một đời bình an, đi qua giông bão vẫn giữ được nụ cười! 🌈",
-        "Tuổi 21 thật rực rỡ nhé, hãy làm những điều cậu thích và yêu những gì cậu làm! 🎨",
-        "Tiền nhiều như nước, tình duyên phơi phới nhé cô gái! 💸",
-        "Sớm thành đại gia để bao nuôi bạn bè nha! 😂",
-        "Chúc cậu đi du lịch muôn nơi, ăn ngon mặc đẹp không lo nghĩ! ✈️",
-        "Luôn giữ được năng lượng tích cực và truyền cảm hứng cho mọi người nhé! 🌻",
-        "Gặp nhiều may mắn, vạn sự như ý trong tuổi mới! 🍀",
-        "Tuổi 21 dáng xinh, da trắng bóc mịn màng nhé! 💅",
-        "Công việc thuận lợi, học hành thi cử đều đỗ đạt điểm cao! 📚",
-        "Chỉ mong cậu luôn được hạnh phúc trọn vẹn với những lựa chọn của mình! ❤️",
-        "Mong cậu luôn giữ được ngọn lửa đam mê trong tim mình! 🔥",
-        "Chúc cậu mỗi sáng thức dậy đều có một lý do để mỉm cười! 😊",
-        "Hãy sống một cuộc đời rực rỡ như những đóa hoa hướng dương nhé! 🌻",
-        "Mọi muộn phiền của tuổi cũ sẽ bay đi hết theo gió trời! 🌬️",
-        "Tuổi mới gặp được nhiều người tốt, đi được nhiều nơi đẹp! 🗺️",
-        "Chúc cậu sớm tìm được chân ái của đời mình nhé! 💘",
-        "Ăn cả thế giới mà vẫn không béo lên lạng nào nha! 🍔🍰",
-        "Tuổi 21 trưởng thành nhưng vẫn mãi là cô gái bé nhỏ vô tư nhé! 👧",
-        "Chúc cho mọi nỗ lực của cậu đều sẽ được đền đáp xứng đáng! 🏆",
-        "Hãy luôn yêu thương và trân trọng bản thân mình trước tiên nhé! 💖",
-        "Mong cậu một đời vô âu vô lo, an nhiên tự tại! 🍃",
-        "Gặp dữ hóa lành, đi đến đâu cũng được mọi người yêu mến! 🥰",
-        "Chúc cậu mua sắm không cần nhìn giá! 🛍️",
-        "Bớt chạy deadline lại, chăm sóc sức khỏe nhiều hơn nha! 🛌",
-        "Tuổi 21 đầy những bất ngờ thú vị đang chờ cậu phía trước! 🎁"
+        "🎒 Bạn nhận được Chong Chóng Tre! Chúc Thanh Vy tuổi mới bay cao bay xa, đạt được mọi ước mơ! 💖",
+        "🚪 Bạn nhận được Cánh Cửa Thần Kỳ! Chúc Thanh Vy luôn khám phá được những điều mới mẻ và thú vị! 🌸",
+        "🍞 Bạn nhận được Bánh Mì Chuyển Ngữ! Chúc Thanh Vy giao tiếp đỉnh cao, vạn sự hanh thông! ✨",
+        "⏱️ Bạn nhận được Cỗ Máy Thời Gian! Mong Thanh Vy luôn trân trọng từng khoảnh khắc tươi đẹp! 🌟",
+        "🔦 Bạn nhận được Đèn Pin Thu Nhỏ! Mọi muộn phiền sẽ trở nên thật bé nhỏ và biến mất! 🎉",
+        "🏮 Bạn nhận được Đèn Pin Phóng To! Chúc niềm vui và hạnh phúc của Thanh Vy được nhân lên gấp bội! 🌈",
+        "🕰️ Bạn nhận được Khăn Trùm Thời Gian! Tuổi mới luôn xinh đẹp, trẻ trung và rạng rỡ nha! 🎨",
+        "💊 Bạn nhận được Bánh Mì Ghi Nhớ! Chúc Thanh Vy học hành làm việc lúc nào cũng suôn sẻ! 📚",
+        "📷 Bạn nhận được Máy Ảnh Tạo Mốt! Chúc Thanh Vy mua sắm không cần nhìn giá, luôn sành điệu! 🛍️",
+        "☁️ Bạn nhận được Mây Đông Đặc! Chúc Thanh Vy có những giấc ngủ ngon và sức khỏe dồi dào! 🛌",
+        "📞 Bạn nhận được Điện Thoại Yêu Cầu! Bất cứ điều gì Thanh Vy muốn đều sẽ thành sự thật! 🍀",
+        "🍰 Bạn nhận được một chiếc Bánh Rán! Chúc Thanh Vy ăn cả thế giới mà không lo béo! 🍔🍰",
+        "🎀 Bạn nhận được Nơ Đổi Giọng! Chúc Thanh Vy luôn vui vẻ và mang lại tiếng cười cho mọi người! 😊",
+        "🌟 Túi Thần Kỳ của Doraemon tặng Thanh Vy vô vàn may mắn và bình an trong tuổi mới! 🥰"
     ];
 
     allBalloons.forEach(balloon => {

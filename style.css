@@ -1,12 +1,12 @@
 :root {
-    --bg-gradient: linear-gradient(135deg, #ffe2e2, #ffecd2);
-    --primary-color: #ff6b81;
+    --bg-gradient: linear-gradient(135deg, #e0f7fa, #b3e5fc);
+    --primary-color: #0096FF;
     --text-main: #333;
     --book-width: 320px;
     --book-height: 450px;
     --page-bg: #fff;
     --page-bg-2: #fafafa;
-    --gold: #f4a261;
+    --gold: #FFD700;
 }
 
 * {
@@ -17,7 +17,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: radial-gradient(circle at center, #fff0f5 0%, #ffecd2 100%);
+    background: radial-gradient(circle at center, #e1f5fe 0%, #b3e5fc 100%);
     min-height: 100vh;
     overflow: hidden;
     color: var(--text-main);
@@ -178,9 +178,9 @@ body::after {
     }
 }
 
-/* --- SCREEN 1: Mystery Gate --- */
+/* --- SCREEN 1: Mystery Gate (Cánh Cửa Thần Kỳ - Pink) --- */
 #mystery-gate {
-    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+    background: radial-gradient(circle at center, #ff9ff3 0%, #f368e0 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
