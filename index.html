@@ -12,12 +12,72 @@
 
 <body>
     <!-- 0. Preloader Screen -->
-    <div id="preloader" class="screen active" style="z-index: 100; background-color: #050505;">
-        <div class="loader-content">
-            <div class="heart-loader"><i class="fa-solid fa-heart"></i></div>
-            <div class="loading-bar-container">
-                <div class="loading-bar" id="loadingBar"></div>
+    <div id="preloader" class="screen active">
+        <div class="loader-content doraemon-loader-wrapper">
+            <!-- Floating Doraemon Avatar with Chong Chóng Tre -->
+            <div class="doraemon-avatar-wrap">
+                <!-- Bambocopter -->
+                <div class="bambocopter">
+                    <div class="propeller-blade"></div>
+                    <div class="propeller-stem"></div>
+                </div>
+                
+                <!-- Doraemon Vector Graphic -->
+                <svg class="doraemon-svg" viewBox="0 0 120 120" width="105" height="105">
+                    <!-- Outer Blue Head -->
+                    <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3"/>
+                    <!-- White Face -->
+                    <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5"/>
+                    <!-- Eyes -->
+                    <ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/>
+                    <circle cx="53" cy="38" r="3.5" fill="#1e272e"/>
+                    <circle cx="54" cy="36" r="1.2" fill="#ffffff"/>
+                    <ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/>
+                    <circle cx="67" cy="38" r="3.5" fill="#1e272e"/>
+                    <circle cx="68" cy="36" r="1.2" fill="#ffffff"/>
+                    <!-- Red Nose -->
+                    <circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/>
+                    <circle cx="58" cy="47" r="2" fill="#ffffff"/>
+                    <!-- Nose Line -->
+                    <line x1="60" y1="55.5" x2="60" y2="78" stroke="#1e272e" stroke-width="2"/>
+                    <!-- Cute Big Smile -->
+                    <path d="M 35 68 Q 60 92 85 68" fill="none" stroke="#1e272e" stroke-width="2.5" stroke-linecap="round"/>
+                    <!-- Whiskers -->
+                    <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2"/>
+                    <!-- Red Collar -->
+                    <rect x="25" y="93" width="70" height="10" rx="5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/>
+                    <!-- Golden Bell -->
+                    <circle cx="60" cy="103" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="2"/>
+                    <line x1="51" y1="99" x2="69" y2="99" stroke="#1e272e" stroke-width="1.5"/>
+                    <line x1="50" y1="102" x2="70" y2="102" stroke="#1e272e" stroke-width="1.5"/>
+                    <circle cx="60" cy="105" r="2.5" fill="#2c3e50"/>
+                    <line x1="60" y1="107.5" x2="60" y2="114" stroke="#1e272e" stroke-width="1.5"/>
+                </svg>
+
+                <!-- Floating magical stars -->
+                <div class="magic-star star-1">✨</div>
+                <div class="magic-star star-2">✦</div>
+                <div class="magic-star star-3">⭐</div>
             </div>
+
+            <!-- Doraemon Badge -->
+            <div class="doraemon-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> TÚI THẦN KỲ DORAEMON
+            </div>
+
+            <!-- Doraemon Themed Progress Bar -->
+            <div class="doraemon-bar-container">
+                <div class="doraemon-bar" id="loadingBar">
+                    <div class="bar-shine"></div>
+                    <div class="mini-bell-head">🔔</div>
+                </div>
+            </div>
+
             <p class="loading-text" id="loadingText">Đang tải bảo bối từ túi thần kỳ cho Thanh Vy... 0%</p>
         </div>
     </div>

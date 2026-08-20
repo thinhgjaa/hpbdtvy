@@ -89,53 +89,202 @@ body::after {
 }
 
 #preloader {
-    background-color: #050505;
+    background: radial-gradient(circle at center, #0a192f 0%, #030712 100%);
     z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.loader-content {
+.doraemon-loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 20px;
 }
 
-.heart-loader {
-    color: #ff6b81;
-    font-size: 3rem;
-    margin-bottom: 20px;
-    animation: heartBeat 1s infinite alternate;
+/* Floating Doraemon Avatar Wrap */
+.doraemon-avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 22px;
+    animation: doraemonFloat 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 12px 25px rgba(0, 150, 230, 0.45));
 }
 
-.loading-bar-container {
-    width: 250px;
+.doraemon-svg {
+    display: block;
+    overflow: visible;
+}
+
+/* Bambocopter (Chong Chóng Tre) */
+.bambocopter {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.propeller-stem {
+    width: 4px;
+    height: 12px;
+    background: #ffd32a;
+    border: 1.5px solid #1e272e;
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+.propeller-blade {
+    width: 60px;
     height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0 auto 15px;
+    background: linear-gradient(90deg, #ffd32a, #ffb142);
+    border: 1.5px solid #1e272e;
+    border-radius: 6px;
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform-origin: center center;
+    animation: spinPropeller 0.15s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 211, 42, 0.8);
 }
 
-.loading-bar {
+@keyframes spinPropeller {
+    0% {
+        transform: translateX(-50%) scaleX(1);
+    }
+    50% {
+        transform: translateX(-50%) scaleX(0.1);
+    }
+    100% {
+        transform: translateX(-50%) scaleX(-1);
+    }
+}
+
+@keyframes doraemonFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(2deg);
+    }
+}
+
+/* Magic Stars */
+.magic-star {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+}
+
+.star-1 {
+    top: 15px;
+    left: -28px;
+    font-size: 1.3rem;
+    color: #ffd32a;
+    animation: starPulse 1.8s infinite ease-in-out;
+}
+
+.star-2 {
+    top: -8px;
+    right: -22px;
+    font-size: 1.1rem;
+    color: #00d2d3;
+    animation: starPulse 2.2s infinite ease-in-out 0.4s;
+}
+
+.star-3 {
+    bottom: 25px;
+    right: -28px;
+    font-size: 1.2rem;
+    color: #ff9ff3;
+    animation: starPulse 1.6s infinite ease-in-out 0.8s;
+}
+
+@keyframes starPulse {
+    0%, 100% {
+        transform: scale(0.7) rotate(0deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.3) rotate(25deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+}
+
+/* Doraemon Badge */
+.doraemon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #00d2d3;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(0, 150, 230, 0.12);
+    border: 1px solid rgba(0, 210, 211, 0.4);
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 210, 211, 0.25);
+    backdrop-filter: blur(6px);
+}
+
+/* Doraemon Progress Bar */
+.doraemon-bar-container {
+    width: 290px;
+    max-width: 85vw;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 1.5px solid rgba(0, 150, 230, 0.4);
+    margin: 0 auto 16px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 150, 230, 0.25);
+    position: relative;
+    padding: 2px;
+    overflow: visible;
+}
+
+.doraemon-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #ff9ff3, #ff6b81);
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, #0096e6, #00d2d3, #ffd32a);
+    border-radius: 15px;
+    position: relative;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(0, 210, 211, 0.8);
+}
+
+.mini-bell-head {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    filter: drop-shadow(0 0 8px #ffd32a);
+    animation: bellShake 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes bellShake {
+    0% {
+        transform: translateY(-50%) rotate(-15deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(15deg);
+    }
 }
 
 .loading-text {
-    color: #a4b0be;
+    color: #dfe4ea;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-}
-
-@keyframes heartBeat {
-    0% {
-        transform: scale(0.8);
-    }
-
-    100% {
-        transform: scale(1.2);
-        filter: drop-shadow(0 0 15px rgba(255, 107, 129, 0.8));
-    }
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 #mystery-gate {
@@ -263,7 +412,8 @@ body::after {
     z-index: 20;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     animation: dropCord 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    animation-delay: 6.5s; /* 2.5s for preloader + 4s waiting */
+    animation-delay: 9.5s;
+    /* 2.5s for preloader + 7s waiting */
 }
 
 @keyframes dropCord {
@@ -1009,7 +1159,7 @@ body::after {
     width: 210px;
     height: 65px;
     background-color: #ff9ff3;
-    background-image: 
+    background-image:
         radial-gradient(circle at 15% 40%, #ff4757 3px, transparent 4px),
         radial-gradient(circle at 45% 60%, #1dd1a1 3px, transparent 4px),
         radial-gradient(circle at 85% 30%, #feca57 3px, transparent 4px),
@@ -1039,7 +1189,7 @@ body::after {
     width: 160px;
     height: 55px;
     background-color: #48dbfb;
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0, rgba(255,255,255,0.25) 12px, transparent 12px, transparent 24px);
+    background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 12px, transparent 12px, transparent 24px);
     box-shadow: inset -18px 0 22px rgba(0, 0, 0, 0.12), inset 18px 0 22px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -1061,7 +1211,7 @@ body::after {
     width: 110px;
     height: 48px;
     background-color: #feca57;
-    background-image: radial-gradient(rgba(255,255,255,0.5) 3px, transparent 4px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.5) 3px, transparent 4px);
     background-size: 20px 20px;
     box-shadow: inset -15px 0 18px rgba(0, 0, 0, 0.12), inset 15px 0 18px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -1646,10 +1796,12 @@ body::after {
         transform: translate(-50%, -50%) scale(0.2) rotate(-15deg);
         opacity: 0;
     }
+
     70% {
         transform: translate(-50%, -50%) scale(1.06) rotate(2deg);
         opacity: 1;
     }
+
     100% {
         transform: translate(-50%, -50%) scale(1) rotate(0deg);
         opacity: 1;
@@ -1660,6 +1812,7 @@ body::after {
     0% {
         filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)) drop-shadow(0 25px 35px rgba(0, 0, 0, 0.35));
     }
+
     100% {
         filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.85)) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.45));
     }
@@ -1736,9 +1889,19 @@ body::after {
 }
 
 @keyframes bagBounce {
-    0%, 100% { transform: scale(1); }
-    40% { transform: scale(1.25) rotate(-8deg); }
-    70% { transform: scale(1.1) rotate(5deg); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.25) rotate(-8deg);
+    }
+
+    70% {
+        transform: scale(1.1) rotate(5deg);
+    }
 }
 
 .wish-bag-btn.hidden {
@@ -1802,8 +1965,15 @@ body::after {
 }
 
 @keyframes modalPop {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .wish-bag-header {
@@ -2062,7 +2232,7 @@ h2 {
     margin-top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
     animation: tieSway 2s infinite alternate ease-in-out;
     transform-origin: top center;
 }
@@ -2074,7 +2244,7 @@ h2 {
     left: 50%;
     width: 2px;
     height: 15px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
     transform: translateX(-50%);
 }
 
@@ -2083,7 +2253,7 @@ h2 {
     height: 65px;
     background: linear-gradient(145deg, #ff6b81, #ff4757);
     border-radius: 2px 5px 5px 2px;
-    box-shadow: inset 3px 0 0 rgba(0,0,0,0.1), 2px 2px 6px rgba(0,0,0,0.3);
+    box-shadow: inset 3px 0 0 rgba(0, 0, 0, 0.1), 2px 2px 6px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2096,7 +2266,10 @@ h2 {
 
 .mini-book-icon .border-decor {
     position: absolute;
-    top: 2px; left: 2px; right: 2px; bottom: 2px;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
     border: 1px dashed rgba(255, 255, 255, 0.6);
     border-radius: 2px;
     pointer-events: none;
@@ -2118,31 +2291,48 @@ h2 {
 }
 
 @keyframes tieSway {
-    0% { transform: translateX(-50%) rotate(-10deg); }
-    100% { transform: translateX(-50%) rotate(10deg); }
+    0% {
+        transform: translateX(-50%) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(10deg);
+    }
 }
 
 @keyframes floatUpBoss {
-    0% { bottom: -150px; }
-    100% { bottom: 35%; }
+    0% {
+        bottom: -150px;
+    }
+
+    100% {
+        bottom: 35%;
+    }
 }
 
 .balloon.is-last-balloon {
     left: 50% !important;
     margin-left: -42px !important;
-    bottom: 35%; /* Bỏ !important để animation có thể chạy */
+    bottom: 35%;
+    /* Bỏ !important để animation có thể chạy */
     animation: floatUpBoss 4s ease-out forwards, lastBalloonHover 3s ease-in-out infinite alternate !important;
     z-index: 3000 !important;
     transition: none !important;
 }
 
 .balloon.is-last-balloon::before {
-    display: none !important; /* Ẩn sợi dây dài nguyên bản của bóng bay */
+    display: none !important;
+    /* Ẩn sợi dây dài nguyên bản của bóng bay */
 }
 
 @keyframes lastBalloonHover {
-    0% { transform: translateY(-15px); }
-    100% { transform: translateY(15px); }
+    0% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(15px);
+    }
 }
 
 /* Doraemon Mascot Floating next to Cake */
@@ -2154,13 +2344,14 @@ h2 {
     animation: floatMascot 4s ease-in-out infinite alternate;
     z-index: 5;
     pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.18));
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
 }
 
 @keyframes floatMascot {
     0% {
         transform: translateY(0) rotate(-4deg);
     }
+
     100% {
         transform: translateY(-12px) rotate(4deg);
     }
@@ -2174,7 +2365,7 @@ h2 {
     animation: floatMascotLeft 4.5s ease-in-out infinite alternate;
     z-index: 5;
     pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.18));
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
     mix-blend-mode: multiply;
 }
 
@@ -2182,6 +2373,7 @@ h2 {
     0% {
         transform: translateY(-10px) rotate(5deg);
     }
+
     100% {
         transform: translateY(10px) rotate(-5deg);
     }
@@ -2232,7 +2424,7 @@ h2 {
     .mystery-text {
         font-size: 2.2rem;
     }
-    
+
     .mystery-subtext {
         font-size: 1rem;
         max-width: 85%;
@@ -2282,13 +2474,13 @@ h2 {
     .big-cake {
         transform: scale(0.8);
     }
-    
+
     .doraemon-mascot {
         width: 100px;
         right: -50px;
         bottom: 0px;
     }
-    
+
     .doraemon-cake {
         width: 180px;
         left: -100px;
@@ -2356,13 +2548,13 @@ h2 {
         transform: scale(0.62);
         margin-top: 15px;
     }
-    
+
     .doraemon-mascot {
         width: 80px;
         right: -35px;
         bottom: 15px;
     }
-    
+
     .doraemon-cake {
         width: 140px;
         left: -65px;
