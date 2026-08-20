@@ -427,9 +427,11 @@ body::after {
     cursor: pointer;
     z-index: 20;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pull-cord-container.drop-cord-active {
     animation: dropCord 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    animation-delay: 9.5s;
-    /* 2.5s for preloader + 7s waiting */
+    animation-delay: 0.2s;
 }
 
 @keyframes dropCord {
@@ -2993,5 +2995,48 @@ h2 {
         max-width: 300px;
         padding: 18px 14px;
         font-size: 1rem;
+    }
+}
+
+/* 6. Landscape & Low Height Screens (<= 540px height) */
+@media (max-height: 540px) {
+    .centerpiece {
+        margin-top: 5px;
+        transform: scale(0.85);
+        transform-origin: center center;
+    }
+
+    .happy-text {
+        font-size: 1.8rem;
+    }
+
+    .name-text {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+    }
+
+    .date-text {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .big-cake {
+        transform: scale(0.58);
+        margin: 5px auto;
+    }
+
+    .book-scaler {
+        transform: scale(0.48);
+        transform-origin: center center;
+    }
+
+    .controls {
+        bottom: -32px;
+        gap: 20px;
+    }
+
+    .wish-paper-note {
+        padding: 16px 20px;
+        font-size: 1.05rem;
     }
 }
