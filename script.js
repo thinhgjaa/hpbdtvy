@@ -345,12 +345,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (wishText) {
                         typeWriterEffect(wishText, "Chúccc mừnggg sinhhh nhậttt 21 tủiiii Thanh Vy nhé !!!! 🎉✨", 40, () => {
                             setTimeout(() => {
-                                typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
+                                typeWriterEffect(wishText, "Nàooooooo!!! ✨", 45, () => {
                                     setTimeout(() => {
-                                        if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
-                                    }, 1000);
+                                        typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
+                                            setTimeout(() => {
+                                                if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
+                                            }, 3500);
+                                        });
+                                    }, 2000);
                                 });
-                            }, 3000);
+                            }, 5000);
                         });
                     }
                 }, 5500);
@@ -373,11 +377,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (wishText) {
                 typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
                     setTimeout(() => {
-                        typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy may mắn & bảo bối nhé!", 35, () => {
+                        typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
                             const balloonCounter = document.getElementById('balloonCounter');
                             if (balloonCounter) balloonCounter.classList.remove('hidden');
+
+                            // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm 0/2
+                            setTimeout(() => {
+                                wishText.style.transition = "opacity 0.6s ease, max-height 0.6s ease";
+                                wishText.style.opacity = "0";
+                                setTimeout(() => {
+                                    wishText.style.display = "none";
+                                    wishText.innerHTML = "";
+                                    wishText.style.opacity = "1";
+                                }, 600);
+                            }, 3500);
                         });
-                    }, 3000);
+                    }, 3500);
                 });
             }
 
@@ -746,6 +761,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
                 if (wishText) {
+                    wishText.style.display = "block";
+                    wishText.style.opacity = "1";
                     typeWriterEffect(wishText, "🎉 Tuyệt vời! Hãy mở quyển nhật ký ở góc dưới nhé! 📖", 40);
                 }
 
