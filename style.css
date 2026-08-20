@@ -2,8 +2,8 @@
     --bg-gradient: linear-gradient(135deg, #e0f7fa, #b3e5fc);
     --primary-color: #0096FF;
     --text-main: #333;
-    --book-width: 320px;
-    --book-height: 450px;
+    --book-width: 380px;
+    --book-height: 520px;
     --page-bg: #fff;
     --page-bg-2: #fafafa;
     --gold: #FFD700;
@@ -2089,7 +2089,7 @@ body::after {
 .page-content {
     width: 100%;
     height: 100%;
-    padding: 30px;
+    padding: 30px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2097,6 +2097,16 @@ body::after {
     text-align: center;
     position: relative;
     color: var(--text-main);
+}
+
+.page-content.message-page {
+    padding: 35px 28px;
+    justify-content: center;
+}
+
+.page-content.photo-page {
+    padding: 25px 20px;
+    justify-content: center;
 }
 
 /* Premium Cover */
@@ -2181,27 +2191,27 @@ body::after {
 
 .gallery-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     color: #ff6b81;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .polaroid-dual-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     width: 100%;
 }
 
 .polaroid-mini {
-    padding: 6px;
-    padding-bottom: 15px;
+    padding: 8px;
+    padding-bottom: 18px;
 }
 
 .polaroid-img-mini {
-    width: 95px;
-    height: 95px;
+    width: 115px;
+    height: 115px;
 }
 
 .p-tilt-left {
@@ -2429,41 +2439,44 @@ body::after {
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 h2 {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
+    font-size: 2.35rem;
     color: #ff6b81;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    line-height: 1.25;
 }
 
 .msg-body {
-    font-size: 1rem;
-    line-height: 1.8;
-    text-align: left;
+    font-size: 1.3rem;
+    line-height: 1.7;
+    text-align: center;
+    color: #2f3542;
+    font-weight: 500;
 }
 
 .msg-body p {
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
 /* Polaroid */
 .polaroid {
     background: white;
-    padding: 10px;
-    padding-bottom: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    padding-bottom: 26px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
     transform: rotate(-5deg);
     margin-bottom: 10px;
     border: 1px solid #eee;
 }
 
 .polaroid-img {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     background: #ffe2e2;
     display: flex;
     justify-content: center;
@@ -2473,7 +2486,7 @@ h2 {
 .polaroid-text {
     font-family: 'Dancing Script', cursive;
     color: #333;
-    font-size: 1.5rem;
+    font-size: 1.85rem;
     margin-top: 10px;
 }
 
@@ -2482,17 +2495,19 @@ h2 {
     text-align: right;
     width: 100%;
     font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .signature .sender {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
+    font-size: 2.3rem;
     color: #ff6b81;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
 .closing {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #ff6b81;
     font-family: 'Pacifico', cursive;
 }
@@ -2558,8 +2573,12 @@ h2 {
 }
 
 .nav-btn.disabled {
-    opacity: 0;
+    opacity: 0.35;
     pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    box-shadow: none;
+    transform: none !important;
 }
 
 @keyframes pulse {
@@ -2834,7 +2853,7 @@ h2 {
 /* 1. Large Laptops & Desktops (>= 1200px) */
 @media (min-width: 1200px) {
     .book-scaler {
-        transform: scale(1.05);
+        transform: scale(1.12);
         transform-origin: center center;
     }
 }
@@ -2851,7 +2870,7 @@ h2 {
     }
 
     .book-scaler {
-        transform: scale(0.8);
+        transform: scale(0.9);
         transform-origin: center center;
     }
 
@@ -2900,7 +2919,7 @@ h2 {
 
 
     .book-scaler {
-        transform: scale(0.62);
+        transform: scale(0.72);
         transform-origin: center center;
     }
 
@@ -2998,7 +3017,7 @@ h2 {
     }
 
     .book-scaler {
-        transform: scale(0.52);
+        transform: scale(0.58);
         transform-origin: center center;
     }
 
@@ -3063,7 +3082,7 @@ h2 {
 
 
     .book-scaler {
-        transform: scale(0.44);
+        transform: scale(0.5);
         transform-origin: center center;
     }
 
@@ -3114,7 +3133,7 @@ h2 {
     }
 
     .book-scaler {
-        transform: scale(0.48);
+        transform: scale(0.52);
         transform-origin: center center;
     }
 

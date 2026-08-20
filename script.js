@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countdownScreen = document.getElementById('countdown-screen');
     const countdownNum = document.getElementById('countdown-number');
     const countdownText = document.getElementById('countdown-text');
-    const clickBookHint = document.getElementById('clickBookHint');
+    const clickBookHint = document.getElementById('clickBookHint') || document.querySelector('.book-hint-bubble');
     const candle = document.querySelector('.candle');
     const blowCandleBtn = document.getElementById('blowCandleBtn');
     const wishContainer = document.querySelector('.wish-container');
@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bookWrapper.classList.remove('in-corner');
         bookWrapper.classList.add('in-center');
         scene.classList.add('blurred');
-        clickBookHint.classList.add('hidden');
+        if (clickBookHint) clickBookHint.classList.add('hidden');
         duckAudio(true); // Soften bgMusic when opening book
 
         updateNavButtons();
@@ -498,29 +498,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners for Book Nav
-    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goNextPage(); });
-    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goPrevPage(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goNextPage(); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goPrevPage(); });
 
     // Close Book logic
-    closeBookBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        triggerHaptic(40);
+    if (closeBookBtn) {
+        closeBookBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerHaptic(40);
 
-        currentLocation = 1;
-        papers.forEach((p, idx) => {
-            p.classList.remove('flipped');
-            p.style.zIndex = 4 - idx;
+            currentLocation = 1;
+            papers.forEach((p, idx) => {
+                if (p) {
+                    p.classList.remove('flipped');
+                    p.style.zIndex = 4 - idx;
+                }
+            });
+            updateNavButtons();
+            duckAudio(false); // Restore background volume
+
+            setTimeout(() => {
+                if (bookWrapper) {
+                    bookWrapper.classList.remove('in-center', 'book-grand-reveal');
+                    bookWrapper.classList.add('in-corner');
+                }
+                if (scene) scene.classList.remove('blurred');
+                const hint = document.querySelector('.book-hint-bubble');
+                if (hint) hint.classList.remove('hidden');
+            }, 500);
         });
-        updateNavButtons();
-        duckAudio(false); // Restore background volume
-
-        setTimeout(() => {
-            bookWrapper.classList.remove('in-center', 'book-grand-reveal');
-            bookWrapper.classList.add('in-corner');
-            scene.classList.remove('blurred');
-            clickBookHint.classList.remove('hidden');
-        }, 500);
-    });
+    }
 
     // --- TOUCH / SWIPE GESTURES FOR MOBILE ---
     let touchStartX = 0;
