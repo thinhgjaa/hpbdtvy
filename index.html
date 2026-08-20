@@ -9,7 +9,8 @@
     <link rel="shortcut icon" type="image/png" href="image/doremon/hpbd.png">
     <link rel="apple-touch-icon" href="image/doremon/hpbd.png">
     <meta name="theme-color" content="#0096e6">
-    <meta name="description" content="Món quà sinh nhật kỳ diệu ngập tràn bảo bối Doraemon dành riêng cho Thanh Vy 03.09!">
+    <meta name="description"
+        content="Món quà sinh nhật kỳ diệu ngập tràn bảo bối Doraemon dành riêng cho Thanh Vy 03.09!">
     <!-- Preload Assets for Instant Smooth Animations -->
     <link rel="preload" as="image" href="image/doremon/fumble.jpg">
     <link rel="preload" as="image" href="image/doremon/hpbd.png">
@@ -23,7 +24,9 @@
     <link rel="preload" as="audio" href="music/countdown.mp3">
     <link rel="preload" as="audio" href="music/hpbd.mp3">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -46,11 +49,6 @@
                 <img src="image/doremon/fumble.jpg" alt="Doraemon Lúng Túng Lục Túi" class="fumble-art-img">
             </div>
 
-            <!-- Doraemon Badge -->
-            <div class="doraemon-badge">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> ĐANG LỤC TÚI TÌM QUÀ SINH NHẬT... 🎁
-            </div>
-
             <!-- Doraemon Themed Progress Bar -->
             <div class="doraemon-bar-container">
                 <div class="doraemon-bar" id="loadingBar">
@@ -59,7 +57,12 @@
                 </div>
             </div>
 
-            <p class="loader-status" id="loadingText">Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 0%</p>
+            <!-- Doraemon Badge -->
+            <div class="doraemon-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> ĐANG LỤC TÚI TÌM QUÀ SINH NHẬT... 🎁
+            </div>
+
+            <!-- <p class="loader-status" id="loadingText">Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 0%</p> -->
         </div>
     </div>
 
@@ -76,7 +79,7 @@
             <span class="sound-bar bar-4"></span>
         </span>
     </button>
-    
+
     <!-- Audio Elements -->
     <audio id="countdownMusic" loop>
         <source src="music/countdown.mp3" type="audio/mpeg">
@@ -89,9 +92,10 @@
     <div id="mystery-gate" class="screen active">
         <div class="mystery-content">
             <h2 class="mystery-text">Cánh Cửa Thần Kỳ dành cho Thanh Vy...</h2>
-            <p class="mystery-subtext">Để cảm nhận trọn vẹn điều bất ngờ này, hãy tìm một góc yên tĩnh, đeo tai nghe hoặc bật loa thật to nhé! 🔊</p>
+            <p class="mystery-subtext">Để cảm nhận trọn vẹn điều bất ngờ này, hãy tìm một góc yên tĩnh, đeo tai nghe
+                hoặc bật loa thật to nhé! 🔊</p>
         </div>
-        
+
         <!-- Pull Cord Mechanism -->
         <div id="start-btn" class="pull-cord-container">
             <div class="cord"></div>
@@ -121,7 +125,7 @@
             <div class="triangle t7"></div>
             <div class="triangle t8"></div>
         </div>
-        
+
         <!-- Sparkles, Doraemon Gadgets & Sky Elements -->
         <div class="sparkles-container">
             <div class="sparkle s1">✨</div>
@@ -132,80 +136,158 @@
             <!-- Dreamy Soft Clouds (Multiple Background Clouds) -->
             <div class="sky-cloud cloud-1">
                 <svg viewBox="0 0 100 50" width="80" height="40">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.75)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.75)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-2">
                 <svg viewBox="0 0 100 50" width="75" height="38">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.7)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.7)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-3">
                 <svg viewBox="0 0 100 50" width="65" height="34">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.6)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.6)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-4">
                 <svg viewBox="0 0 100 50" width="70" height="36">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.65)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.65)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-5">
                 <svg viewBox="0 0 100 50" width="85" height="42">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.7)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.7)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-6">
                 <svg viewBox="0 0 100 50" width="85" height="42">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.7)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.7)" />
                 </svg>
             </div>
             <div class="sky-cloud cloud-7">
                 <svg viewBox="0 0 100 50" width="60" height="30">
-                    <path d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z" fill="rgba(255, 255, 255, 0.55)" />
+                    <path
+                        d="M 20,40 Q 10,40 10,30 Q 10,20 22,20 Q 25,8 40,8 Q 55,8 60,18 Q 72,12 82,22 Q 92,25 90,38 Q 90,40 80,40 Z"
+                        fill="rgba(255, 255, 255, 0.55)" />
                 </svg>
             </div>
 
             <!-- Cánh Cửa Thần Kỳ (Dokodemo Door) -->
             <div class="sky-gadget anywhere-door door-1" title="Cánh Cửa Thần Kỳ">
                 <svg viewBox="0 0 50 70" width="34" height="48">
-                    <rect x="2" y="2" width="46" height="66" rx="4" fill="#e84393" stroke="#2d3436" stroke-width="2"/>
-                    <rect x="6" y="6" width="38" height="58" rx="2" fill="#ff7675"/>
-                    <rect x="10" y="10" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393" stroke-width="1.5"/>
-                    <rect x="10" y="38" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393" stroke-width="1.5"/>
-                    <circle cx="12" cy="35" r="3" fill="#ffd32a" stroke="#2d3436" stroke-width="1.5"/>
+                    <rect x="2" y="2" width="46" height="66" rx="4" fill="#e84393" stroke="#2d3436" stroke-width="2" />
+                    <rect x="6" y="6" width="38" height="58" rx="2" fill="#ff7675" />
+                    <rect x="10" y="10" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393"
+                        stroke-width="1.5" />
+                    <rect x="10" y="38" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393"
+                        stroke-width="1.5" />
+                    <circle cx="12" cy="35" r="3" fill="#ffd32a" stroke="#2d3436" stroke-width="1.5" />
                 </svg>
             </div>
             <div class="sky-gadget anywhere-door door-2" title="Cánh Cửa Thần Kỳ">
                 <svg viewBox="0 0 50 70" width="28" height="40">
-                    <rect x="2" y="2" width="46" height="66" rx="4" fill="#e84393" stroke="#2d3436" stroke-width="2"/>
-                    <rect x="6" y="6" width="38" height="58" rx="2" fill="#ff7675"/>
-                    <rect x="10" y="10" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393" stroke-width="1.5"/>
-                    <rect x="10" y="38" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393" stroke-width="1.5"/>
-                    <circle cx="12" cy="35" r="3" fill="#ffd32a" stroke="#2d3436" stroke-width="1.5"/>
+                    <rect x="2" y="2" width="46" height="66" rx="4" fill="#e84393" stroke="#2d3436" stroke-width="2" />
+                    <rect x="6" y="6" width="38" height="58" rx="2" fill="#ff7675" />
+                    <rect x="10" y="10" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393"
+                        stroke-width="1.5" />
+                    <rect x="10" y="38" width="30" height="22" rx="2" fill="#fd79a8" stroke="#e84393"
+                        stroke-width="1.5" />
+                    <circle cx="12" cy="35" r="3" fill="#ffd32a" stroke="#2d3436" stroke-width="1.5" />
                 </svg>
             </div>
 
             <!-- Chuông Vàng Doraemon (Golden Bell) -->
             <div class="sky-gadget bell-gadget bell-1" title="Chuông Vàng Doraemon">
                 <svg viewBox="0 0 40 40" width="26" height="26">
-                    <rect x="4" y="6" width="32" height="6" rx="3" fill="#ff4757" stroke="#1e272e" stroke-width="1.2"/>
-                    <circle cx="20" cy="20" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="1.5"/>
-                    <line x1="11" y1="17" x2="29" y2="17" stroke="#1e272e" stroke-width="1.2"/>
-                    <line x1="10" y1="19.5" x2="30" y2="19.5" stroke="#1e272e" stroke-width="1.2"/>
-                    <circle cx="20" cy="22" r="2.5" fill="#2c3e50"/>
-                    <line x1="20" y1="24.5" x2="20" y2="30" stroke="#1e272e" stroke-width="1.2"/>
+                    <rect x="4" y="6" width="32" height="6" rx="3" fill="#ff4757" stroke="#1e272e" stroke-width="1.2" />
+                    <circle cx="20" cy="20" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="1.5" />
+                    <line x1="11" y1="17" x2="29" y2="17" stroke="#1e272e" stroke-width="1.2" />
+                    <line x1="10" y1="19.5" x2="30" y2="19.5" stroke="#1e272e" stroke-width="1.2" />
+                    <circle cx="20" cy="22" r="2.5" fill="#2c3e50" />
+                    <line x1="20" y1="24.5" x2="20" y2="30" stroke="#1e272e" stroke-width="1.2" />
                 </svg>
             </div>
 
             <!-- Mini Flying Doraemons with Bambocopter -->
             <div class="sky-doraemon kd1" title="Doraemon">
-                <div class="bambocopter"><div class="propeller-blade"></div><div class="propeller-stem"></div></div>
-                <svg class="doraemon-svg" viewBox="0 0 120 120"><circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3"/><ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5"/><ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/><circle cx="53" cy="38" r="3.5" fill="#1e272e"/><circle cx="54" cy="36" r="1.2" fill="#ffffff"/><ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/><circle cx="67" cy="38" r="3.5" fill="#1e272e"/><circle cx="68" cy="36" r="1.2" fill="#ffffff"/><circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/><circle cx="58" cy="47" r="2" fill="#ffffff"/><line x1="60" y1="55.5" x2="60" y2="78" stroke="#1e272e" stroke-width="2"/><path d="M 35 68 Q 60 92 85 68" fill="none" stroke="#1e272e" stroke-width="2.5" stroke-linecap="round"/><line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2"/><line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2"/><line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2"/><line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2"/><line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2"/><line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2"/><rect x="25" y="93" width="70" height="10" rx="5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/><circle cx="60" cy="103" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="2"/><line x1="51" y1="99" x2="69" y2="99" stroke="#1e272e" stroke-width="1.5"/><line x1="50" y1="102" x2="70" y2="102" stroke="#1e272e" stroke-width="1.5"/><circle cx="60" cy="105" r="2.5" fill="#2c3e50"/><line x1="60" y1="107.5" x2="60" y2="114" stroke="#1e272e" stroke-width="1.5"/></svg>
+                <div class="bambocopter">
+                    <div class="propeller-blade"></div>
+                    <div class="propeller-stem"></div>
+                </div>
+                <svg class="doraemon-svg" viewBox="0 0 120 120">
+                    <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
+                    <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                    <ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="53" cy="38" r="3.5" fill="#1e272e" />
+                    <circle cx="54" cy="36" r="1.2" fill="#ffffff" />
+                    <ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="67" cy="38" r="3.5" fill="#1e272e" />
+                    <circle cx="68" cy="36" r="1.2" fill="#ffffff" />
+                    <circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="58" cy="47" r="2" fill="#ffffff" />
+                    <line x1="60" y1="55.5" x2="60" y2="78" stroke="#1e272e" stroke-width="2" />
+                    <path d="M 35 68 Q 60 92 85 68" fill="none" stroke="#1e272e" stroke-width="2.5"
+                        stroke-linecap="round" />
+                    <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2" />
+                    <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2" />
+                    <line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2" />
+                    <line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2" />
+                    <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2" />
+                    <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2" />
+                    <rect x="25" y="93" width="70" height="10" rx="5" fill="#e74c3c" stroke="#1e272e"
+                        stroke-width="2" />
+                    <circle cx="60" cy="103" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="2" />
+                    <line x1="51" y1="99" x2="69" y2="99" stroke="#1e272e" stroke-width="1.5" />
+                    <line x1="50" y1="102" x2="70" y2="102" stroke="#1e272e" stroke-width="1.5" />
+                    <circle cx="60" cy="105" r="2.5" fill="#2c3e50" />
+                    <line x1="60" y1="107.5" x2="60" y2="114" stroke="#1e272e" stroke-width="1.5" />
+                </svg>
             </div>
             <div class="sky-doraemon kd2" title="Doraemon">
-                <div class="bambocopter"><div class="propeller-blade"></div><div class="propeller-stem"></div></div>
-                <svg class="doraemon-svg" viewBox="0 0 120 120"><circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3"/><ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5"/><ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/><circle cx="53" cy="38" r="3.5" fill="#1e272e"/><circle cx="54" cy="36" r="1.2" fill="#ffffff"/><ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2"/><circle cx="67" cy="38" r="3.5" fill="#1e272e"/><circle cx="68" cy="36" r="1.2" fill="#ffffff"/><circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/><circle cx="58" cy="47" r="2" fill="#ffffff"/><line x1="60" y1="55.5" x2="60" y2="78" stroke="#1e272e" stroke-width="2"/><path d="M 35 68 Q 60 92 85 68" fill="none" stroke="#1e272e" stroke-width="2.5" stroke-linecap="round"/><line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2"/><line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2"/><line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2"/><line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2"/><line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2"/><line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2"/><rect x="25" y="93" width="70" height="10" rx="5" fill="#e74c3c" stroke="#1e272e" stroke-width="2"/><circle cx="60" cy="103" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="2"/><line x1="51" y1="99" x2="69" y2="99" stroke="#1e272e" stroke-width="1.5"/><line x1="50" y1="102" x2="70" y2="102" stroke="#1e272e" stroke-width="1.5"/><circle cx="60" cy="105" r="2.5" fill="#2c3e50"/><line x1="60" y1="107.5" x2="60" y2="114" stroke="#1e272e" stroke-width="1.5"/></svg>
+                <div class="bambocopter">
+                    <div class="propeller-blade"></div>
+                    <div class="propeller-stem"></div>
+                </div>
+                <svg class="doraemon-svg" viewBox="0 0 120 120">
+                    <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
+                    <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                    <ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="53" cy="38" r="3.5" fill="#1e272e" />
+                    <circle cx="54" cy="36" r="1.2" fill="#ffffff" />
+                    <ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="67" cy="38" r="3.5" fill="#1e272e" />
+                    <circle cx="68" cy="36" r="1.2" fill="#ffffff" />
+                    <circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                    <circle cx="58" cy="47" r="2" fill="#ffffff" />
+                    <line x1="60" y1="55.5" x2="60" y2="78" stroke="#1e272e" stroke-width="2" />
+                    <path d="M 35 68 Q 60 92 85 68" fill="none" stroke="#1e272e" stroke-width="2.5"
+                        stroke-linecap="round" />
+                    <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2" />
+                    <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2" />
+                    <line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2" />
+                    <line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2" />
+                    <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2" />
+                    <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2" />
+                    <rect x="25" y="93" width="70" height="10" rx="5" fill="#e74c3c" stroke="#1e272e"
+                        stroke-width="2" />
+                    <circle cx="60" cy="103" r="11" fill="#ffd32a" stroke="#1e272e" stroke-width="2" />
+                    <line x1="51" y1="99" x2="69" y2="99" stroke="#1e272e" stroke-width="1.5" />
+                    <line x1="50" y1="102" x2="70" y2="102" stroke="#1e272e" stroke-width="1.5" />
+                    <circle cx="60" cy="105" r="2.5" fill="#2c3e50" />
+                    <line x1="60" y1="107.5" x2="60" y2="114" stroke="#1e272e" stroke-width="1.5" />
+                </svg>
             </div>
 
             <!-- Mini Doraemon with Birthday Cake -->
@@ -213,13 +295,18 @@
             <img src="image/doremon/hpbd.png" alt="Doraemon Cake" class="sky-doraemon-cake dc-2" title="Doraemon">
 
             <!-- Mini Classic Doraemon -->
-            <img src="image/doremon/Doraemon_character.png" alt="Doraemon" class="sky-doraemon-classic dm-1" title="Doraemon">
-            <img src="image/doremon/Doraemon_character.png" alt="Doraemon" class="sky-doraemon-classic dm-2" title="Doraemon">
+            <img src="image/doremon/Doraemon_character.png" alt="Doraemon" class="sky-doraemon-classic dm-1"
+                title="Doraemon">
+            <img src="image/doremon/Doraemon_character.png" alt="Doraemon" class="sky-doraemon-classic dm-2"
+                title="Doraemon">
         </div>
 
         <!-- Floating Balloons (20 Balloons - Tất cả đều mang thiệp bảo bối thần kỳ!) -->
         <div class="balloons">
-            <div class="balloon balloon1"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
+            <div class="balloon balloon1">
+                <div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div class="balloon-tooltip"></div>
+            </div>
             <!-- Temporary dev: balloons 2-19 commented out
             <div class="balloon balloon2"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
             <div class="balloon balloon3"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
@@ -249,7 +336,7 @@
             <h1 class="happy-text">Happy Birthday!</h1>
             <h2 class="name-text">Thanh Vy</h2>
             <h3 class="date-text">03.09</h3>
-            
+
             <div class="big-cake">
                 <div class="plate"></div>
                 <div class="cake-tier tier-bottom"></div>
@@ -259,7 +346,7 @@
                     <div class="flame"></div>
                 </div>
             </div>
-            
+
             <!-- Unified Paper Message Note Board under Cake -->
             <div class="wish-container" id="wishContainer">
                 <div class="paper-note-card">
@@ -270,7 +357,7 @@
 
                     <!-- Unified Message Text (Typewriter) -->
                     <p class="wish-text" id="unifiedWishText"></p>
-                    
+
                     <!-- Candle Blowing Button -->
                     <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
                         <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
@@ -309,7 +396,7 @@
     <!-- The Interactive Book Wrapper -->
     <div id="bookWrapper" class="book-wrapper in-corner hidden">
         <div class="book-hint-bubble">Nhấp để mở</div>
-        
+
         <div class="book-container">
             <div class="book-scaler">
                 <div class="book" id="book">
@@ -326,14 +413,16 @@
                                     <span>✦</span>
                                 </div>
                                 <p class="subtitle">Thanh Vy - 03.09</p>
-                                <p class="swipe-hint-text"><i class="fa-solid fa-hand-point-left"></i> Vuốt hoặc bấm mũi tên để mở</p>
+                                <p class="swipe-hint-text"><i class="fa-solid fa-hand-point-left"></i> Vuốt hoặc bấm mũi
+                                    tên để mở</p>
                             </div>
                         </div>
                         <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
-                                        <img src="image/tvy/1.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/1.jpg" alt="Thanh Vy"
+                                            style="width:100%; height:100%; object-fit:cover;">
                                     </div>
                                     <div class="polaroid-text">Thanh Vy rạng rỡ ✨</div>
                                 </div>
@@ -347,8 +436,10 @@
                             <div class="page-content message-page">
                                 <h2>Chúc Mừng Sinh Nhật!</h2>
                                 <div class="msg-body">
-                                    <p>Tuổi mới đến rồi! Một ngày thật đặc biệt, chúc Thanh Vy sẽ nhận được vô vàn những niềm vui kỳ diệu như bước ra từ chiếc túi thần kỳ của Doraemon vậy.</p>
-                                    <p>Chúc cậu luôn giữ nụ cười thật tươi, mỗi ngày đều tràn ngập may mắn, bình an và hạnh phúc.</p>
+                                    <p>Tuổi mới đến rồi! Một ngày thật đặc biệt, chúc Thanh Vy sẽ nhận được vô vàn những
+                                        niềm vui kỳ diệu như bước ra từ chiếc túi thần kỳ của Doraemon vậy.</p>
+                                    <p>Chúc cậu luôn giữ nụ cười thật tươi, mỗi ngày đều tràn ngập may mắn, bình an và
+                                        hạnh phúc.</p>
                                 </div>
                             </div>
                         </div>
@@ -356,7 +447,8 @@
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
-                                        <img src="image/tvy/2.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/2.jpg" alt="Thanh Vy"
+                                            style="width:100%; height:100%; object-fit:cover;">
                                     </div>
                                     <div class="polaroid-text">Nụ cười tỏa nắng ☀️</div>
                                 </div>
@@ -372,12 +464,14 @@
                                 <div class="polaroid-dual-container">
                                     <div class="polaroid polaroid-mini p-tilt-left">
                                         <div class="polaroid-img polaroid-img-mini">
-                                            <img src="image/tvy/3.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                            <img src="image/tvy/3.jpg" alt="Thanh Vy"
+                                                style="width:100%; height:100%; object-fit:cover;">
                                         </div>
                                     </div>
                                     <div class="polaroid polaroid-mini p-tilt-right">
                                         <div class="polaroid-img polaroid-img-mini">
-                                            <img src="image/tvy/4.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                            <img src="image/tvy/4.jpg" alt="Thanh Vy"
+                                                style="width:100%; height:100%; object-fit:cover;">
                                         </div>
                                     </div>
                                 </div>
@@ -387,7 +481,8 @@
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
-                                        <img src="image/tvy/5.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/5.jpg" alt="Thanh Vy"
+                                            style="width:100%; height:100%; object-fit:cover;">
                                     </div>
                                     <div class="polaroid-text">Mãi luôn xinh đẹp & rạng ngời 🌸</div>
                                 </div>
@@ -401,8 +496,10 @@
                             <div class="page-content message-page">
                                 <h2>Cỗ Máy Thời Gian</h2>
                                 <div class="msg-body mt-4">
-                                    <p>Cho dù thời gian có trôi nhanh đến đâu, mong cậu vẫn luôn giữ được sự hồn nhiên, sự ấm áp và sự yêu đời nhé.</p>
-                                    <p>Chúc cho mọi điều ước khi thổi nến của cậu đều sẽ sớm trở thành hiện thực! Happy Birthday! ✨</p>
+                                    <p>Cho dù thời gian có trôi nhanh đến đâu, mong cậu vẫn luôn giữ được sự hồn nhiên,
+                                        sự ấm áp và sự yêu đời nhé.</p>
+                                    <p>Chúc cho mọi điều ước khi thổi nến của cậu đều sẽ sớm trở thành hiện thực! Happy
+                                        Birthday! ✨</p>
                                 </div>
                                 <div class="signature">
                                     <p>With lots of love,</p>
@@ -415,12 +512,14 @@
                                 <div class="border-decor"></div>
                                 <div class="polaroid polaroid-mini" style="margin-bottom: 10px;">
                                     <div class="polaroid-img polaroid-img-mini" style="width: 90px; height: 90px;">
-                                        <img src="image/tvy/7.jpg" alt="Thanh Vy" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="image/tvy/7.jpg" alt="Thanh Vy"
+                                            style="width:100%; height:100%; object-fit:cover;">
                                     </div>
                                 </div>
                                 <h2 class="closing">Enjoy your day! 💖</h2>
                                 <div class="book-action-buttons">
-                                    <button class="close-book-btn" id="closeBookBtn"><i class="fa-solid fa-bookmark"></i> Đóng sách lại</button>
+                                    <button class="close-book-btn" id="closeBookBtn"><i
+                                            class="fa-solid fa-bookmark"></i> Đóng sách lại</button>
                                 </div>
                             </div>
                         </div>
@@ -430,8 +529,10 @@
 
             <!-- Controls for Book -->
             <div class="controls" id="bookControls">
-                <button id="prev-btn" class="nav-btn prev-btn" aria-label="Trang trước"><i class="fa-solid fa-chevron-left"></i></button>
-                <button id="next-btn" class="nav-btn next-btn" aria-label="Trang sau"><i class="fa-solid fa-chevron-right"></i></button>
+                <button id="prev-btn" class="nav-btn prev-btn" aria-label="Trang trước"><i
+                        class="fa-solid fa-chevron-left"></i></button>
+                <button id="next-btn" class="nav-btn next-btn" aria-label="Trang sau"><i
+                        class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
@@ -443,7 +544,7 @@
     </div>
 
     <canvas id="confetti"></canvas>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>

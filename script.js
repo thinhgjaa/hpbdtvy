@@ -339,14 +339,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     firePremiumConfetti(1.5);
                 }, 2000);
 
-                // Type out the wish instruction
+                // Type out the birthday celebration & wish instruction
                 setTimeout(() => {
                     const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
                     if (wishText) {
-                        typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40, () => {
+                        typeWriterEffect(wishText, "Chúccc mừnggg sinhhh nhậttt 21 tủiiii Thanh Vy nhé !!!! 🎉✨", 40, () => {
                             setTimeout(() => {
-                                if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
-                            }, 1000);
+                                typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
+                                    setTimeout(() => {
+                                        if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
+                                    }, 1000);
+                                });
+                            }, 3000);
                         });
                     }
                 }, 5500);
@@ -373,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const balloonCounter = document.getElementById('balloonCounter');
                             if (balloonCounter) balloonCounter.classList.remove('hidden');
                         });
-                    }, 2200);
+                    }, 3000);
                 });
             }
 
