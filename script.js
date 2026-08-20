@@ -211,9 +211,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sound Toggle Logic
     let isMuted = false;
+    function updateSoundBtnUI() {
+        if (!soundBtn) return;
+        const icon = soundBtn.querySelector('.sound-icon-wrapper i');
+        if (isMuted) {
+            soundBtn.classList.add('muted');
+            soundBtn.setAttribute('title', 'Bật Âm Nhạc');
+            if (icon) icon.className = 'fa-solid fa-volume-xmark';
+        } else {
+            soundBtn.classList.remove('muted');
+            soundBtn.setAttribute('title', 'Tắt Âm Nhạc');
+            if (icon) icon.className = 'fa-solid fa-volume-high';
+        }
+    }
+
     if (soundBtn) {
         soundBtn.addEventListener('click', () => {
             initAudio();
+            triggerHaptic(40);
             isMuted = !isMuted;
             if (audio) {
                 audio.muted = isMuted;
@@ -227,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     countdownAudio.play().catch(e => console.log(e));
                 }
             }
-            soundBtn.innerHTML = isMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
+            updateSoundBtnUI();
         });
     }
 
