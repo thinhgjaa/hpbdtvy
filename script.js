@@ -98,48 +98,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playPaperSound() {
         if (!audioCtx) return;
-        const bufferSize = audioCtx.sampleRate * 0.2;
+        const now = audioCtx.currentTime;
+        const duration = 0.18;
+        const bufferSize = audioCtx.sampleRate * duration;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
+        let b0 = 0, b1 = 0;
         for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
+            const white = Math.random() * 2 - 1;
+            b0 = 0.95 * b0 + white * 0.1;
+            b1 = 0.85 * b1 + white * 0.2;
+            const progress = i / bufferSize;
+            data[i] = (b0 + b1) * (1 - progress) * 0.25;
         }
         const noise = audioCtx.createBufferSource();
         noise.buffer = buffer;
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'bandpass';
-        filter.frequency.value = 3000;
+        filter.frequency.setValueAtTime(1500, now);
+        filter.Q.value = 1.0;
         const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.2, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
         noise.connect(filter);
         filter.connect(gainNode);
         gainNode.connect(audioCtx.destination);
-        noise.start();
+        noise.start(now);
     }
 
+
+
+    // 2. Âm thanh lật trang sách chân thực, êm ái (Soft Realistic Page Turn)
     function playPageFlipSound() {
         if (!audioCtx) return;
-        const duration = 0.22;
+        const now = audioCtx.currentTime;
+        const duration = 0.25;
         const bufferSize = audioCtx.sampleRate * duration;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0;
         for (let i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99 * b0 + white * 0.05;
+            b1 = 0.96 * b1 + white * 0.11;
+            b2 = 0.86 * b2 + white * 0.25;
+            const pink = b0 + b1 + b2;
+            const progress = i / bufferSize;
+            const env = progress < 0.2 ? progress / 0.2 : Math.pow(1 - (progress - 0.2) / 0.8, 2);
+            data[i] = pink * env * 0.28;
         }
+
         const noise = audioCtx.createBufferSource();
         noise.buffer = buffer;
+
         const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(4000, audioCtx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + duration);
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1000, now);
+        filter.frequency.exponentialRampToValueAtTime(2200, now + 0.08);
+        filter.frequency.exponentialRampToValueAtTime(700, now + duration);
+        filter.Q.value = 1.1;
+
         const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0.35, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        gainNode.gain.setValueAtTime(0.2, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
         noise.connect(filter);
         filter.connect(gainNode);
         gainNode.connect(audioCtx.destination);
-        noise.start();
+        noise.start(now);
+
+        // Âm thanh gáy sách chạm nhẹ rất êm
+        const clickOsc = audioCtx.createOscillator();
+        const clickGain = audioCtx.createGain();
+        clickOsc.type = 'triangle';
+        clickOsc.frequency.setValueAtTime(220, now + 0.03);
+        clickOsc.frequency.exponentialRampToValueAtTime(70, now + 0.08);
+        clickGain.gain.setValueAtTime(0.04, now + 0.03);
+        clickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+        clickOsc.connect(clickGain);
+        clickGain.connect(audioCtx.destination);
+        clickOsc.start(now + 0.03);
+        clickOsc.stop(now + 0.09);
     }
 
     // --- AUDIO DUCKING (Smooth Volume Transition) ---
@@ -191,9 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const wishContainer = document.querySelector('.wish-container');
 
     const countdownMessages = [
-        "Một ngày đặc biệt...",
-        "Món quà thần kỳ dành cho Thanh Vy...",
-        "Bắt đầu bữa tiệc nào!"
+        "Một ngày đặc biệt... ",
+        "Dành cho một người đặc biệt... ",
+        "Một món quà thật đặc biệt... "
     ];
 
     let countdownValue = 3;
