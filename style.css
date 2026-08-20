@@ -829,40 +829,19 @@ body::after {
     animation: spinPropeller 0.15s linear infinite;
 }
 
-/* Individual sky positions & sizes */
+/* Individual sky positions & sizes (Symmetrical Balanced Layout) */
 .kd1 {
-    top: 15%;
-    left: 8%;
-    width: 36px;
+    top: 14%;
+    left: 5%;
+    width: 44px;
     animation-delay: 0s;
 }
 
 .kd2 {
-    top: 25%;
-    right: 8%;
-    width: 42px;
+    top: 14%;
+    right: 5%;
+    width: 44px;
     animation-delay: 1.2s;
-}
-
-.kd3 {
-    top: 65%;
-    left: 6%;
-    width: 32px;
-    animation-delay: 2.4s;
-}
-
-.kd4 {
-    top: 72%;
-    right: 10%;
-    width: 35px;
-    animation-delay: 0.8s;
-}
-
-.kd5 {
-    top: 42%;
-    left: 85%;
-    width: 38px;
-    animation-delay: 1.8s;
 }
 
 @keyframes floatSkyDoraemon {
@@ -870,7 +849,177 @@ body::after {
         transform: translateY(0) rotate(-6deg);
     }
     100% {
-        transform: translateY(-20px) rotate(6deg);
+        transform: translateY(-16px) rotate(6deg);
+    }
+}
+
+/* Dreamy Soft Clouds */
+.sky-cloud {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 8;
+    filter: drop-shadow(0 8px 16px rgba(0, 150, 230, 0.25));
+    animation: floatCloud 8s ease-in-out infinite alternate;
+}
+
+.cloud-1 {
+    top: 6%;
+    left: 8%;
+    animation-delay: 0s;
+}
+
+.cloud-2 {
+    top: 6%;
+    right: 8%;
+    animation-delay: 2.5s;
+}
+
+@keyframes floatCloud {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(16px) translateY(-6px);
+    }
+}
+
+/* Sky Gadgets (Anywhere Door, Bell) */
+.sky-gadget {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 12;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+    animation: floatGadget 4s ease-in-out infinite alternate;
+}
+
+.sky-gadget svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Anywhere Door */
+.anywhere-door {
+    filter: drop-shadow(0 0 12px rgba(232, 67, 147, 0.55));
+}
+
+.door-1 {
+    top: 26%;
+    left: 15%;
+    width: 32px;
+    animation-delay: 0.3s;
+}
+
+.door-2 {
+    top: 26%;
+    right: 15%;
+    width: 32px;
+    animation-delay: 1.8s;
+}
+
+/* Golden Bell */
+.bell-gadget {
+    filter: drop-shadow(0 0 8px rgba(255, 211, 42, 0.6));
+    animation: floatBell 3s ease-in-out infinite alternate;
+}
+
+.bell-1 {
+    top: 58%;
+    left: 15%;
+    width: 26px;
+    animation-delay: 0.6s;
+}
+
+.bell-2 {
+    top: 58%;
+    right: 15%;
+    width: 26px;
+    animation-delay: 1.5s;
+}
+
+@keyframes floatGadget {
+    0% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    100% {
+        transform: translateY(-14px) rotate(8deg);
+    }
+}
+
+@keyframes floatBell {
+    0% {
+        transform: translateY(0) rotate(-10deg);
+    }
+    100% {
+        transform: translateY(-12px) rotate(10deg);
+    }
+}
+
+/* Mini Doraemon with Birthday Cake (Floating Sky Decorations) */
+.sky-doraemon-cake {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 12;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
+    animation: floatDoraemonCake 5s ease-in-out infinite alternate;
+}
+
+.dc-1 {
+    top: 40%;
+    left: 2.5%;
+    width: 110px;
+    animation-delay: 0s;
+}
+
+.dc-2 {
+    top: 40%;
+    right: 2.5%;
+    width: 110px;
+    animation-delay: 1.8s;
+}
+
+@keyframes floatDoraemonCake {
+    0% {
+        transform: translateY(0) rotate(-4deg);
+    }
+    100% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+/* Mini Classic Doraemon (Floating Sky Decorations) */
+.sky-doraemon-classic {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 12;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
+    animation: floatDoraemonClassic 4.8s ease-in-out infinite alternate;
+}
+
+.dm-1 {
+    top: 74%;
+    left: 7%;
+    width: 44px;
+    animation-delay: 0.5s;
+}
+
+.dm-2 {
+    top: 74%;
+    right: 7%;
+    width: 44px;
+    animation-delay: 1.6s;
+}
+
+@keyframes floatDoraemonClassic {
+    0% {
+        transform: translateY(0) rotate(5deg);
+    }
+    100% {
+        transform: translateY(-14px) rotate(-6deg);
     }
 }
 
@@ -1193,6 +1342,7 @@ body::after {
     color: #feca57;
     text-transform: uppercase;
     letter-spacing: 4px;
+    text-indent: 4px;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
     margin-bottom: 2px;
 }
@@ -1203,6 +1353,7 @@ body::after {
     font-weight: 600;
     color: #48dbfb;
     letter-spacing: 3px;
+    text-indent: 3px;
     margin-bottom: 5px;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);
 }
@@ -1224,12 +1375,15 @@ body::after {
     margin: 25px auto 10px;
     filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.2));
     transform: scale(0.95);
+    display: flex;
+    justify-content: center;
 }
 
 .plate {
     position: absolute;
     bottom: -15px;
-    left: -30px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 280px;
     height: 35px;
     background: radial-gradient(ellipse at center, #ffeaa7, #fdcb6e);
@@ -1320,17 +1474,17 @@ body::after {
     filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12));
 }
 
-/* Strawberries on top tier */
+/* Strawberries on top tier (Symmetrical) */
 .tier-top::before {
     content: '';
     position: absolute;
     top: -14px;
-    left: 16px;
+    left: 18px;
     width: 16px;
     height: 20px;
     background: radial-gradient(circle at 30% 30%, #ff7675, #d63031);
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    box-shadow: 32px 3px 0 -2px #d63031, 60px 0px 0 1px #ff7675;
+    box-shadow: 58px 0px 0 0px #d63031;
     z-index: 5;
 }
 
@@ -2426,49 +2580,9 @@ h2 {
     }
 }
 
-/* Doraemon Mascot Floating next to Cake */
-.doraemon-mascot {
-    position: absolute;
-    bottom: 5px;
-    right: -65px;
-    width: 95px;
-    animation: floatMascot 4s ease-in-out infinite alternate;
-    z-index: 5;
-    pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
-}
 
-@keyframes floatMascot {
-    0% {
-        transform: translateY(0) rotate(-4deg);
-    }
 
-    100% {
-        transform: translateY(-12px) rotate(4deg);
-    }
-}
 
-.doraemon-cake {
-    position: absolute;
-    bottom: -5px;
-    left: -105px;
-    width: 145px;
-    animation: floatMascotLeft 4.5s ease-in-out infinite alternate;
-    z-index: 5;
-    pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
-    mix-blend-mode: multiply;
-}
-
-@keyframes floatMascotLeft {
-    0% {
-        transform: translateY(-10px) rotate(5deg);
-    }
-
-    100% {
-        transform: translateY(10px) rotate(-5deg);
-    }
-}
 
 /* Sound Toggle Button */
 .sound-btn {
@@ -2566,17 +2680,7 @@ h2 {
         transform: scale(0.8);
     }
 
-    .doraemon-mascot {
-        width: 100px;
-        right: -50px;
-        bottom: 0px;
-    }
 
-    .doraemon-cake {
-        width: 180px;
-        left: -100px;
-        bottom: -15px;
-    }
 
     .book-scaler {
         transform: scale(0.62);
@@ -2640,17 +2744,11 @@ h2 {
         margin-top: 15px;
     }
 
-    .doraemon-mascot {
+    .dc-1, .dc-2 {
         width: 80px;
-        right: -35px;
-        bottom: 15px;
     }
 
-    .doraemon-cake {
-        width: 140px;
-        left: -65px;
-        bottom: 0px;
-    }
+
 
     .wish-text {
         font-size: 1.1rem;
@@ -2730,15 +2828,7 @@ h2 {
         transform: scale(0.55);
     }
 
-    .doraemon-mascot {
-        width: 65px;
-        right: -25px;
-    }
 
-    .doraemon-cake {
-        width: 110px;
-        left: -50px;
-    }
 
     .book-scaler {
         transform: scale(0.44);
