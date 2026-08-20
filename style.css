@@ -833,7 +833,7 @@ body::after {
 }
 
 .sky-doraemon .propeller-blade {
-    width: 26px;
+    width: 28px;
     height: 4px;
     background: linear-gradient(90deg, #ffd32a, #ffb142);
     border: 1px solid #1e272e;
@@ -842,7 +842,17 @@ body::after {
     top: -2px;
     left: 50%;
     transform-origin: center center;
-    animation: spinPropeller 0.15s linear infinite;
+    animation: spinPropeller 0.8s linear infinite;
+    box-shadow: 0 0 8px rgba(255, 211, 42, 0.7);
+}
+
+@keyframes spinPropeller {
+    0% {
+        transform: translateX(-50%) rotateY(0deg);
+    }
+    100% {
+        transform: translateX(-50%) rotateY(360deg);
+    }
 }
 
 /* Individual sky positions & sizes (Symmetrical Balanced Layout) */
@@ -1657,29 +1667,110 @@ body::after {
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* Wish Container */
+/* Unified Wish Message Container & Paper Note Card */
 .wish-container {
-    margin-top: 15px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+    pointer-events: auto;
 }
 
 .birthday-scene:not(.hidden) .wish-container {
-    animation: fadeInReveal 3s ease forwards 5.5s;
+    animation: fadeInReveal 1.5s ease forwards 5s;
     opacity: 0;
 }
 
+.paper-note-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 249, 235, 0.94) 100%);
+    border: 2px solid rgba(254, 202, 87, 0.7);
+    border-radius: 18px;
+    padding: 10px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 0 16px rgba(254, 202, 87, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    width: auto;
+    max-width: 88vw;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+    animation: noteCardFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes noteCardFloat {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+.note-tape {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 15px;
+    background: linear-gradient(135deg, rgba(255, 107, 129, 0.55), rgba(254, 202, 87, 0.55));
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-left: 2px dashed rgba(255, 255, 255, 0.6);
+    border-right: 2px dashed rgba(255, 255, 255, 0.6);
+}
+
+.note-sparkle-left {
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    animation: starPulse 2s infinite ease-in-out;
+}
+
+.note-sparkle-right {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    animation: starPulse 2.2s infinite ease-in-out 0.5s;
+}
+
 .wish-text {
-    font-size: 1.25rem;
-    font-style: italic;
-    color: #ff6b81;
-    margin-bottom: 14px;
-    font-weight: 600;
-    text-shadow: 0 2px 8px rgba(255, 107, 129, 0.35);
-    transition: opacity 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ff4757;
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+    text-shadow: 0 1px 3px rgba(255, 107, 129, 0.15);
+    display: block;
+}
+
+.blow-btn.hidden,
+#balloonCounter.hidden {
+    display: none !important;
+}
+
+.paper-note-card .balloon-counter {
+    position: static;
+    transform: none;
+    padding: 3px 12px;
+    font-size: 0.9rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(255, 107, 129, 0.2);
+    margin-top: 2px;
 }
 
 .blow-btn {
     font-size: 1.18rem;
-    padding: 13px 36px;
+    padding: 12px 34px;
     background: linear-gradient(135deg, #ff6b81, #ff4757);
     border: 2px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 6px 22px rgba(255, 107, 129, 0.5);

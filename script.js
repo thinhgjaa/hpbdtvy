@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingBar = document.getElementById('loadingBar');
     const loadingText = document.getElementById('loadingText');
     let loadProgress = 0;
-    
+
     // Simulate loading
     const loadInterval = setInterval(() => {
         if (loadProgress < 90) {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         element.innerHTML = '';
         let i = 0;
         if (element.typingTimeout) clearTimeout(element.typingTimeout);
-        
+
         function type() {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -59,14 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('bgMusic');
     const countdownAudio = document.getElementById('countdownMusic');
     const soundBtn = document.getElementById('soundBtn');
-    
+
     // Page Elements (4 Papers)
     const paper1 = document.getElementById('p1');
     const paper2 = document.getElementById('p2');
     const paper3 = document.getElementById('p3');
     const paper4 = document.getElementById('p4');
     const papers = [paper1, paper2, paper3, paper4];
-    
+
     // Nav Buttons
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (audioDuckInterval) clearInterval(audioDuckInterval);
         const targetVolume = isDucked ? 0.28 : 0.8;
         const step = isDucked ? -0.05 : 0.05;
-        
+
         audioDuckInterval = setInterval(() => {
             let currentVol = audio.volume;
             if ((isDucked && currentVol > targetVolume) || (!isDucked && currentVol < targetVolume)) {
@@ -210,13 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', () => {
         initAudio();
         triggerHaptic([50, 40, 80]); // Haptic on pull cord
-        
+
         // Start Countdown Audio
         if (countdownAudio && countdownAudio.paused) {
             countdownAudio.volume = 0.6;
             countdownAudio.play().catch(e => console.log(e));
         }
-        
+
         // Hide Mystery Gate, Show Countdown
         mysteryGate.classList.add('hidden');
         countdownScreen.classList.remove('hidden');
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, 100);
             }
-            
+
             countdownNum.style.transition = "opacity 0.5s ease";
             countdownText.style.transition = "opacity 0.5s ease";
             countdownNum.style.opacity = "0";
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 3.5s cinematic pause
             setTimeout(() => {
                 countdownScreen.classList.add('hidden');
-                
+
                 // Play Grand Reveal Audio
                 if (audio && audio.paused) {
                     audio.volume = 0.8;
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Show the scene
                 scene.classList.remove('hidden');
-                
+
                 // Pop confetti after reveal
                 setTimeout(() => {
                     firePremiumConfetti(1.5);
@@ -274,12 +274,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Type out the wish instruction
                 setTimeout(() => {
-                    const initialWishText = document.querySelector('.wish-text');
-                    if (initialWishText) {
-                        typeWriterEffect(initialWishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40, () => {
+                    const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
+                    if (wishText) {
+                        typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước nhé... ✨", 40, () => {
                             setTimeout(() => {
                                 if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
-                            }, 3000);
+                            }, 1000);
                         });
                     }
                 }, 5500);
@@ -292,37 +292,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!candle.classList.contains('blown-out')) {
             candle.classList.add('blown-out');
             triggerHaptic([80, 50, 150]); // Haptic when candle blown
-            
+
             // Allow clicking through centerpiece to reach balloons behind
             const centerpiece = document.querySelector('.centerpiece');
             if (centerpiece) centerpiece.style.pointerEvents = 'none';
 
-            blowCandleBtn.classList.add('hidden'); 
-            const wishText = document.querySelector('.wish-text');
+            blowCandleBtn.classList.add('hidden');
+            const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
             if (wishText) {
-                wishText.style.opacity = '0';
-                setTimeout(() => {
-                    wishText.style.opacity = '1';
-                    typeWriterEffect(wishText, "Điều ước đó nhất định sẽ thành sự thật... ✨", 40, () => {
-                        setTimeout(() => {
-                            wishText.style.opacity = '0';
-                            setTimeout(() => {
-                                wishText.style.display = 'none';
-                                const catchHint = document.getElementById('catchBalloonHint');
-                                if (catchHint) {
-                                    catchHint.innerHTML = '';
-                                    catchHint.classList.remove('hidden');
-                                    typeWriterEffect(catchHint, "👆 Hãy chạm vào bóng bay để bắt lấy may mắn nhé!", 40);
-                                    
-                                    const balloonCounter = document.getElementById('balloonCounter');
-                                    if (balloonCounter) balloonCounter.classList.remove('hidden');
-                                }
-                            }, 300);
-                        }, 2500);
-                    });
-                }, 300);
+                typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
+                    setTimeout(() => {
+                        typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy may mắn & bảo bối nhé!", 35, () => {
+                            const balloonCounter = document.getElementById('balloonCounter');
+                            if (balloonCounter) balloonCounter.classList.remove('hidden');
+                        });
+                    }, 2200);
+                });
             }
-            
+
             setTimeout(() => {
                 firePremiumConfetti(1);
                 document.querySelector('.balloons').classList.add('interactive');
@@ -342,18 +329,18 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.classList.add('blurred');
         clickBookHint.classList.add('hidden');
         duckAudio(true); // Soften bgMusic when opening book
-        
+
         updateNavButtons();
     });
 
     // 2. Book Flipping Logic
     function updateNavButtons() {
-        if(currentLocation === 1) {
+        if (currentLocation === 1) {
             prevBtn.classList.add('disabled');
             nextBtn.classList.remove('disabled');
             book.classList.remove('open');
         }
-        else if(currentLocation === maxLocation) {
+        else if (currentLocation === maxLocation) {
             prevBtn.classList.remove('disabled');
             nextBtn.classList.add('disabled');
             book.classList.add('open');
@@ -366,10 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function goNextPage() {
-        if(currentLocation < maxLocation) {
+        if (currentLocation < maxLocation) {
             playPageFlipSound();
             triggerHaptic(40);
-            switch(currentLocation) {
+            switch (currentLocation) {
                 case 1:
                     paper1.classList.add('flipped');
                     paper1.style.zIndex = 1;
@@ -396,10 +383,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function goPrevPage() {
-        if(currentLocation > 1) {
+        if (currentLocation > 1) {
             playPageFlipSound();
             triggerHaptic(40);
-            switch(currentLocation) {
+            switch (currentLocation) {
                 case 2:
                     paper1.classList.remove('flipped');
                     paper1.style.zIndex = 4;
@@ -427,12 +414,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners for Book Nav
     nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goNextPage(); });
     prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goPrevPage(); });
-    
+
     // Close Book logic
     closeBookBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         triggerHaptic(40);
-        
+
         currentLocation = 1;
         papers.forEach((p, idx) => {
             p.classList.remove('flipped');
@@ -591,41 +578,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const randomWishes = [
         "🎒 Nhận được Chong Chóng Tre! Chúc Thanh Vy tuổi mới tự do bay cao bay xa, chạm đến mọi ước mơ hoài bão! 🚀",
         "🚪 Nhận được Cánh Cửa Thần Kỳ! Mở ra cánh cửa dẫn lối đến những chân trời du lịch mới và trải nghiệm kỳ thú! ✈️🌍",
-        "🍞 Nhận được Bánh Mì Chuyển Ngữ! Chúc Thanh Vy giao tiếp khéo léo, kết nối vạn người thương và luôn được yêu quý! 💬✨",
-        "⏱️ Nhận được Cỗ Máy Thời Gian! Chúc Thanh Vy luôn trân trọng từng phút giây thanh xuân tươi đẹp và rạng ngời! ⏳💖",
-        "🔦 Nhận được Đèn Pin Thu Nhỏ! Mọi khó khăn, áp lực và muộn phiền trong cuộc sống đều sẽ thu bé lại xíu xiu rồi biến mất! 🪄💫",
-        "🏮 Nhận được Đèn Pin Phóng To! Chúc niềm vui, sự tự tin và may mắn của Thanh Vy được phóng to gấp ngàn lần! 🌟📈",
-        "🕰️ Nhận được Khăn Trùm Thời Gian! Tuổi mới luôn giữ mãi nét tươi trẻ, da dẻ mịn màng và thần thái rạng rỡ! 🌸💆‍♀️",
-        "💊 Nhận được Bánh Mì Ghi Nhớ! Học gì hiểu nấy, làm việc thăng hoa, thi cử hanh thông và luôn đứng đầu bảng vàng! 📚💯",
-        "📷 Nhận được Máy Ảnh Tạo Mốt! Chúc Thanh Vy mỗi ngày bước ra đường đều xinh đẹp ngút ngàn, ăn diện cực chất và sang chảnh! 👗👠",
-        "☁️ Nhận được Mây Đông Đặc! Chúc Thanh Vy luôn có những giấc ngủ thật êm ái, bồng bềnh và không bao giờ mất ngủ! 🛌💤",
-        "📞 Nhận được Điện Thoại Yêu Cầu! Bất cứ điều ước hay kế hoạch nào Thanh Vy ấp ủ đều sẽ trở thành hiện thực rực rỡ! 🍀📞",
-        "🍰 Nhận được Bánh Rán Dorayaki Thượng Hạng! Chúc Thanh Vy thỏa sức ăn ngon cả thế giới mà dáng vẫn luôn chuẩn đẹp! 🧁😋",
-        "🎀 Nhận được Nơ Đổi Giọng! Chúc Thanh Vy nói lời nào cũng ngọt ngào, truyền cảm hứng và mang lại tiếng cười cho mọi người! 🎤🎶",
-        "💍 Nhận được Vòng Xuyên Thấu! Chúc Thanh Vy dễ dàng vượt qua mọi rào cản và thử thách trong công việc lẫn cuộc sống! 🎯🔓",
-        "🪞 Nhận được Gương Nhân Đôi! Chúc tài lộc, may mắn và số dư tài khoản của Thanh Vy cứ thế tự động nhân đôi liên tục! 💰💳",
-        "🧥 Nhận được Áo Choàng Tàng Hình! Chúc Thanh Vy luôn được bảo bọc an toàn, tránh xa mọi thị phi, rắc rối và năng lượng tiêu cực! 🛡️🍃",
-        "✏️ Nhận được Bút Chì Máy Tính! Mọi bài toán hay quyết định trong cuộc sống đều được giải quyết nhanh gọn, sáng suốt và chính xác! 🧠💡",
-        "🌬️ Nhận được Pháo Không Khí! Thổi bay mọi cơn stress, mệt mỏi trong tích tắc, trả lại tâm hồn sảng khoái và tràn đầy năng lượng! 💨🔥",
-        "⏳ Nhận được Đồng Hồ Ngưng Đọng Thời Gian! Những khoảnh khắc hạnh phúc bên gia đình và người thân yêu sẽ mãi đọng lại ngọt ngào! 🕰️💐",
-        "🍄 Nhận được Đèn Phục Hồi! Chúc sức khỏe của Thanh Vy luôn dồi dào, hồi phục năng lượng siêu tốc sau mỗi ngày bận rộn! ⚡💪",
-        "👟 Nhận được Giày Đi Vào Tranh! Chúc cuộc đời của Thanh Vy rực rỡ và lãng mạn như bước ra từ câu chuyện cổ tích đẹp nhất! 📖✨",
-        "🎋 Nhận được Cây Điều Ước! Cầu được ước thấy, mọi tâm nguyện của Thanh Vy trong tuổi mới đều sẽ sớm đơm hoa kết trái! 🎋🌠",
-        "🧲 Nhận được Nam Châm Tình Bạn! Luôn được bao quanh bởi những người bạn chân thành, tri kỷ và luôn sẵn sàng sẻ chia! 🤝❤️",
-        "🪶 Nhận được Lông Vũ Trọng Lượng! Chúc tâm hồn Thanh Vy luôn nhẹ tênh, thong dong bước qua giông bão với nụ cười trên môi! 🪶🕊️",
-        "🌧️ Nhận được Cây Dù Tình Yêu! Chúc Thanh Vy luôn được yêu thương, có một tình cảm thật dịu dàng che chở và đồng hành! ☂️💑",
-        "🍵 Nhận được Trà Thấu Hiểu! Luôn có một nội tâm an yên, sáng suốt và tìm thấy sự bình yên sâu lắng trong tâm hồn! 🍵🧘‍♀️",
-        "🚀 Nhận được Tàu Vũ Trụ Mini! Chúc sự nghiệp và học tập của Thanh Vy cất cánh bay vút lên những đỉnh cao mới! 🌌🏆",
-        "🥊 Nhận được Găng Tay Siêu Nhân! Trao cho Thanh Vy sức mạnh kiên cường để tự tay gặt hái những thành công rực rỡ nhất! 🥊🔥",
-        "🖌️ Nhận được Bút Vẽ Đồ Thật! Mọi ý tưởng sáng tạo trong đầu Thanh Vy đều sẽ được hiện thực hóa một cách hoàn hảo! 🖌️🌈",
-        "🫧 Nhận được Bong Bóng Bảo Vệ! Giữ cho Thanh Vy luôn vô ưu vô lo, được yêu thương và nâng niu trong thế giới của riêng mình! 🫧👑",
-        "🧭 Nhận được La Bàn Hạnh Phúc! Dù đi bất cứ đâu, la bàn cuộc đời cũng sẽ luôn chỉ đúng hướng dẫn lối Thanh Vy đến niềm vui ngập tràn! 🧭☀️",
-        "🪙 Nhận được Đồng Xu May Mắn! Ra đường gặp quý nhân, làm việc gặp thời cơ, vạn sự hanh thông như ý! 🍀✨",
-        "📻 Nhận được Chiếc Loa Cảm Hứng! Mỗi ngày thức dậy đều tràn đầy cảm hứng, năng lượng tích cực và nhiệt huyết tuổi trẻ! 📻🎉",
-        "🎁 Nhận được Hộp Quà Thần Kỳ! Cuộc sống tuổi mới của Thanh Vy sẽ luôn ngập tràn những món quà bất ngờ đáng yêu mỗi ngày! 🎁🎊",
+        // "🍞 Nhận được Bánh Mì Chuyển Ngữ! Chúc Thanh Vy giao tiếp khéo léo, kết nối vạn người thương và luôn được yêu quý! 💬✨",
+        // "⏱️ Nhận được Cỗ Máy Thời Gian! Chúc Thanh Vy luôn trân trọng từng phút giây thanh xuân tươi đẹp và rạng ngời! ⏳💖",
+        // "🔦 Nhận được Đèn Pin Thu Nhỏ! Mọi khó khăn, áp lực và muộn phiền trong cuộc sống đều sẽ thu bé lại xíu xiu rồi biến mất! 🪄💫",
+        // "🏮 Nhận được Đèn Pin Phóng To! Chúc niềm vui, sự tự tin và may mắn của Thanh Vy được phóng to gấp ngàn lần! 🌟📈",
+        // "🕰️ Nhận được Khăn Trùm Thời Gian! Tuổi mới luôn giữ mãi nét tươi trẻ, da dẻ mịn màng và thần thái rạng rỡ! 🌸💆‍♀️",
+        // "💊 Nhận được Bánh Mì Ghi Nhớ! Học gì hiểu nấy, làm việc thăng hoa, thi cử hanh thông và luôn đứng đầu bảng vàng! 📚💯",
+        // "📷 Nhận được Máy Ảnh Tạo Mốt! Chúc Thanh Vy mỗi ngày bước ra đường đều xinh đẹp ngút ngàn, ăn diện cực chất và sang chảnh! 👗👠",
+        // "☁️ Nhận được Mây Đông Đặc! Chúc Thanh Vy luôn có những giấc ngủ thật êm ái, bồng bềnh và không bao giờ mất ngủ! 🛌💤",
+        // "📞 Nhận được Điện Thoại Yêu Cầu! Bất cứ điều ước hay kế hoạch nào Thanh Vy ấp ủ đều sẽ trở thành hiện thực rực rỡ! 🍀📞",
+        // "🍰 Nhận được Bánh Rán Dorayaki Thượng Hạng! Chúc Thanh Vy thỏa sức ăn ngon cả thế giới mà dáng vẫn luôn chuẩn đẹp! 🧁😋",
+        // "🎀 Nhận được Nơ Đổi Giọng! Chúc Thanh Vy nói lời nào cũng ngọt ngào, truyền cảm hứng và mang lại tiếng cười cho mọi người! 🎤🎶",
+        // "💍 Nhận được Vòng Xuyên Thấu! Chúc Thanh Vy dễ dàng vượt qua mọi rào cản và thử thách trong công việc lẫn cuộc sống! 🎯🔓",
+        // "🪞 Nhận được Gương Nhân Đôi! Chúc tài lộc, may mắn và số dư tài khoản của Thanh Vy cứ thế tự động nhân đôi liên tục! 💰💳",
+        // "🧥 Nhận được Áo Choàng Tàng Hình! Chúc Thanh Vy luôn được bảo bọc an toàn, tránh xa mọi thị phi, rắc rối và năng lượng tiêu cực! 🛡️🍃",
+        // "✏️ Nhận được Bút Chì Máy Tính! Mọi bài toán hay quyết định trong cuộc sống đều được giải quyết nhanh gọn, sáng suốt và chính xác! 🧠💡",
+        // "🌬️ Nhận được Pháo Không Khí! Thổi bay mọi cơn stress, mệt mỏi trong tích tắc, trả lại tâm hồn sảng khoái và tràn đầy năng lượng! 💨🔥",
+        // "⏳ Nhận được Đồng Hồ Ngưng Đọng Thời Gian! Những khoảnh khắc hạnh phúc bên gia đình và người thân yêu sẽ mãi đọng lại ngọt ngào! 🕰️💐",
+        // "🍄 Nhận được Đèn Phục Hồi! Chúc sức khỏe của Thanh Vy luôn dồi dào, hồi phục năng lượng siêu tốc sau mỗi ngày bận rộn! ⚡💪",
+        // "👟 Nhận được Giày Đi Vào Tranh! Chúc cuộc đời của Thanh Vy rực rỡ và lãng mạn như bước ra từ câu chuyện cổ tích đẹp nhất! 📖✨",
+        // "🎋 Nhận được Cây Điều Ước! Cầu được ước thấy, mọi tâm nguyện của Thanh Vy trong tuổi mới đều sẽ sớm đơm hoa kết trái! 🎋🌠",
+        // "🧲 Nhận được Nam Châm Tình Bạn! Luôn được bao quanh bởi những người bạn chân thành, tri kỷ và luôn sẵn sàng sẻ chia! 🤝❤️",
+        // "🪶 Nhận được Lông Vũ Trọng Lượng! Chúc tâm hồn Thanh Vy luôn nhẹ tênh, thong dong bước qua giông bão với nụ cười trên môi! 🪶🕊️",
+        // "🌧️ Nhận được Cây Dù Tình Yêu! Chúc Thanh Vy luôn được yêu thương, có một tình cảm thật dịu dàng che chở và đồng hành! ☂️💑",
+        // "🍵 Nhận được Trà Thấu Hiểu! Luôn có một nội tâm an yên, sáng suốt và tìm thấy sự bình yên sâu lắng trong tâm hồn! 🍵🧘‍♀️",
+        // "🚀 Nhận được Tàu Vũ Trụ Mini! Chúc sự nghiệp và học tập của Thanh Vy cất cánh bay vút lên những đỉnh cao mới! 🌌🏆",
+        // "🥊 Nhận được Găng Tay Siêu Nhân! Trao cho Thanh Vy sức mạnh kiên cường để tự tay gặt hái những thành công rực rỡ nhất! 🥊🔥",
+        // "🖌️ Nhận được Bút Vẽ Đồ Thật! Mọi ý tưởng sáng tạo trong đầu Thanh Vy đều sẽ được hiện thực hóa một cách hoàn hảo! 🖌️🌈",
+        // "🫧 Nhận được Bong Bóng Bảo Vệ! Giữ cho Thanh Vy luôn vô ưu vô lo, được yêu thương và nâng niu trong thế giới của riêng mình! 🫧👑",
+        // "🧭 Nhận được La Bàn Hạnh Phúc! Dù đi bất cứ đâu, la bàn cuộc đời cũng sẽ luôn chỉ đúng hướng dẫn lối Thanh Vy đến niềm vui ngập tràn! 🧭☀️",
+        // "🪙 Nhận được Đồng Xu May Mắn! Ra đường gặp quý nhân, làm việc gặp thời cơ, vạn sự hanh thông như ý! 🍀✨",
+        // "📻 Nhận được Chiếc Loa Cảm Hứng! Mỗi ngày thức dậy đều tràn đầy cảm hứng, năng lượng tích cực và nhiệt huyết tuổi trẻ! 📻🎉",
+        // "🎁 Nhận được Hộp Quà Thần Kỳ! Cuộc sống tuổi mới của Thanh Vy sẽ luôn ngập tràn những món quà bất ngờ đáng yêu mỗi ngày! 🎁🎊",
         "🌟 Nhận được Ngôi Sao May Mắn & Túi Thần Kỳ! Toàn bộ vũ trụ gửi đến Thanh Vy muôn vàn phước lành, tình yêu thương và nụ cười rạng rỡ nhất! 🌟🥰"
     ];
-    
+
     let availableWishes = [...randomWishes];
 
     // "Nhận 💌" button event
@@ -636,15 +623,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const wishPaperNote = document.getElementById('wishPaperNote');
             if (wishPaperNote) wishPaperNote.classList.add('hidden');
             acceptWishBtn.classList.add('hidden');
-            
+
             // Add current wish to Bag
             if (currentActiveWish) {
                 addWishToBag(currentActiveWish);
             }
-            
+
             // Resume game
             document.querySelector('.balloons').classList.add('interactive');
-            
+
             // Check game over
             checkGameOver();
         });
@@ -663,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => hud.style.transform = '', 250);
             }
         }
-        
+
         // Quả bóng thứ 12 sẽ xuất hiện từ dưới lên khi 11 quả kia đã bị đập
         if (totalBalloons - clickedBalloons === 1) {
             const bossBalloon = document.getElementById('bossBalloon');
@@ -671,7 +658,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bossBalloon.style.display = 'block';
                 bossBalloon.classList.add('is-last-balloon');
                 document.querySelector('.balloons').style.zIndex = '999';
-                
+
                 const miniBook = document.createElement('div');
                 miniBook.className = 'mini-book-tie';
                 miniBook.innerHTML = '<div class="mini-book-icon"><div class="border-decor"></div><i class="fa-solid fa-cake-candles crown-icon"></i><div class="title">Những Lời<br>Muốn Nói</div></div>';
@@ -686,33 +673,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedBalloons = document.querySelectorAll('.balloon.clicked, .balloon.popped').length;
         if (clickedBalloons === totalBalloons) {
             setTimeout(() => {
-                const hint = document.getElementById('catchBalloonHint');
-                if (hint) hint.classList.add('hidden');
-                
+                const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
+                if (wishText) {
+                    typeWriterEffect(wishText, "🎉 Tuyệt vời! Hãy mở quyển nhật ký ở góc dưới nhé! 📖", 40);
+                }
+
                 const hud = document.getElementById('balloonCounter');
                 if (hud) hud.classList.add('hidden');
-                
+
                 triggerHaptic([100, 50, 100, 50, 200]);
                 firePremiumConfetti(2.2);
-                
+
                 // Quyển sổ văng thẳng ra giữa màn hình với hào quang vàng lung linh
                 bookWrapper.classList.remove('hidden', 'in-corner');
                 bookWrapper.classList.add('in-center', 'book-grand-reveal');
                 scene.classList.add('blurred');
                 duckAudio(true);
                 updateNavButtons();
-                
+
                 // Tự động lật mở trang 1 sau 900ms để Thanh Vy chiêm ngưỡng bìa rồi thấy ngay lời chúc & ảnh
                 setTimeout(() => {
                     if (currentLocation === 1) {
                         goNextPage();
                     }
                 }, 900);
-                
+
             }, 350);
         }
     }
-    
+
     allBalloons.forEach(balloon => {
         const tag = balloon.querySelector('.paper-tag');
         const tooltip = balloon.querySelector('.balloon-tooltip');
@@ -721,56 +710,56 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             if (!document.querySelector('.balloons').classList.contains('interactive')) return;
             if (balloon.classList.contains('clicked')) return;
-            
+
             if (tag && tooltip) {
                 // Balloon WITH a tag -> Open Wish
                 if (tag.classList.contains('opened')) return;
-                
+
                 triggerHaptic(50);
                 document.querySelector('.balloons').classList.remove('interactive');
-                
+
                 if (availableWishes.length === 0) {
                     availableWishes = [...randomWishes];
                 }
                 const randomIndex = Math.floor(Math.random() * availableWishes.length);
                 const randomWish = availableWishes.splice(randomIndex, 1)[0];
                 currentActiveWish = randomWish;
-                
+
                 tooltip.innerHTML = randomWish;
                 playPaperSound();
-                
+
                 tooltip.classList.add('show');
                 tag.classList.add('opened');
                 balloon.classList.add('clicked');
-                
+
                 const wishPaperNote = document.getElementById('wishPaperNote');
                 const wishPaperText = document.getElementById('wishPaperText');
                 if (wishPaperNote && wishPaperText) {
                     wishPaperNote.classList.remove('hidden');
                     if (acceptWishBtn) acceptWishBtn.classList.add('hidden');
-                    
+
                     typeWriterEffect(wishPaperText, randomWish, 35, () => {
                         if (acceptWishBtn) acceptWishBtn.classList.remove('hidden');
                     });
                 }
-                
+
                 myConfetti({ particleCount: 25, spread: 55, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
                 updateHUD();
-                
+
             } else {
                 // Balloon WITHOUT a tag -> Pop!
                 if (balloon.classList.contains('popped')) return;
-                
+
                 triggerHaptic(70);
                 balloon.classList.add('popped');
                 balloon.classList.add('clicked');
-                
+
                 playPopSound();
-                
+
                 const rect = balloon.getBoundingClientRect();
                 const x = (rect.left + rect.width / 2) / window.innerWidth;
                 const y = (rect.top + rect.height / 2) / window.innerHeight;
-                
+
                 myConfetti({
                     particleCount: 40,
                     spread: 70,

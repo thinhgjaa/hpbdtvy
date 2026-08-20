@@ -236,17 +236,27 @@
                 </div>
             </div>
             
-            <div class="wish-container">
-                <p class="wish-text"></p>
-                <button id="blowCandleBtn" class="glowing-btn blow-btn hidden"><i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨</button>
-            </div>
-            
-            <p class="click-book-hint hidden" id="clickBookHint"><i class="fa-solid fa-arrow-down-right"></i> Mở quyển nhật ký ở góc dưới nhé!</p>
-            <p class="catch-balloon-hint hidden" id="catchBalloonHint"><i class="fa-solid fa-hand-pointer"></i> Hãy chạm vào bóng bay để bắt lấy may mắn nhé!</p>
+            <!-- Unified Paper Message Note Board under Cake -->
+            <div class="wish-container" id="wishContainer">
+                <div class="paper-note-card">
+                    <!-- Decorative tape & sparkles -->
+                    <div class="note-tape"></div>
+                    <div class="note-sparkle-left">✨</div>
+                    <div class="note-sparkle-right">🎈</div>
 
-            <!-- Balloon Counter (Minigame HUD) -->
-            <div id="balloonCounter" class="balloon-counter hidden">
-                🎈 <span id="balloonCounterText">0/20</span>
+                    <!-- Unified Message Text (Typewriter) -->
+                    <p class="wish-text" id="unifiedWishText"></p>
+                    
+                    <!-- Candle Blowing Button -->
+                    <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
+                        <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
+                    </button>
+
+                    <!-- Balloon Counter (Minigame HUD) -->
+                    <div id="balloonCounter" class="balloon-counter hidden">
+                        🎈 <span id="balloonCounterText">0/20</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
