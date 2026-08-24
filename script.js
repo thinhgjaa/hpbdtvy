@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. Smart Preloader Logic (Track real assets)
+    // 0. Smart Preloader Logic (Cinematic pacing & Real Asset Tracking)
     const preloader = document.getElementById('preloader');
     const loadingBar = document.getElementById('loadingBar');
     const loadingText = document.getElementById('loadingText');
@@ -24,42 +24,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalAssets = preloadImages.length + preloadAudio.length;
     let loadedAssetsCount = 0;
     let visualProgress = 0;
-    let progressAnimFrame = null;
+    const startTime = Date.now();
+    const MIN_PRELOAD_DURATION = 2200; // Giữ màn hình Doraemon lục túi 2.2s để người xem kịp ngắm
 
-    function setVisualProgress(targetPercent) {
-        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-        function step() {
-            if (visualProgress < targetPercent) {
-                visualProgress += Math.max(1, (targetPercent - visualProgress) * 0.2);
-                if (visualProgress > targetPercent) visualProgress = targetPercent;
-                if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
-                if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${Math.floor(visualProgress)}%`;
-                if (visualProgress < targetPercent) {
-                    progressAnimFrame = requestAnimationFrame(step);
-                }
-            }
+    // Smooth visual progress ticker
+    const progressTicker = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const timeRatio = Math.min(1, elapsed / MIN_PRELOAD_DURATION);
+        const realAssetRatio = totalAssets > 0 ? (loadedAssetsCount / totalAssets) : 1;
+        
+        // Kết hợp giữa tiến độ load thật và nhịp thời gian điện ảnh
+        const targetPercent = Math.floor(Math.min(99, Math.max(timeRatio * 90, realAssetRatio * 90)));
+        
+        if (visualProgress < targetPercent) {
+            visualProgress += Math.ceil((targetPercent - visualProgress) * 0.25);
+            if (visualProgress > targetPercent) visualProgress = targetPercent;
+            if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
+            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${visualProgress}%`;
         }
-        step();
-    }
+
+        // Khi cả asset thật đã xong và đủ thời gian tối thiểu 2.2s
+        if (loadedAssetsCount >= totalAssets && elapsed >= MIN_PRELOAD_DURATION && !isPreloaderFinished) {
+            clearInterval(progressTicker);
+            completePreload();
+        }
+    }, 50);
 
     function checkAssetLoaded() {
         loadedAssetsCount++;
-        const percent = Math.min(100, Math.floor((loadedAssetsCount / totalAssets) * 100));
-        setVisualProgress(percent);
-        if (loadedAssetsCount >= totalAssets) {
-            completePreload();
-        }
     }
 
     function completePreload() {
         if (isPreloaderFinished) return;
         isPreloaderFinished = true;
-        setVisualProgress(100);
+        clearInterval(progressTicker);
+        if (loadingBar) loadingBar.style.width = `100%`;
+        if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
+
         setTimeout(() => {
+            // Ẩn preloader, hiện Cánh Cửa Thần Kỳ
             if (preloader) preloader.classList.add('hidden');
-            const startBtn = document.getElementById('start-btn');
-            if (startBtn) startBtn.classList.add('drop-cord-active');
-        }, 600);
+
+            // Chờ 6 giây để Thanh Vy đọc xong hướng dẫn bật loa to, rồi dây kéo mới từ từ thả xuống
+            setTimeout(() => {
+                const startBtn = document.getElementById('start-btn');
+                if (startBtn) startBtn.classList.add('drop-cord-active');
+            }, 6000);
+        }, 500);
     }
 
     preloadImages.forEach(src => {
@@ -80,11 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
         aud.src = src;
     });
 
-    // Window load fallback & safety timeout (3.5s max)
-    window.addEventListener('load', () => {
-        setTimeout(completePreload, 300);
-    });
-    setTimeout(completePreload, 3500);
+    // Fallback an toàn (tối đa 4s)
+    setTimeout(() => {
+        if (!isPreloaderFinished) {
+            completePreload();
+        }
+    }, 4000);
 
     // Typewriter Utility Function with Quick-Skip capability
     function typeWriterEffect(element, text, speed = 40, callback = null) {
