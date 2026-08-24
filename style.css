@@ -19,6 +19,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     background: radial-gradient(circle at center, #e1f5fe 0%, #b3e5fc 100%);
     min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
     color: var(--text-main);
 }
@@ -67,6 +68,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
+    height: 100dvh;
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -118,6 +120,8 @@ body::after {
     font-size: 1.3rem;
     animation: preloaderStarFloat 4s ease-in-out infinite alternate;
     filter: drop-shadow(0 0 8px currentColor);
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
 .p-s1 { top: 15%; left: 18%; color: #ffd32a; animation-delay: 0s; }
@@ -162,6 +166,8 @@ body::after {
     box-shadow: 0 0 45px rgba(0, 150, 230, 0.6), 0 15px 35px rgba(0, 0, 0, 0.6);
     animation: cardWobble 3.5s ease-in-out infinite alternate;
     margin-bottom: 24px;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 @keyframes cardWobble {
@@ -181,6 +187,8 @@ body::after {
     animation: auraPulse 2.5s infinite alternate ease-in-out;
     pointer-events: none;
     z-index: -1;
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
 @keyframes auraPulse {
@@ -203,6 +211,8 @@ body::after {
     display: block;
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.15);
     animation: imgShake 0.35s infinite alternate ease-in-out;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 @keyframes imgShake {
@@ -639,6 +649,8 @@ body::after {
     transform-origin: top center;
     animation: swing 3s ease-in-out infinite alternate;
     filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12));
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .t1 {
@@ -708,6 +720,8 @@ body::after {
     color: #ffd700;
     animation: twinkle 2s infinite alternate, floatSparkle 10s linear infinite;
     opacity: 0;
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
 .s1 {
@@ -784,6 +798,8 @@ body::after {
     z-index: 12;
     filter: drop-shadow(0 4px 10px rgba(0, 150, 230, 0.4));
     animation: floatSkyDoraemon 4.5s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .sky-doraemon svg {
@@ -864,6 +880,8 @@ body::after {
     z-index: 8;
     filter: drop-shadow(0 8px 16px rgba(0, 150, 230, 0.25));
     animation: floatCloud 8s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .cloud-1 {
@@ -925,6 +943,8 @@ body::after {
     z-index: 12;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
     animation: floatGadget 4s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .sky-gadget svg {
@@ -998,6 +1018,8 @@ body::after {
     z-index: 12;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
     animation: floatDoraemonCake 5s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .dc-1 {
@@ -1031,6 +1053,8 @@ body::after {
     z-index: 12;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
     animation: floatDoraemonClassic 4.8s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .dm-1 {
@@ -1080,6 +1104,9 @@ body::after {
     /* By default, not clickable */
     touch-action: manipulation;
     /* Giúp click trên điện thoại nhạy hơn */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .balloons.interactive {
@@ -1759,8 +1786,19 @@ body::after {
     gap: 10px;
     font-weight: 600;
     cursor: pointer;
-    animation: glowPulse 2s infinite alternate;
+    animation: blowBtnEntrance 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, glowPulse 2s infinite alternate 0.7s;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes blowBtnEntrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.6) translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .blow-btn i {

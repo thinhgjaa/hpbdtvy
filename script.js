@@ -1,47 +1,148 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. Preloader Logic
+    // 0. Smart Preloader Logic (Track real assets)
     const preloader = document.getElementById('preloader');
     const loadingBar = document.getElementById('loadingBar');
     const loadingText = document.getElementById('loadingText');
-    let loadProgress = 0;
+    let isPreloaderFinished = false;
 
-    // Simulate loading
-    const loadInterval = setInterval(() => {
-        if (loadProgress < 90) {
-            loadProgress += Math.random() * 8;
-            if (loadProgress > 90) loadProgress = 90;
-            if (loadingBar) loadingBar.style.width = `${loadProgress}%`;
-            if (loadingText) loadingText.innerHTML = `Đang tải bảo bối từ túi thần kỳ cho Thanh Vy... ${Math.floor(loadProgress)}%`;
+    const preloadImages = [
+        'image/doremon/fumble.jpg',
+        'image/doremon/hpbd.png',
+        'image/doremon/Doraemon_character.png',
+        'image/tvy/1.jpg',
+        'image/tvy/2.jpg',
+        'image/tvy/3.jpg',
+        'image/tvy/4.jpg',
+        'image/tvy/5.jpg',
+        'image/tvy/7.jpg'
+    ];
+    const preloadAudio = [
+        'music/countdown.mp3',
+        'music/hpbd.mp3'
+    ];
+
+    const totalAssets = preloadImages.length + preloadAudio.length;
+    let loadedAssetsCount = 0;
+    let visualProgress = 0;
+    let progressAnimFrame = null;
+
+    function setVisualProgress(targetPercent) {
+        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+        function step() {
+            if (visualProgress < targetPercent) {
+                visualProgress += Math.max(1, (targetPercent - visualProgress) * 0.2);
+                if (visualProgress > targetPercent) visualProgress = targetPercent;
+                if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
+                if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${Math.floor(visualProgress)}%`;
+                if (visualProgress < targetPercent) {
+                    progressAnimFrame = requestAnimationFrame(step);
+                }
+            }
         }
-    }, 250);
+        step();
+    }
 
-    window.addEventListener('load', () => {
-        clearInterval(loadInterval);
-        if (loadingBar) loadingBar.style.width = `100%`;
-        if (loadingText) loadingText.innerHTML = `Đang tải bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
+    function checkAssetLoaded() {
+        loadedAssetsCount++;
+        const percent = Math.min(100, Math.floor((loadedAssetsCount / totalAssets) * 100));
+        setVisualProgress(percent);
+        if (loadedAssetsCount >= totalAssets) {
+            completePreload();
+        }
+    }
+
+    function completePreload() {
+        if (isPreloaderFinished) return;
+        isPreloaderFinished = true;
+        setVisualProgress(100);
         setTimeout(() => {
             if (preloader) preloader.classList.add('hidden');
             const startBtn = document.getElementById('start-btn');
             if (startBtn) startBtn.classList.add('drop-cord-active');
-        }, 1200);
+        }, 600);
+    }
+
+    preloadImages.forEach(src => {
+        const img = new Image();
+        img.onload = checkAssetLoaded;
+        img.onerror = checkAssetLoaded;
+        img.src = src;
+        if (img.complete) {
+            checkAssetLoaded();
+        }
     });
 
-    // Typewriter Utility Function
-    function typeWriterEffect(element, text, speed, callback) {
+    preloadAudio.forEach(src => {
+        const aud = new Audio();
+        aud.preload = 'auto';
+        aud.oncanplaythrough = () => { checkAssetLoaded(); aud.oncanplaythrough = null; };
+        aud.onerror = checkAssetLoaded;
+        aud.src = src;
+    });
+
+    // Window load fallback & safety timeout (3.5s max)
+    window.addEventListener('load', () => {
+        setTimeout(completePreload, 300);
+    });
+    setTimeout(completePreload, 3500);
+
+    // Typewriter Utility Function with Quick-Skip capability
+    function typeWriterEffect(element, text, speed = 40, callback = null) {
+        if (!element) {
+            if (callback) callback();
+            return () => {};
+        }
+
+        if (element._typingTimeout) clearTimeout(element._typingTimeout);
+        if (element._skipHandler) {
+            element.removeEventListener('click', element._skipHandler);
+            element.removeEventListener('touchend', element._skipHandler);
+        }
+
         element.innerHTML = '';
         let i = 0;
-        if (element.typingTimeout) clearTimeout(element.typingTimeout);
+        let isDone = false;
+
+        function finishImmediately() {
+            if (isDone) return;
+            isDone = true;
+            if (element._typingTimeout) clearTimeout(element._typingTimeout);
+            element.innerHTML = text;
+            cleanup();
+            if (callback) callback();
+        }
+
+        function cleanup() {
+            if (element._skipHandler) {
+                element.removeEventListener('click', element._skipHandler);
+                element.removeEventListener('touchend', element._skipHandler);
+                element._skipHandler = null;
+            }
+        }
+
+        element._skipHandler = (e) => {
+            if (!isDone) {
+                e.stopPropagation();
+                finishImmediately();
+            }
+        };
+
+        element.addEventListener('click', element._skipHandler);
+        element.addEventListener('touchend', element._skipHandler, { passive: false });
 
         function type() {
+            if (isDone) return;
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                element.typingTimeout = setTimeout(type, speed);
-            } else if (callback) {
-                callback();
+                element._typingTimeout = setTimeout(type, speed);
+            } else {
+                finishImmediately();
             }
         }
         type();
+
+        return finishImmediately;
     }
 
     // --- HAPTIC FEEDBACK UTILITY ---
@@ -127,8 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gainNode.connect(audioCtx.destination);
         noise.start(now);
     }
-
-
 
     // 2. Âm thanh lật trang sách chân thực, êm ái (Soft Realistic Page Turn)
     function playPageFlipSound() {
@@ -266,12 +365,47 @@ document.addEventListener('DOMContentLoaded', () => {
     let countdownValue = 3;
 
     function typeWriter(text, i, cb) {
-        if (i < text.length) {
-            countdownText.innerHTML += text.charAt(i);
-            setTimeout(() => typeWriter(text, i + 1, cb), 50);
-        } else {
-            setTimeout(cb, 1500);
+        if (countdownText._typingTimeout) clearTimeout(countdownText._typingTimeout);
+        let isDone = false;
+
+        function finishCountdownStep() {
+            if (isDone) return;
+            isDone = true;
+            if (countdownText._typingTimeout) clearTimeout(countdownText._typingTimeout);
+            countdownText.innerHTML = text;
+            if (countdownScreen._countdownSkip) {
+                countdownScreen.removeEventListener('click', countdownScreen._countdownSkip);
+                countdownScreen._countdownSkip = null;
+            }
+            setTimeout(cb, 400);
         }
+
+        countdownScreen._countdownSkip = (e) => {
+            if (!isDone) {
+                e.stopPropagation();
+                finishCountdownStep();
+            }
+        };
+        countdownScreen.addEventListener('click', countdownScreen._countdownSkip, { once: true });
+
+        function type() {
+            if (isDone) return;
+            if (i < text.length) {
+                countdownText.innerHTML += text.charAt(i);
+                i++;
+                countdownText._typingTimeout = setTimeout(type, 45);
+            } else {
+                if (!isDone) {
+                    isDone = true;
+                    if (countdownScreen._countdownSkip) {
+                        countdownScreen.removeEventListener('click', countdownScreen._countdownSkip);
+                        countdownScreen._countdownSkip = null;
+                    }
+                    setTimeout(cb, 1200);
+                }
+            }
+        }
+        type();
     }
 
     startBtn.addEventListener('click', () => {
@@ -337,42 +471,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Pop confetti after reveal
                 setTimeout(() => {
                     firePremiumConfetti(1.5);
-                }, 2000);
+                }, 1500);
 
-                // Type out the birthday celebration & wish instruction
+                // Type out the birthday celebration & wish instruction with Quick-Skip
                 setTimeout(() => {
-                    const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
-                    if (wishText) {
-                        typeWriterEffect(wishText, "Chúccc mừnggg sinhhh nhậttt 21 tủiiii Thanh Vy nhé !!!! 🎉✨", 40, () => {
-                            setTimeout(() => {
-                                typeWriterEffect(wishText, "Nàooooooo!!! ✨", 45, () => {
-                                    setTimeout(() => {
-                                        typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
-                                            setTimeout(() => {
-                                                if (blowCandleBtn) blowCandleBtn.classList.remove('hidden');
-                                            }, 3500);
-                                        });
-                                    }, 2000);
-                                });
-                            }, 5000);
-                        });
-                    }
-                }, 5500);
-            }, 3500);
+                    runBirthdayIntro();
+                }, 3500);
+            }, 3000);
         }
     }
 
+    // Birthday intro sequence with quick-skip capability
+    function runBirthdayIntro() {
+        const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
+        const wishContainer = document.getElementById('wishContainer') || document.querySelector('.wish-container');
+        if (!wishText) return;
+
+        let currentStep = 0;
+        let stepTimer = null;
+
+        function nextStep() {
+            if (stepTimer) clearTimeout(stepTimer);
+            currentStep++;
+            if (currentStep === 1) {
+                typeWriterEffect(wishText, "Chúccc mừnggg sinhhh nhậttt 21 tủiiii Thanh Vy nhé !!!! 🎉✨", 40, () => {
+                    stepTimer = setTimeout(nextStep, 4000);
+                });
+            } else if (currentStep === 2) {
+                typeWriterEffect(wishText, "Nàooooooo!!! ✨", 45, () => {
+                    stepTimer = setTimeout(nextStep, 1500);
+                });
+            } else if (currentStep === 3) {
+                typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
+                    stepTimer = setTimeout(() => {
+                        if (blowCandleBtn && !candle.classList.contains('blown-out')) {
+                            blowCandleBtn.classList.remove('hidden');
+                            blowCandleBtn.style.display = '';
+                        }
+                    }, 4800);
+                });
+            }
+        }
+
+        if (wishContainer) {
+            wishContainer.style.cursor = 'pointer';
+            wishContainer.title = 'Chạm để hiện nhanh';
+            wishContainer.addEventListener('click', (e) => {
+                if (candle.classList.contains('blown-out')) return;
+                if (e.target === blowCandleBtn || (blowCandleBtn && blowCandleBtn.contains(e.target))) return;
+
+                if (currentStep < 3) {
+                    nextStep();
+                } else if (currentStep === 3 && blowCandleBtn && blowCandleBtn.classList.contains('hidden')) {
+                    blowCandleBtn.classList.remove('hidden');
+                    blowCandleBtn.style.display = '';
+                }
+            });
+        }
+
+        nextStep();
+    }
+
     // Candle Blowing Logic
-    blowCandleBtn.addEventListener('click', () => {
+    blowCandleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (!candle.classList.contains('blown-out')) {
             candle.classList.add('blown-out');
             triggerHaptic([80, 50, 150]); // Haptic when candle blown
+
+            // Hide blow button permanently
+            blowCandleBtn.classList.add('hidden');
+            blowCandleBtn.style.display = 'none';
+
+            if (wishContainer) {
+                wishContainer.style.cursor = 'default';
+                wishContainer.removeAttribute('title');
+            }
 
             // Allow clicking through centerpiece to reach balloons behind
             const centerpiece = document.querySelector('.centerpiece');
             if (centerpiece) centerpiece.style.pointerEvents = 'none';
 
-            blowCandleBtn.classList.add('hidden');
             const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
             if (wishText) {
                 typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
@@ -770,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (wishText) {
                     wishText.style.display = "block";
                     wishText.style.opacity = "1";
-                    typeWriterEffect(wishText, "🎉 Tuyệt vời! Hãy mở quyển nhật ký ở góc dưới nhé! 📖", 40);
+                    typeWriterEffect(wishText, "🎉 Tuyệt vời! Bạn đã thu thập đủ bảo bối! Cuốn sổ kỷ niệm đang mở ra... 📖", 40);
                 }
 
                 const hud = document.getElementById('balloonCounter');
@@ -833,9 +1012,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     wishPaperNote.classList.remove('hidden');
                     if (acceptWishBtn) acceptWishBtn.classList.add('hidden');
 
-                    typeWriterEffect(wishPaperText, randomWish, 35, () => {
+                    const skipWishNote = typeWriterEffect(wishPaperText, randomWish, 30, () => {
                         if (acceptWishBtn) acceptWishBtn.classList.remove('hidden');
                     });
+
+                    wishPaperNote.onclick = (event) => {
+                        if (event.target !== acceptWishBtn) {
+                            skipWishNote();
+                        }
+                    };
                 }
 
                 myConfetti({ particleCount: 25, spread: 55, origin: { y: 0.8 }, colors: colors, zIndex: 3000 });
