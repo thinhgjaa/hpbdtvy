@@ -1,0 +1,15 @@
+{
+  "name": "hpbd-thanhvy",
+  "version": "1.0.0",
+  "description": "Happy Birthday Thanh Vy",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y serve -l 5000 .",
+    "start": "npx -y serve -l 5000 .",
+    "serve": "npx -y serve -l 5000 .",
+    "live": "npx -y live-server --port=5000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
