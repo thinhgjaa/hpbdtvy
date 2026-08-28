@@ -603,6 +603,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Dynamic Pixel-Perfect Scaling for Book on Mobile Devices
+    function updateBookScale() {
+        const bookScaler = document.querySelector('.book-scaler');
+        if (!bookScaler) return;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        if (w <= 768) {
+            // Book spread is 760px wide, 520px high
+            const scaleW = (w * 0.90) / 760;
+            const scaleH = (h * 0.60) / 520;
+            const finalScale = Math.min(scaleW, scaleH, 0.72);
+            bookScaler.style.transform = `scale(${finalScale.toFixed(3)})`;
+            bookScaler.style.transformOrigin = 'center center';
+        } else {
+            bookScaler.style.transform = '';
+            bookScaler.style.transformOrigin = '';
+        }
+    }
+    window.addEventListener('resize', updateBookScale);
+    window.addEventListener('orientationchange', updateBookScale);
+    updateBookScale();
+
     // 1. Open Book (Move from corner to center)
     bookWrapper.addEventListener('click', (e) => {
         if (bookWrapper.classList.contains('in-center')) return;
@@ -610,6 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
         triggerHaptic([60, 40, 100]);
         firePremiumConfetti(1);
 
+        updateBookScale();
         bookWrapper.classList.remove('in-corner');
         bookWrapper.classList.add('in-center');
         scene.classList.add('blurred');
@@ -672,6 +696,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners for Book Nav
     if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goNextPage(); });
     if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goPrevPage(); });
+
+    // Keyboard navigation (Arrow keys & Escape)
+    document.addEventListener('keydown', (e) => {
+        if (!bookWrapper || !bookWrapper.classList.contains('in-center')) return;
+        if (e.key === 'ArrowRight') {
+            goNextPage();
+        } else if (e.key === 'ArrowLeft') {
+            goPrevPage();
+        } else if (e.key === 'Escape') {
+            if (closeBookBtn) closeBookBtn.click();
+        }
+    });
 
     // Close Book logic
     if (closeBookBtn) {
@@ -952,6 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 firePremiumConfetti(2.2);
 
                 // Quyển sổ văng thẳng ra giữa màn hình với hào quang vàng lung linh
+                updateBookScale();
                 bookWrapper.classList.remove('hidden', 'in-corner');
                 bookWrapper.classList.add('in-center', 'book-grand-reveal');
                 scene.classList.add('blurred');
