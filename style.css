@@ -2179,20 +2179,89 @@ body::after {
     transform: rotateY(-180deg);
 }
 
-#p1 {
-    z-index: 4;
+#p1 { z-index: 8; }
+#p2 { z-index: 7; }
+#p3 { z-index: 6; }
+#p4 { z-index: 5; }
+#p5 { z-index: 4; }
+#p6 { z-index: 3; }
+#p7 { z-index: 2; }
+#p8 { z-index: 1; }
+
+/* Single Sentence Pages inside Book */
+.page-content.single-sentence-page {
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95), rgba(255, 242, 247, 0.8));
+    position: relative;
+    overflow: hidden;
 }
 
-#p2 {
-    z-index: 3;
+.page-decor-sparkle {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    letter-spacing: 6px;
+    filter: drop-shadow(0 2px 4px rgba(255, 107, 129, 0.3));
+    animation: gentleTwinkle 2.5s infinite alternate ease-in-out;
 }
 
-#p3 {
-    z-index: 2;
+@keyframes gentleTwinkle {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    100% { transform: scale(1.08); opacity: 1; }
 }
 
-#p4 {
-    z-index: 1;
+.sentence-heading {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.55rem;
+    color: #ff6b81;
+    margin-bottom: 14px;
+    line-height: 1.25;
+    text-shadow: 1px 1px 2px rgba(255, 107, 129, 0.15);
+}
+
+.single-sentence-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.85rem;
+    line-height: 1.45;
+    color: #2f3542;
+    font-weight: 700;
+    margin: 6px 0 14px 0;
+    max-width: 95%;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.sentence-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    color: #ff4757;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    background: rgba(255, 107, 129, 0.12);
+    border: 1px dashed rgba(255, 107, 129, 0.4);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+.sentence-bubble {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ff4757;
+    margin-top: 8px;
+    text-align: center;
+    line-height: 1.35;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 14px;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 159, 243, 0.4);
+    max-width: 95%;
 }
 
 /* Golden Glow on Book Grand Finale Reveal */
@@ -2490,15 +2559,15 @@ h2 {
 }
 
 .msg-body {
-    font-size: 1.3rem;
-    line-height: 1.7;
+    font-size: 1.12rem;
+    line-height: 1.6;
     text-align: center;
     color: #2f3542;
     font-weight: 500;
 }
 
 .msg-body p {
-    margin-bottom: 14px;
+    margin-bottom: 9px;
 }
 
 /* Polaroid */

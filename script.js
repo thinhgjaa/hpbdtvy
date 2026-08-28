@@ -175,12 +175,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const countdownAudio = document.getElementById('countdownMusic');
     const soundBtn = document.getElementById('soundBtn');
 
-    // Page Elements (4 Papers)
-    const paper1 = document.getElementById('p1');
-    const paper2 = document.getElementById('p2');
-    const paper3 = document.getElementById('p3');
-    const paper4 = document.getElementById('p4');
-    const papers = [paper1, paper2, paper3, paper4];
+    // Page Elements (All Papers dynamically queried)
+    let papers = Array.from(document.querySelectorAll('.book .paper'));
+    let numOfPapers = papers.length;
+    let maxLocation = numOfPapers + 1;
+    let currentLocation = 1;
+
+    function resetPaperZIndices() {
+        papers = Array.from(document.querySelectorAll('.book .paper'));
+        numOfPapers = papers.length;
+        maxLocation = numOfPapers + 1;
+        papers.forEach((p, idx) => {
+            if (p) {
+                p.classList.remove('flipped');
+                p.style.zIndex = numOfPapers - idx;
+            }
+        });
+    }
+    resetPaperZIndices();
 
     // Nav Buttons
     const prevBtn = document.getElementById('prev-btn');
@@ -316,9 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 60);
     }
 
-    let currentLocation = 1;
-    let numOfPapers = 4;
-    let maxLocation = numOfPapers + 1;
 
     // Sound Toggle Logic
     let isMuted = false;
@@ -633,26 +642,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentLocation < maxLocation) {
             playPageFlipSound();
             triggerHaptic(40);
-            switch (currentLocation) {
-                case 1:
-                    paper1.classList.add('flipped');
-                    paper1.style.zIndex = 1;
-                    break;
-                case 2:
-                    paper2.classList.add('flipped');
-                    paper2.style.zIndex = 2;
-                    break;
-                case 3:
-                    paper3.classList.add('flipped');
-                    paper3.style.zIndex = 3;
-                    break;
-                case 4:
-                    paper4.classList.add('flipped');
-                    paper4.style.zIndex = 4;
-                    setTimeout(() => celebration(), 400); // Fireworks at final page!
-                    break;
-                default:
-                    throw new Error("unknown state");
+            const currentPaper = papers[currentLocation - 1];
+            if (currentPaper) {
+                currentPaper.classList.add('flipped');
+                currentPaper.style.zIndex = currentLocation;
+            }
+            if (currentLocation === numOfPapers) {
+                setTimeout(() => celebration(), 400); // Fireworks at final page!
             }
             currentLocation++;
             updateNavButtons();
@@ -663,25 +659,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentLocation > 1) {
             playPageFlipSound();
             triggerHaptic(40);
-            switch (currentLocation) {
-                case 2:
-                    paper1.classList.remove('flipped');
-                    paper1.style.zIndex = 4;
-                    break;
-                case 3:
-                    paper2.classList.remove('flipped');
-                    paper2.style.zIndex = 3;
-                    break;
-                case 4:
-                    paper3.classList.remove('flipped');
-                    paper3.style.zIndex = 2;
-                    break;
-                case 5:
-                    paper4.classList.remove('flipped');
-                    paper4.style.zIndex = 1;
-                    break;
-                default:
-                    throw new Error("unknown state");
+            const prevPaper = papers[currentLocation - 2];
+            if (prevPaper) {
+                prevPaper.classList.remove('flipped');
+                prevPaper.style.zIndex = numOfPapers - (currentLocation - 2);
             }
             currentLocation--;
             updateNavButtons();
@@ -702,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
             papers.forEach((p, idx) => {
                 if (p) {
                     p.classList.remove('flipped');
-                    p.style.zIndex = 4 - idx;
+                    p.style.zIndex = numOfPapers - idx;
                 }
             });
             updateNavButtons();
