@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 4000);
 
-    // Typewriter Utility Function with Quick-Skip capability
-    function typeWriterEffect(element, text, speed = 40, callback = null) {
+    // Typewriter Utility Function with Quick-Skip capability (Global screen tap support)
+    function typeWriterEffect(element, text, speed = 35, callback = null) {
         if (!element) {
             if (callback) callback();
             return () => {};
@@ -107,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (element._typingTimeout) clearTimeout(element._typingTimeout);
         if (element._skipHandler) {
+            document.removeEventListener('click', element._skipHandler, true);
+            document.removeEventListener('touchend', element._skipHandler, true);
             element.removeEventListener('click', element._skipHandler);
             element.removeEventListener('touchend', element._skipHandler);
         }
@@ -126,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function cleanup() {
             if (element._skipHandler) {
+                document.removeEventListener('click', element._skipHandler, true);
+                document.removeEventListener('touchend', element._skipHandler, true);
                 element.removeEventListener('click', element._skipHandler);
                 element.removeEventListener('touchend', element._skipHandler);
                 element._skipHandler = null;
@@ -134,13 +138,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         element._skipHandler = (e) => {
             if (!isDone) {
-                e.stopPropagation();
                 finishImmediately();
             }
         };
 
+        // Attach listener to element and global document so ANY tap on screen skips instantly
         element.addEventListener('click', element._skipHandler);
-        element.addEventListener('touchend', element._skipHandler, { passive: false });
+        element.addEventListener('touchend', element._skipHandler, { passive: true });
+
+        setTimeout(() => {
+            if (!isDone) {
+                document.addEventListener('click', element._skipHandler, true);
+                document.addEventListener('touchend', element._skipHandler, { passive: true, capture: true });
+            }
+        }, 40);
 
         function type() {
             if (isDone) return;
@@ -924,6 +935,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const wishPaperNote = document.getElementById('wishPaperNote');
             if (wishPaperNote) wishPaperNote.classList.add('hidden');
             acceptWishBtn.classList.add('hidden');
+            const wishSkipHint = document.querySelector('.wish-skip-hint');
+            if (wishSkipHint) wishSkipHint.classList.add('hidden');
 
             // Add current wish to Bag
             if (currentActiveWish) {
@@ -1042,6 +1055,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     wishPaperNote.classList.remove('hidden');
                     if (acceptWishBtn) acceptWishBtn.classList.add('hidden');
 
+                    const clickedCount = document.querySelectorAll('.balloon.clicked, .balloon.popped').length + 1;
+                    const wishSkipHint = document.querySelector('.wish-skip-hint');
+                    if (wishSkipHint) {
+                        const isHintBalloon = (clickedCount === 5) || (allBalloons.length <= 2 && clickedCount === 2);
+                        if (isHintBalloon) {
+                            wishSkipHint.classList.remove('hidden');
+                        } else {
+                            wishSkipHint.classList.add('hidden');
+                        }
+                    }
+
                     const skipWishNote = typeWriterEffect(wishPaperText, randomWish, 30, () => {
                         if (acceptWishBtn) acceptWishBtn.classList.remove('hidden');
                     });
@@ -1083,4 +1107,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // --- MAGICAL ENVELOPE & BIRTHDAY LETTER MODAL LOGIC ---
+    const letterModal = document.getElementById('letterModal');
+    const closeLetterBtn = document.getElementById('closeLetterBtn');
+
+    function openBirthdayLetter(e) {
+        if (e) e.stopPropagation();
+        triggerHaptic([60, 40, 100]);
+        playPaperSound();
+        firePremiumConfetti(1.2);
+        if (letterModal) letterModal.classList.remove('hidden');
+    }
+
+    const envelopeTriggers = document.querySelectorAll('#envelopeWrapper, .envelope-page, .envelope');
+    envelopeTriggers.forEach(el => {
+        el.addEventListener('click', openBirthdayLetter);
+    });
+
+    if (closeLetterBtn && letterModal) {
+        closeLetterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerHaptic(40);
+            letterModal.classList.add('hidden');
+        });
+    }
+
+    if (letterModal) {
+        letterModal.addEventListener('click', (e) => {
+            if (e.target === letterModal) {
+                letterModal.classList.add('hidden');
+            }
+        });
+    }
 });

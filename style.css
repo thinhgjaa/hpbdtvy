@@ -1854,30 +1854,29 @@ body::after {
     border-color: transparent transparent rgba(255, 255, 255, 0.95);
 }
 
-/* Wish Paper Note (Center screen display) */
+/* Wish Paper Note (Magical Butter-Cream Yellow Grid Memo - Pops out against sky bg!) */
 .wish-paper-note {
     position: fixed;
     top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-3deg) scale(1);
-    background: #fff9e6;
-    /* Cream paper color */
-    color: #d63031;
-    padding: 35px 40px;
-    border-radius: 3px;
-    font-size: 1.5rem;
-    font-weight: 500;
-    font-family: 'Pacifico', cursive;
-    /* Handwritten feel */
-    box-shadow: 3px 6px 20px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(200, 150, 0, 0.1);
+    transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+    background-color: #fffdf0;
+    /* Soft butter cream background */
+    background-image:
+        linear-gradient(to right, rgba(245, 158, 11, 0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 158, 11, 0.18) 1px, transparent 1px);
+    background-size: 24px 24px; /* Warm pastel grid lines! */
+    color: #1e293b;
+    padding: 40px 28px 26px 28px;
+    border-radius: 14px;
+    box-shadow: 0 22px 50px rgba(180, 83, 9, 0.22), 0 8px 20px rgba(0, 0, 0, 0.15), inset 0 0 35px rgba(255, 255, 255, 0.9);
+    border: 2px solid #fde68a;
     z-index: 3000;
     text-align: center;
-    width: 80%;
-    max-width: 400px;
+    width: 88%;
+    max-width: 420px;
     transition: opacity 0.5s, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: auto;
-    /* Để click được nút Nhận */
-    line-height: 1.6;
 }
 
 .wish-paper-note.hidden {
@@ -1886,43 +1885,84 @@ body::after {
     transform: translate(-50%, -50%) rotate(-20deg) scale(0.3);
 }
 
-/* Tape effect */
-.wish-paper-note::before {
-    content: '';
+.wish-note-badge {
     position: absolute;
-    top: -15px;
+    top: -12px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+    letter-spacing: 0.5px;
+}
+
+#wishPaperText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: #1e293b;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* Washi Tape at Top */
+.wish-note-tape {
+    position: absolute;
+    top: -14px;
     left: 50%;
-    transform: translateX(-50%) rotate(4deg);
-    width: 90px;
-    height: 30px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: translateX(-50%) rotate(-2deg);
+    width: 95px;
+    height: 28px;
+    background: rgba(224, 242, 254, 0.85);
+    border: 1px solid rgba(186, 230, 253, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(2px);
     pointer-events: none;
 }
 
+.wish-skip-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-top: 16px;
+    font-style: italic;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 0.5px;
+    text-align: center;
+    transition: opacity 0.4s ease;
+    line-height: 1.4;
+}
+
+.wish-skip-hint.hidden {
+    display: none !important;
+}
+
 /* Accept Button */
 .accept-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 8px 25px;
-    background: #ff6b81;
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 9px 28px;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
     color: white;
     border: none;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 107, 129, 0.3);
-    transition: all 0.3s ease;
-    opacity: 1;
+    box-shadow: 0 5px 15px rgba(255, 107, 129, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .accept-btn:hover {
-    transform: scale(1.05);
-    background: #ff4757;
+    transform: scale(1.06);
+    box-shadow: 0 8px 20px rgba(255, 107, 129, 0.5);
 }
 
 .accept-btn.hidden {
@@ -2098,9 +2138,6 @@ body::after {
     transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     border-radius: 5px 15px 15px 5px;
     will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
 }
 
 .front,
@@ -2122,7 +2159,7 @@ body::after {
     background: linear-gradient(135deg, var(--page-bg), var(--page-bg-2));
     border: 1px solid #ddd;
     box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: 2;
 }
 
 .back {
@@ -2130,7 +2167,7 @@ body::after {
     transform: rotateY(180deg);
     border: 1px solid #ddd;
     box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.1);
-    z-index: 0;
+    z-index: 1;
 }
 
 .page-content {
@@ -2156,10 +2193,11 @@ body::after {
     justify-content: center;
 }
 
-/* Premium Cover */
-.cover {
-    background: linear-gradient(145deg, #ff6b81, #ff4757);
-    color: white;
+/* Premium Cover (Front & Back Covers) */
+.cover,
+.back-cover {
+    background: linear-gradient(145deg, #ff6b81, #ff4757) !important;
+    color: white !important;
     box-shadow: inset 5px 0 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -2167,6 +2205,14 @@ body::after {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     letter-spacing: 1px;
+}
+
+.back-cover .closing {
+    font-family: 'Pacifico', cursive;
+    color: white;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .border-decor {
@@ -2180,7 +2226,8 @@ body::after {
     pointer-events: none;
 }
 
-.cover .border-decor {
+.cover .border-decor,
+.back-cover .border-decor {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -2790,23 +2837,24 @@ h2 {
 
 
 /* =========================================================
-   LUXURIOUS SOUND TOGGLE BUTTON & LIVE EQUALIZER
+   LUXURIOUS SOUND TOGGLE BUTTON
    ========================================================= */
 .sound-btn {
     position: fixed;
     top: 20px;
     right: 20px;
-    height: 42px;
-    padding: 0 14px;
-    border-radius: 30px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 250, 0.92));
     border: 2px solid rgba(255, 159, 243, 0.85);
     color: #ff4757;
     cursor: pointer;
     z-index: 1000;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
     box-shadow: 0 6px 20px rgba(255, 107, 129, 0.28), inset 0 1px 2px rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2817,7 +2865,7 @@ h2 {
 .sound-btn-glow {
     position: absolute;
     inset: -6px;
-    border-radius: 35px;
+    border-radius: 50%;
     background: radial-gradient(circle, rgba(255, 159, 243, 0.45) 0%, rgba(255, 107, 129, 0.15) 50%, transparent 70%);
     z-index: -1;
     opacity: 0.8;
@@ -2838,7 +2886,7 @@ h2 {
 }
 
 .sound-icon-wrapper {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2847,38 +2895,9 @@ h2 {
     transition: transform 0.2s ease;
 }
 
-/* Sound Wave Equalizer Bars (Placed right after Speaker) */
-.sound-wave-bars {
-    display: inline-flex;
-    align-items: flex-end;
-    gap: 2.5px;
-    height: 16px;
-}
-
-.sound-bar {
-    width: 3px;
-    border-radius: 3px;
-    background: linear-gradient(to top, #ff4757, #ff9ff3);
-    animation: soundEqualizer 0.8s ease-in-out infinite alternate;
-}
-
-.bar-1 { height: 6px; animation-delay: 0.1s; }
-.bar-2 { height: 14px; animation-delay: 0.3s; }
-.bar-3 { height: 10px; animation-delay: 0.15s; }
-.bar-4 { height: 5px; animation-delay: 0.25s; }
-
-@keyframes soundEqualizer {
-    0% {
-        height: 3px;
-    }
-    100% {
-        height: 16px;
-    }
-}
-
 /* Hover & Active States */
 .sound-btn:hover {
-    transform: translateY(-2px) scale(1.06);
+    transform: translateY(-2px) scale(1.08);
     background: #ffffff;
     border-color: #ff6b81;
     box-shadow: 0 8px 25px rgba(255, 107, 129, 0.45), 0 0 15px rgba(255, 159, 243, 0.5);
@@ -2889,7 +2908,7 @@ h2 {
 }
 
 .sound-btn:active {
-    transform: scale(0.96);
+    transform: scale(0.94);
 }
 
 /* Muted State */
@@ -2902,12 +2921,6 @@ h2 {
 
 .sound-btn.muted .sound-btn-glow {
     opacity: 0;
-}
-
-.sound-btn.muted .sound-bar {
-    animation: none !important;
-    height: 3px !important;
-    background: #ced6e0 !important;
 }
 
 .sound-btn.muted .sound-icon-wrapper {
@@ -2956,9 +2969,9 @@ h2 {
     .sound-btn {
         top: 15px;
         right: 15px;
+        width: 38px;
         height: 38px;
-        padding: 0 12px;
-        gap: 6px;
+        padding: 0;
     }
 
     .wish-bag-btn {
@@ -3014,14 +3027,9 @@ h2 {
     .sound-btn {
         top: 15px;
         right: 15px;
-        height: 34px;
-        padding: 0 10px;
-        gap: 5px;
-    }
-
-    .sound-wave-bars {
-        height: 13px;
-        gap: 2px;
+        width: 36px;
+        height: 36px;
+        padding: 0;
     }
 
     .mystery-text {
@@ -3292,4 +3300,357 @@ h2 {
         padding: 16px 20px;
         font-size: 1.05rem;
     }
+}
+
+/* =========================================================
+   3D MAGICAL ENVELOPE PAGE & BIRTHDAY LETTER MODAL
+   ========================================================= */
+.page-content.envelope-page {
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #fffbf0, #f7e8d0);
+    cursor: pointer;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.envelope-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.35s ease;
+    z-index: 60;
+    pointer-events: auto;
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-4px);
+}
+
+.envelope {
+    position: relative;
+    width: 230px;
+    height: 150px;
+    background: #e0ac69; /* Warm vintage kraft envelope base */
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(160, 100, 40, 0.35), inset 0 0 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    perspective: 800px;
+}
+
+/* Letter Paper Peek inside Envelope */
+.envelope-letter-peek {
+    position: absolute;
+    top: 10px;
+    width: 200px;
+    height: 130px;
+    background: #fffdf5;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ebd7b2;
+    z-index: 2;
+    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.peek-line {
+    height: 6px;
+    background: #e8d5b5;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.peek-line.short {
+    width: 60%;
+}
+
+/* Front Envelope Pocket (Triangles) */
+.envelope-pocket {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #d49a55, #dfa663);
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0 0 8px 8px;
+    z-index: 3;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Top Envelope Flap */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #e8b06e;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 4;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover States: Flap opens, Letter peeks out! */
+.envelope-wrapper:hover .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1; /* Flap flips behind letter when open */
+}
+
+.envelope-wrapper:hover .envelope-letter-peek {
+    transform: translateY(-42px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Envelope Recipient Tag */
+.envelope-recipient-tag {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #b91c1c;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 4px 18px;
+    border-radius: 20px;
+    border: 1.5px dashed #f87171;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.envelope-recipient-tag span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-right: 4px;
+}
+
+/* Wax Seal: Doraemon Character Seal */
+.envelope-seal {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle at 35% 35%, #ffffff, #fff3e0, #ffe0b2);
+    border: 2.5px solid #e67e22;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    transition: transform 0.3s ease;
+    padding: 3px;
+    overflow: hidden;
+}
+
+.envelope-seal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.envelope-wrapper:hover .envelope-seal {
+    transform: translateX(-50%) scale(1.1) rotate(12deg);
+}
+
+.envelope-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #d63031;
+    margin-top: 22px;
+    text-align: center;
+    animation: floatText 2s ease-in-out infinite alternate;
+}
+
+/* BIRTHDAY LETTER MODAL (Realistic Handwritten Stationery) */
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    z-index: 30000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 0.4s ease;
+}
+
+.letter-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.letter-container {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    animation: letterPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.close-letter-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background: #ff4757;
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    z-index: 10;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.close-letter-btn:hover {
+    transform: scale(1.12);
+    background: #ff6b81;
+}
+
+.letter-paper {
+    background-color: #fffef9;
+    background-image:
+        linear-gradient(90deg, transparent 48px, #ff7675 48px, #ff7675 50px, transparent 50px),
+        repeating-linear-gradient(transparent, transparent 35px, #e1e8ed 35px, #e1e8ed 36px);
+    background-size: 100% 100%, 100% 36px;
+    border-radius: 8px;
+    padding: 42px 30px 40px 65px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 0 60px rgba(220, 190, 140, 0.12);
+    border: 1px solid #e2d8c3;
+    overflow-y: auto;
+    max-height: 82vh;
+    position: relative;
+}
+
+/* Notebook Binder Punched Holes on Left Margin */
+.binder-holes {
+    position: absolute;
+    top: 0;
+    left: 14px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 45px 0;
+    pointer-events: none;
+}
+
+.binder-holes span {
+    width: 14px;
+    height: 14px;
+    background: #333333;
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.letter-tape {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 110px;
+    height: 30px;
+    background: rgba(255, 248, 225, 0.85);
+    border: 1px solid rgba(210, 180, 120, 0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(2px);
+}
+
+.letter-stamp {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 45px;
+    height: 52px;
+    border: 2px dashed #d63031;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    color: #e1b12c;
+    background: #fffbf0;
+    transform: rotate(5deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.letter-title {
+    font-family: 'Pacifico', cursive;
+    color: #ff4757;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 36px;
+    text-shadow: 1px 1px 2px rgba(255, 71, 87, 0.15);
+}
+
+.letter-content {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.7rem;
+    line-height: 36px; /* Exactly matches ruled 36px line height! */
+    color: #2d3436;
+    font-weight: 700;
+}
+
+.letter-content p {
+    margin-bottom: 18px;
+    text-indent: 15px;
+}
+
+.letter-signature {
+    margin-top: 36px;
+    text-align: right;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #636e72;
+    line-height: 36px;
+}
+
+.letter-signature .sender {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff6b81;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Fullscreen Confetti & Firework Canvas */
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99999;
 }

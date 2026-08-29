@@ -76,12 +76,6 @@
         <span class="sound-icon-wrapper">
             <i class="fa-solid fa-volume-high"></i>
         </span>
-        <span class="sound-wave-bars">
-            <span class="sound-bar bar-1"></span>
-            <span class="sound-bar bar-2"></span>
-            <span class="sound-bar bar-3"></span>
-            <span class="sound-bar bar-4"></span>
-        </span>
     </button>
 
     <!-- Audio Elements -->
@@ -305,7 +299,7 @@
                 title="Doraemon">
         </div>
 
-        <!-- Floating Balloons (Tạm thời 2 quả bóng để test nhanh) -->
+        <!-- Floating Balloons (Tạm thời 2 quả bóng để test nhanh phần cuốn sổ và thư) -->
         <div class="balloons">
             <div class="balloon balloon1"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
             <div class="balloon balloon2"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
@@ -327,8 +321,9 @@
             <div class="balloon balloon17"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
             <div class="balloon balloon18"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
             <div class="balloon balloon19"><div class="paper-tag"><i class="fa-solid fa-envelope-open-text"></i></div><div class="balloon-tooltip"></div></div>
-            <div id="bossBalloon" class="balloon balloon20" style="display: none;"></div>
             -->
+            <!-- Quả bóng đặc biệt cuối cùng (Boss Balloon mang cuốn sổ) -->
+            <div id="bossBalloon" class="balloon balloon20" style="display: none;"></div>
         </div>
 
         <!-- Centerpiece Text & Cake -->
@@ -430,14 +425,9 @@
                         </div>
                     </div>
 
-                    <!-- Page 2: Message 1 & Photo 2 -->
+                    <!-- Page 2: Photo 2 & Photo 3 -->
                     <div class="paper" id="p2">
                         <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Chúcc mừngg sanhh nhựccc Thanh Vy nhenn! 🎉</p>
-                            </div>
-                        </div>
-                        <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
@@ -446,15 +436,6 @@
                                     </div>
                                     <div class="polaroid-text">Nụ cười tỏa nắng ☀️</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 3: Message 2 & Photo 3 -->
-                    <div class="paper" id="p3">
-                        <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Chúc tvy tuổi mới vẫn mãi mãi dệ huông và đáng iu nè ✨</p>
                             </div>
                         </div>
                         <div class="back">
@@ -470,14 +451,9 @@
                         </div>
                     </div>
 
-                    <!-- Page 4: Message 3 & Photo 4 -->
-                    <div class="paper" id="p4">
+                    <!-- Page 3: Photo 4 & Photo 5 -->
+                    <div class="paper" id="p3">
                         <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Tuổi mới hong còn những muộn phiền nựa nè 🌈</p>
-                            </div>
-                        </div>
-                        <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
@@ -488,15 +464,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Page 5: Message 4 & Photo 5 -->
-                    <div class="paper" id="p5">
-                        <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Năm nay ra trường đúng hạn và luôn ngủ ngoan mỗi tối nhen 🌙🎓</p>
-                            </div>
-                        </div>
                         <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
@@ -504,20 +471,15 @@
                                         <img src="image/tvy/5.jpg" alt="Thanh Vy" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:cover;">
                                     </div>
-                                    <div class="polaroid-text">Đáng yêu hết nấc 💕</div>
+                                    <div class="polaroid-text">Đáng yêu hết nấc ✨</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 6: Message 5 & Photo 6 -->
-                    <div class="paper" id="p6">
+                    <!-- Page 4: Photo 6 & Magical Envelope -->
+                    <div class="paper" id="p4">
                         <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Cóa ngừi từng nói là sanh nhực ai thì ngừi kia sẽ làm bánh kem... Nhưng mà anh hong có bic làm cái bánh kem kia 🙈</p>
-                            </div>
-                        </div>
-                        <div class="back">
                             <div class="page-content photo-page">
                                 <div class="polaroid">
                                     <div class="polaroid-img">
@@ -528,37 +490,36 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Page 7: Message 6 & Final Letter -->
-                    <div class="paper" id="p7">
-                        <div class="front">
-                            <div class="page-content single-sentence-page">
-                                <p class="single-sentence-text">Nên anh làm một chiếc bánh kem dưới hình thức khác như dị nè 🎂✨ Mặc dù không ngon ngọt như bánh kem thật nhưng hy vọng em sẽ thích nè 💖</p>
-                            </div>
-                        </div>
                         <div class="back">
-                            <div class="page-content message-page">
-                                <h2>Gửi Đến Thanh Vy 💌</h2>
-                                <div class="msg-body">
-                                    <p>Thoii thì một lần nữa chúc mừng sinh nhật của em nhennn! 🎉🥳</p>
-                                    <p>Mong tuổi mới sẽ luôn ngập tràn nụ cười, may mắn và mọi điều ước đều thành hiện thực nhé! 💖</p>
-                                </div>
-                                <div class="signature">
-                                    <p>With lots of love,</p>
-                                    <p class="sender">- Khùn đin đáng ghéc -</p>
+                            <div class="page-content envelope-page" onclick="document.getElementById('letterModal').classList.remove('hidden')">
+                                <div class="envelope-wrapper" id="envelopeWrapper">
+                                    <div class="envelope-recipient-tag">
+                                        <span>Gửi đến:</span> "Khó tánh hay ghéc" ✨
+                                    </div>
+                                    <div class="envelope">
+                                        <div class="envelope-flap"></div>
+                                        <div class="envelope-letter-peek">
+                                            <div class="peek-line"></div>
+                                            <div class="peek-line short"></div>
+                                        </div>
+                                        <div class="envelope-pocket"></div>
+                                        <div class="envelope-seal" title="Con Dấu Doraemon">
+                                            <img src="image/doremon/Doraemon_character.png" alt="Doraemon">
+                                        </div>
+                                    </div>
+                                    <p class="envelope-hint"><i class="fa-solid fa-envelope-open-text"></i> Nhấp vào phong bì để đọc thư ✨</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 8: Back Cover -->
-                    <div class="paper" id="p8">
+                    <!-- Page 5: Back Cover -->
+                    <div class="paper" id="p5">
                         <div class="front">
-                            <div class="page-content back-cover">
+                            <div class="page-content cover back-cover">
                                 <div class="border-decor"></div>
-                                <i class="fa-solid fa-heart crown-icon" style="font-size: 3.5rem; margin-bottom: 20px; color: #ff6b81;"></i>
-                                <h2 class="closing">Enjoy your day! 💖</h2>
+                                <i class="fa-solid fa-gift crown-icon" style="font-size: 3.5rem; margin-bottom: 20px; color: #feca57;"></i>
+                                <h2 class="closing">Enjoy your day! ✨</h2>
                                 <div class="book-action-buttons">
                                     <button class="close-book-btn" id="closeBookBtn"><i
                                             class="fa-solid fa-bookmark"></i> Đóng sách lại</button>
@@ -566,7 +527,7 @@
                             </div>
                         </div>
                         <div class="back">
-                            <div class="page-content back-cover">
+                            <div class="page-content cover back-cover">
                                 <div class="border-decor"></div>
                             </div>
                         </div>
@@ -584,10 +545,43 @@
         </div>
     </div>
 
-    <!-- Wish Paper Note (Center screen) -->
+    <!-- Birthday Letter Modal -->
+    <div id="letterModal" class="letter-modal hidden">
+        <div class="letter-container">
+            <button id="closeLetterBtn" class="close-letter-btn" title="Đóng bức thư"><i class="fa-solid fa-xmark"></i></button>
+            <div class="letter-paper">
+                <div class="binder-holes">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="letter-tape"></div>
+                <div class="letter-stamp" title="Tem Bảo Bối">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <h2 class="letter-title">Gửi Đến Thanh Vy ✉️</h2>
+                <div class="letter-content" id="letterContent">
+                    <p>Chúcc mừngg sanhh nhựccc Thanh Vy nhenn! 🎉</p>
+                    <p>Chúc tvy tuổi mới vẫn mãi mãi dệ huông và đáng iu nè ✨ Tuổi mới hong còn những muộn phiền nựa, năm nay ra trường đúng hạn và luôn ngủ ngoan mỗi tối nhen 🌙🎓</p>
+                    <p>Cóa ngừi từng nói là sanh nhực ai thì ngừi kia sẽ làm bánh kem... nhưng mà anh hong có bic làm cái bánh kem kia 🙈</p>
+                    <p>Nên anh làm một chiếc bánh kem dưới một hình thức khác như dị nè 🎂✨ Mặc dù không ngon ngọt như chiếc bánh kem thật mà em nói, nhưng mà anh vẫn hy vọng em sẽ thích chiếc bánh kem này nè ✨</p>
+                    <p>Thoii thì một lần nữa chúc mừng sinh nhật của em nhennn! 🎉🥳 Mong tuổi mới sẽ luôn ngập tràn nụ cười, may mắn và mọi điều ước đều thành hiện thực nhé! ✨</p>
+                </div>
+                <div class="letter-signature">
+                    <p>Best wishes for you ✨,</p>
+                    <p class="sender">- Khùn đin đáng ghéc -</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wish Paper Note (Center screen display - Doraemon Butter Yellow Memo) -->
     <div id="wishPaperNote" class="wish-paper-note hidden">
+        <div class="wish-note-tape"></div>
+        <div class="wish-note-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Bảo Bối</div>
         <div id="wishPaperText"></div>
-        <button id="acceptWishBtn" class="accept-btn hidden">Nhận 💌</button>
+        <p class="wish-skip-hint hidden">(Chạm vào màn hình để hiện nhanh ✨)</p>
+        <button id="acceptWishBtn" class="accept-btn hidden">Nhận ✨</button>
     </div>
 
     <canvas id="confetti"></canvas>
