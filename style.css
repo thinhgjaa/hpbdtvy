@@ -1107,6 +1107,7 @@ body::after {
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .balloons.interactive {
@@ -2078,6 +2079,8 @@ body::after {
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1s ease;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .book-wrapper.in-center .book.open {
@@ -2094,6 +2097,10 @@ body::after {
     transform-origin: left center;
     transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     border-radius: 5px 15px 15px 5px;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .front,
@@ -2104,9 +2111,11 @@ body::after {
     top: 0;
     left: 0;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     transform-style: preserve-3d;
     border-radius: 5px 15px 15px 5px;
     overflow: hidden;
+    will-change: transform;
 }
 
 .front {
