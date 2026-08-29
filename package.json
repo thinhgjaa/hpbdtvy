@@ -4,10 +4,10 @@
   "description": "Happy Birthday Thanh Vy",
   "main": "index.html",
   "scripts": {
-    "dev": "npx -y serve -l 5000 .",
-    "start": "npx -y serve -l 5000 .",
-    "serve": "npx -y serve -l 5000 .",
-    "live": "npx -y live-server --port=5000"
+    "dev": "npx -y serve -l 9003 .",
+    "start": "npx -y serve -l 9003 .",
+    "serve": "npx -y serve -l 9003 .",
+    "live": "npx -y live-server --port=9003"
   },
   "keywords": [],
   "author": "",
