@@ -716,13 +716,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard navigation (Arrow keys & Escape)
     document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const imgModal = document.getElementById('imageModal');
+            const letModal = document.getElementById('letterModal');
+            if (imgModal && !imgModal.classList.contains('hidden')) {
+                imgModal.classList.add('hidden');
+                return;
+            }
+            if (letModal && !letModal.classList.contains('hidden')) {
+                letModal.classList.add('hidden');
+                return;
+            }
+            if (bookWrapper && bookWrapper.classList.contains('in-center') && closeBookBtn) {
+                closeBookBtn.click();
+                return;
+            }
+        }
+
         if (!bookWrapper || !bookWrapper.classList.contains('in-center')) return;
         if (e.key === 'ArrowRight') {
             goNextPage();
         } else if (e.key === 'ArrowLeft') {
             goPrevPage();
-        } else if (e.key === 'Escape') {
-            if (closeBookBtn) closeBookBtn.click();
         }
     });
 
@@ -762,6 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close book when clicking outside book-container in center mode
     document.addEventListener('click', (e) => {
         if (!bookWrapper || !bookWrapper.classList.contains('in-center')) return;
+        if (e.target.closest('#imageModal') || e.target.closest('#letterModal') || e.target.closest('#wishPaperNote')) return;
         const bookContainer = document.querySelector('.book-container');
         if (bookContainer && !bookContainer.contains(e.target) && !e.target.closest('.nav-btn')) {
             closeBook();
@@ -1147,4 +1163,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Image Zoom / Lightbox Modal Logic
+    const imageModal = document.getElementById('imageModal');
+    const modalZoomImg = document.getElementById('modalZoomImg');
+    const modalZoomEmoji = document.getElementById('modalZoomEmoji');
+    const closeImageModalBtn = document.getElementById('closeImageModalBtn');
+
+    function openImageModal(src, emoji) {
+        if (!imageModal || !modalZoomImg) return;
+        triggerHaptic(40);
+        modalZoomImg.src = src;
+        if (modalZoomEmoji) modalZoomEmoji.innerHTML = emoji || '✨';
+        imageModal.classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+        if (!imageModal) return;
+        triggerHaptic(30);
+        imageModal.classList.add('hidden');
+    }
+
+    if (closeImageModalBtn) {
+        closeImageModalBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeImageModal();
+        });
+    }
+
+    if (imageModal) {
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal || e.target.classList.contains('image-modal-backdrop') || e.target === modalZoomImg || e.target.closest('.image-modal-container')) {
+                closeImageModal();
+            }
+        });
+    }
+
+    // Attach click to all polaroid cards inside the album
+    document.querySelectorAll('.book .polaroid').forEach(polaroid => {
+        polaroid.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const img = polaroid.querySelector('img');
+            const emojiEl = polaroid.querySelector('.polaroid-text');
+            if (img && img.src) {
+                openImageModal(img.src, emojiEl ? emojiEl.innerHTML : '✨');
+            }
+        });
+    });
 });

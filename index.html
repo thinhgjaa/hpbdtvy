@@ -442,7 +442,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/1.jpg" alt="Doraemon 1" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">✨</div>
                                 </div>
@@ -457,7 +457,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/1.jpg" alt="Thanh Vy 1" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">✨</div>
                                 </div>
@@ -468,7 +468,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/2.jpg" alt="Doraemon 2" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">☀️</div>
                                 </div>
@@ -483,7 +483,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/2.jpg" alt="Thanh Vy 2" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">☀️</div>
                                 </div>
@@ -494,7 +494,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/3.jpg" alt="Doraemon 3" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🌿</div>
                                 </div>
@@ -509,7 +509,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/3.jpg" alt="Thanh Vy 3" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🌿</div>
                                 </div>
@@ -520,7 +520,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/4.jpg" alt="Doraemon 4" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🎓</div>
                                 </div>
@@ -535,7 +535,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/4.jpg" alt="Thanh Vy 4" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🎓</div>
                                 </div>
@@ -546,7 +546,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/5.jpg" alt="Doraemon 5" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">💖</div>
                                 </div>
@@ -561,7 +561,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/5.jpg" alt="Thanh Vy 5" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">💖</div>
                                 </div>
@@ -572,7 +572,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/doremon/6.jpg" alt="Doraemon 6" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🎂</div>
                                 </div>
@@ -587,7 +587,7 @@
                                 <div class="polaroid">
                                     <div class="polaroid-img">
                                         <img src="image/tvy/6.jpg" alt="Thanh Vy 6" decoding="async" loading="eager"
-                                            style="width:100%; height:100%; object-fit:cover;">
+                                            style="width:100%; height:100%; object-fit:contain;">
                                     </div>
                                     <div class="polaroid-text">🎂</div>
                                 </div>
@@ -693,6 +693,22 @@
                     <p class="sender">- Khùn đin đáng ghéc -</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom / Lightbox Modal -->
+    <div id="imageModal" class="image-modal hidden" role="dialog" aria-modal="true">
+        <div class="image-modal-backdrop"></div>
+        <div class="image-modal-container">
+            <button id="closeImageModalBtn" class="close-image-modal-btn" aria-label="Đóng ảnh"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div class="image-modal-card">
+                <div class="image-modal-frame">
+                    <img id="modalZoomImg" src="" alt="Phóng to ảnh">
+                </div>
+                <div id="modalZoomEmoji" class="image-modal-emoji"></div>
+            </div>
+            <p class="image-modal-hint">(Chạm vào ảnh hoặc ngoài để đóng ✨)</p>
         </div>
     </div>
 
