@@ -2220,15 +2220,18 @@ body::after {
     position: relative;
     background: #ffffff;
     border: 2.5px solid #2d3436;
-    border-radius: 22px;
-    padding: 10px 24px;
+    border-radius: 20px;
+    padding: 8px 18px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), inset 0 2px 0px rgba(255, 255, 255, 0.9);
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    min-height: 48px;
+    gap: 4px;
+    width: auto;
+    max-width: 90vw;
+    min-height: auto;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .speech-bubble-tail-down {
@@ -2291,7 +2294,7 @@ body::after {
 
 .wish-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 700;
     color: #ff4757;
     margin: 0;
@@ -2302,6 +2305,7 @@ body::after {
 }
 
 .blow-btn.hidden,
+.mic-blowing-hud.hidden,
 #balloonCounter.hidden {
     display: none !important;
 }

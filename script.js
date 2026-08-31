@@ -693,7 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Dynamic background noise calibration
                 baselineAmbient = baselineAmbient * 0.95 + avgLow * 0.05;
                 const excess = Math.max(0, avgLow - baselineAmbient);
-                const blowIntensity = Math.min(1, excess / 0.16);
+                const blowIntensity = Math.min(1, excess / 0.25);
 
                 // Update visual level meter
                 if (micMeterBar) {
@@ -702,19 +702,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Interactive flame reaction
                 if (flame && !candle.classList.contains('blown-out')) {
-                    if (blowIntensity > 0.08) {
-                        const skew = (blowIntensity * 42);
-                        const scaleY = Math.max(0.3, 1 - blowIntensity * 0.7);
+                    if (blowIntensity > 0.12) {
+                        const skew = (blowIntensity * 38);
+                        const scaleY = Math.max(0.35, 1 - blowIntensity * 0.65);
                         flame.style.transform = `translateX(-50%) skewX(${skew}deg) scaleY(${scaleY})`;
                     } else {
                         flame.style.transform = '';
                     }
                 }
 
-                // Gentle blow detection threshold (nhạy và dễ thổi tắt hơn)
-                if (excess > 0.08 && avgLow > 0.16) {
+                // Firm blow detection threshold (yêu cầu thổi mạnh hơn một chút)
+                if (excess > 0.14 && avgLow > 0.25) {
                     blowConsecutiveFrames++;
-                    if (blowConsecutiveFrames >= 3) {
+                    if (blowConsecutiveFrames >= 4) {
                         extinguishCandle();
                         return;
                     }
@@ -912,15 +912,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
                     stepTimer = setTimeout(() => {
                         if (!candle.classList.contains('blown-out')) {
-                            if (blowCandleBtn) {
-                                blowCandleBtn.classList.remove('hidden');
-                                blowCandleBtn.style.display = '';
-                            }
                             if (isMicGranted) {
+                                // Khi đã bật mic, KHÔNG hiển thị nút bấm
                                 startMicListening();
+                            } else {
+                                // Chỉ hiển thị nút bấm khi chưa/không bật mic
+                                if (blowCandleBtn) {
+                                    blowCandleBtn.classList.remove('hidden');
+                                    blowCandleBtn.style.display = '';
+                                }
                             }
                         }
-                    }, 1000);
+                    }, 5000); // 5s lắng đọng để Thanh Vy kịp nhắm mắt và ước một điều ước
                 });
             }
         }
