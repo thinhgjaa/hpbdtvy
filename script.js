@@ -589,6 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Allow clicking through centerpiece to reach balloons behind
             const centerpiece = document.querySelector('.centerpiece');
             if (centerpiece) centerpiece.style.pointerEvents = 'none';
+            if (wishContainer) wishContainer.style.pointerEvents = 'auto';
 
             const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
             if (wishText) {
@@ -1005,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bossBalloon && bossBalloon.style.display === 'none') {
                 bossBalloon.style.display = 'block';
                 bossBalloon.classList.add('is-last-balloon');
-                document.querySelector('.balloons').style.zIndex = '999';
+                bossBalloon.style.zIndex = '35';
 
                 const miniBook = document.createElement('div');
                 miniBook.className = 'mini-book-tie';

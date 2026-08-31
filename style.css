@@ -1439,7 +1439,8 @@ body::after {
 /* Centerpiece Cake & Text */
 .centerpiece {
     text-align: center;
-    z-index: 10;
+    position: relative;
+    z-index: 25;
     margin-top: 15px;
     display: flex;
     flex-direction: column;
@@ -1449,6 +1450,8 @@ body::after {
 }
 
 .happy-text {
+    position: relative;
+    z-index: 26;
     font-family: 'Pacifico', cursive;
     font-size: 3.6rem;
     background: linear-gradient(45deg, #ff6b81, #ff9ff3, #feca57);
@@ -1460,6 +1463,8 @@ body::after {
 }
 
 .name-text {
+    position: relative;
+    z-index: 26;
     font-family: 'Montserrat', sans-serif;
     font-size: 2.4rem;
     font-weight: 800;
@@ -1472,6 +1477,8 @@ body::after {
 }
 
 .date-text {
+    position: relative;
+    z-index: 26;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.15rem;
     font-weight: 700;
@@ -1494,6 +1501,7 @@ body::after {
 
 .big-cake {
     position: relative;
+    z-index: 27;
     width: 220px;
     height: 220px;
     margin: 20px auto 16px;
@@ -1737,11 +1745,12 @@ body::after {
 
 /* Unified Wish Message Container & Paper Note Card */
 .wish-container {
+    position: relative;
     margin-top: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 15;
+    z-index: 30;
     pointer-events: auto;
 }
 
