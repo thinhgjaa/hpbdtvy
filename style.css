@@ -3364,8 +3364,19 @@ h2 {
     }
 
     .polaroid-text {
-        font-size: 1.45rem;
+        font-size: 1.35rem;
         margin-top: 5px;
+    }
+
+    .flower-sticker {
+        font-size: 1.15rem;
+    }
+
+    .polaroid-tape {
+        width: 50px;
+        height: 15px;
+        font-size: 0.68rem;
+        top: -7px;
     }
 
     .msg-body {
