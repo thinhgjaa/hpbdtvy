@@ -571,6 +571,187 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- MICROPHONE CANDLE BLOWING LOGIC ---
+    const micPermissionCard = document.getElementById('micPermissionCard');
+    const micToggleBtn = document.getElementById('micToggleBtn');
+    const micStatusBadge = document.getElementById('micStatusBadge');
+    let micStream = null;
+    let micAudioCtx = null;
+    let micAnalyser = null;
+    let micSource = null;
+    let isMicGranted = false;
+    let isMicListening = false;
+    let micAnimationId = null;
+
+    async function requestMicrophonePermission() {
+        initAudio();
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            if (micStatusBadge) {
+                micStatusBadge.classList.remove('hidden');
+                micStatusBadge.innerHTML = '<i class="fa-solid fa-circle-info"></i> Trình duyệt không hỗ trợ micro nhen ✨';
+            }
+            return false;
+        }
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: false,
+                    noiseSuppression: false,
+                    autoGainControl: false
+                }
+            });
+            micStream = stream;
+            isMicGranted = true;
+
+            if (micToggleBtn) {
+                micToggleBtn.classList.add('granted');
+                micToggleBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đã Bật Micro';
+            }
+            if (micStatusBadge) {
+                micStatusBadge.classList.remove('hidden');
+                micStatusBadge.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Đã bật Micro thành công! ✨';
+            }
+            triggerHaptic(40);
+            playPopSound();
+            return true;
+        } catch (err) {
+            console.log("Microphone permission denied / dismissed:", err);
+            isMicGranted = false;
+            if (micToggleBtn) {
+                micToggleBtn.classList.remove('granted');
+                micToggleBtn.innerHTML = '<i class="fa-solid fa-microphone-slash"></i> Chưa Bật Micro';
+            }
+            if (micStatusBadge) {
+                micStatusBadge.classList.remove('hidden');
+                micStatusBadge.innerHTML = 'Không sao nè! Cậu vẫn có thể tiếp tục trải nghiệm nhen ✨';
+            }
+            return false;
+        }
+    }
+
+    if (micToggleBtn) {
+        micToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            requestMicrophonePermission();
+        });
+    }
+
+    function startMicListening() {
+        if (!isMicGranted || !micStream || isMicListening) return;
+        try {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            micAudioCtx = new AudioContextClass();
+            if (micAudioCtx.state === 'suspended') {
+                micAudioCtx.resume();
+            }
+
+            micSource = micAudioCtx.createMediaStreamSource(micStream);
+
+            // Biquad filter: Isolate low-frequency breath turbulence (50Hz - 420Hz)
+            const hpFilter = micAudioCtx.createBiquadFilter();
+            hpFilter.type = 'highpass';
+            hpFilter.frequency.value = 50;
+
+            const lpFilter = micAudioCtx.createBiquadFilter();
+            lpFilter.type = 'lowpass';
+            lpFilter.frequency.value = 420;
+
+            micAnalyser = micAudioCtx.createAnalyser();
+            micAnalyser.fftSize = 512;
+            micAnalyser.smoothingTimeConstant = 0.2;
+
+            micSource.connect(hpFilter);
+            hpFilter.connect(lpFilter);
+            lpFilter.connect(micAnalyser);
+
+            isMicListening = true;
+
+            const micBlowingHud = document.getElementById('micBlowingHud');
+            if (micBlowingHud) micBlowingHud.classList.remove('hidden');
+
+            const dataArray = new Uint8Array(micAnalyser.frequencyBinCount);
+            const micMeterBar = document.getElementById('micMeterBar');
+            const flame = document.querySelector('.candle .flame');
+
+            let baselineAmbient = 0.08;
+            let blowConsecutiveFrames = 0;
+
+            function checkAudioLevel() {
+                if (!isMicListening || candle.classList.contains('blown-out')) return;
+
+                micAnalyser.getByteFrequencyData(dataArray);
+
+                // Low-frequency band energy (bins 1..14 ~ 40Hz to 320Hz)
+                let sumLow = 0;
+                const lowBins = Math.min(15, dataArray.length);
+                for (let i = 1; i < lowBins; i++) {
+                    sumLow += dataArray[i];
+                }
+                const avgLow = (sumLow / (lowBins - 1)) / 255;
+
+                // Dynamic background noise calibration
+                baselineAmbient = baselineAmbient * 0.95 + avgLow * 0.05;
+                const excess = Math.max(0, avgLow - baselineAmbient);
+                const blowIntensity = Math.min(1, excess / 0.16);
+
+                // Update visual level meter
+                if (micMeterBar) {
+                    micMeterBar.style.width = `${Math.round(blowIntensity * 100)}%`;
+                }
+
+                // Interactive flame reaction
+                if (flame && !candle.classList.contains('blown-out')) {
+                    if (blowIntensity > 0.08) {
+                        const skew = (blowIntensity * 42);
+                        const scaleY = Math.max(0.3, 1 - blowIntensity * 0.7);
+                        flame.style.transform = `translateX(-50%) skewX(${skew}deg) scaleY(${scaleY})`;
+                    } else {
+                        flame.style.transform = '';
+                    }
+                }
+
+                // Gentle blow detection threshold (nhạy và dễ thổi tắt hơn)
+                if (excess > 0.08 && avgLow > 0.16) {
+                    blowConsecutiveFrames++;
+                    if (blowConsecutiveFrames >= 3) {
+                        extinguishCandle();
+                        return;
+                    }
+                } else {
+                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 1);
+                }
+
+                micAnimationId = requestAnimationFrame(checkAudioLevel);
+            }
+
+            micAnimationId = requestAnimationFrame(checkAudioLevel);
+        } catch (e) {
+            console.log("Error starting mic listener:", e);
+        }
+    }
+
+    function stopMicListening() {
+        isMicListening = false;
+        if (micAnimationId) {
+            cancelAnimationFrame(micAnimationId);
+            micAnimationId = null;
+        }
+        if (micStream) {
+            try {
+                micStream.getTracks().forEach(track => track.stop());
+            } catch (e) { }
+        }
+        if (micAudioCtx) {
+            try {
+                micAudioCtx.close();
+            } catch (e) { }
+            micAudioCtx = null;
+        }
+        const micBlowingHud = document.getElementById('micBlowingHud');
+        if (micBlowingHud) micBlowingHud.classList.add('hidden');
+    }
+
     // Cinematic Flow Elements
     const startBtn = document.getElementById('start-btn');
     const mysteryGate = document.getElementById('mystery-gate');
@@ -707,7 +888,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Birthday intro sequence (Không thể tua để thưởng thức trọn vẹn từng khoảnh khắc)
+    // Birthday intro sequence
     function runBirthdayIntro() {
         const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
         const wishContainer = document.getElementById('wishContainer') || document.querySelector('.wish-container');
@@ -730,9 +911,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (currentStep === 3) {
                 typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
                     stepTimer = setTimeout(() => {
-                        if (blowCandleBtn && !candle.classList.contains('blown-out')) {
-                            blowCandleBtn.classList.remove('hidden');
-                            blowCandleBtn.style.display = '';
+                        if (!candle.classList.contains('blown-out')) {
+                            if (blowCandleBtn) {
+                                blowCandleBtn.classList.remove('hidden');
+                                blowCandleBtn.style.display = '';
+                            }
+                            if (isMicGranted) {
+                                startMicListening();
+                            }
                         }
                     }, 1000);
                 });
@@ -747,56 +933,65 @@ document.addEventListener('DOMContentLoaded', () => {
         nextStep();
     }
 
-    // Candle Blowing Logic
-    blowCandleBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!candle.classList.contains('blown-out')) {
-            candle.classList.add('blown-out');
-            triggerHaptic([80, 50, 150]); // Haptic when candle blown
+    // Unified Candle Extinguishing Function (supports both Mic and Button)
+    function extinguishCandle() {
+        if (candle.classList.contains('blown-out')) return;
+        candle.classList.add('blown-out');
+        stopMicListening();
+        triggerHaptic([80, 50, 150]);
 
-            // Hide blow button permanently
+        // Hide blow button permanently
+        if (blowCandleBtn) {
             blowCandleBtn.classList.add('hidden');
             blowCandleBtn.style.display = 'none';
-
-            if (wishContainer) {
-                wishContainer.style.cursor = 'default';
-                wishContainer.removeAttribute('title');
-            }
-
-            // Allow clicking through centerpiece to reach balloons behind
-            const centerpiece = document.querySelector('.centerpiece');
-            if (centerpiece) centerpiece.style.pointerEvents = 'none';
-            if (wishContainer) wishContainer.style.pointerEvents = 'auto';
-
-            const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
-            if (wishText) {
-                typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
-                    setTimeout(() => {
-                        typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
-                            const balloonCounter = document.getElementById('balloonCounter');
-                            if (balloonCounter) balloonCounter.classList.remove('hidden');
-
-                            // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm 0/2
-                            setTimeout(() => {
-                                wishText.style.transition = "opacity 0.6s ease, max-height 0.6s ease";
-                                wishText.style.opacity = "0";
-                                setTimeout(() => {
-                                    wishText.style.display = "none";
-                                    wishText.innerHTML = "";
-                                    wishText.style.opacity = "1";
-                                }, 600);
-                            }, 3500);
-                        });
-                    }, 3500);
-                });
-            }
-
-            setTimeout(() => {
-                firePremiumConfetti(1);
-                document.querySelector('.balloons').classList.add('interactive');
-            }, 800);
         }
-    });
+
+        if (wishContainer) {
+            wishContainer.style.cursor = 'default';
+            wishContainer.removeAttribute('title');
+        }
+
+        // Allow clicking through centerpiece to reach balloons behind
+        const centerpiece = document.querySelector('.centerpiece');
+        if (centerpiece) centerpiece.style.pointerEvents = 'none';
+        if (wishContainer) wishContainer.style.pointerEvents = 'auto';
+
+        const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
+        if (wishText) {
+            typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
+                setTimeout(() => {
+                    typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
+                        const balloonCounter = document.getElementById('balloonCounter');
+                        if (balloonCounter) balloonCounter.classList.remove('hidden');
+
+                        // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm 0/2
+                        setTimeout(() => {
+                            wishText.style.transition = "opacity 0.6s ease, max-height 0.6s ease";
+                            wishText.style.opacity = "0";
+                            setTimeout(() => {
+                                wishText.style.display = "none";
+                                wishText.innerHTML = "";
+                                wishText.style.opacity = "1";
+                            }, 600);
+                        }, 3500);
+                    });
+                }, 3500);
+            });
+        }
+
+        setTimeout(() => {
+            firePremiumConfetti(1);
+            document.querySelector('.balloons').classList.add('interactive');
+        }, 800);
+    }
+
+    // Candle Blowing Button Click
+    if (blowCandleBtn) {
+        blowCandleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            extinguishCandle();
+        });
+    }
 
     // Dynamic Pixel-Perfect Scaling for Book on Mobile Devices
     function updateBookScale() {

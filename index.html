@@ -212,8 +212,17 @@
             <h2 class="mystery-text">Cánh Cửa Thần Kỳ Đã Sẵn Sàng... ✨</h2>
             <p class="mystery-subtext">
                 Trước khi bước qua cánh cửa, Thanh Vy hãy tìm một góc thật yên tĩnh 🌸<br>
-                Đeo tai nghe hoặc bật âm lượng thật to để cảm nhận trọn vẹn điều bất ngờ này nhen! 🎧🔊💖
+                Đeo tai nghe hoặc bật âm lượng thật to để cảm nhận trọn vẹn điều bất ngờ này nhen! 🎧🔊💖<br>
+                Và nhớ bật Micro để có trải nghiệm trọn vẹn nhất nhen! 🎙️✨
             </p>
+
+            <!-- Microphone Status / Permission Button -->
+            <div class="mic-btn-wrapper">
+                <button type="button" class="mic-toggle-btn" id="micToggleBtn">
+                    <i class="fa-solid fa-microphone"></i> Bật Micro
+                </button>
+            </div>
+            <div class="mic-status-badge hidden" id="micStatusBadge"></div>
         </div>
 
         <!-- Pull Cord Mechanism -->
@@ -500,6 +509,17 @@
                         <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
                             <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
                         </button>
+
+                        <!-- Microphone Blowing Visual HUD -->
+                        <div id="micBlowingHud" class="mic-blowing-hud hidden">
+                            <div class="mic-hud-content">
+                                <span class="mic-hud-icon"><i class="fa-solid fa-microphone-lines"></i></span>
+                                <span class="mic-hud-text">Thổi nhẹ vào Mic để tắt nến nhen! 💨✨</span>
+                            </div>
+                            <div class="mic-meter-track">
+                                <div class="mic-meter-bar" id="micMeterBar"></div>
+                            </div>
+                        </div>
 
                         <!-- Balloon Counter (Minigame HUD) -->
                         <div id="balloonCounter" class="balloon-counter hidden">
