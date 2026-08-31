@@ -505,10 +505,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     mysteryGate.classList.remove('hidden');
                 }
 
-                // Sau 6 giây thả dây kéo xuống để người xem kịp đọc hướng dẫn
+                // Sau 9 giây thả dây kéo xuống để người xem kịp đọc hướng dẫn
                 setTimeout(() => {
                     if (startBtn) startBtn.classList.add('drop-cord-active');
-                }, 6000);
+                }, 9000);
             }, 900);
         } else {
             // Wrong PIN
