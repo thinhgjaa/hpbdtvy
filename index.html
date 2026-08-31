@@ -367,25 +367,72 @@
                 </div>
             </div>
 
-            <!-- Unified Paper Message Note Board under Cake -->
+            <!-- Doraemon Manga Comic Speech Bubble Board under Cake -->
             <div class="wish-container" id="wishContainer">
-                <div class="paper-note-card">
-                    <!-- Decorative tape & sparkles -->
-                    <div class="note-tape"></div>
-                    <div class="note-sparkle-left">✨</div>
-                    <div class="note-sparkle-right">🎈</div>
+                <div class="doraemon-comic-section">
+                    <!-- Comic Speech Bubble on Top -->
+                    <div class="speech-bubble-box">
+                        <!-- Unified Message Text (Typewriter) -->
+                        <p class="wish-text" id="unifiedWishText"></p>
 
-                    <!-- Unified Message Text (Typewriter) -->
-                    <p class="wish-text" id="unifiedWishText"></p>
+                        <!-- Candle Blowing Button -->
+                        <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
+                            <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
+                        </button>
 
-                    <!-- Candle Blowing Button -->
-                    <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
-                        <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
-                    </button>
+                        <!-- Balloon Counter (Minigame HUD) -->
+                        <div id="balloonCounter" class="balloon-counter hidden">
+                            🎈 <span id="balloonCounterText">0/8</span>
+                        </div>
 
-                    <!-- Balloon Counter (Minigame HUD) -->
-                    <div id="balloonCounter" class="balloon-counter hidden">
-                        🎈 <span id="balloonCounterText">0/10</span>
+                        <!-- Comic Tail Pointing Down -->
+                        <div class="speech-bubble-tail-down"></div>
+                        <div class="speech-bubble-tail-down-inner"></div>
+                    </div>
+
+                    <!-- Cute Doraemon Head below the Speech Bubble -->
+                    <div class="doraemon-head-speaker" title="Doraemon">
+                        <svg class="doraemon-head-svg" viewBox="0 0 120 120">
+                            <!-- Blue Head -->
+                            <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
+                            <!-- White Face -->
+                            <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                            <!-- Blushing Cheeks -->
+                            <ellipse cx="32" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
+                            <ellipse cx="88" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
+                            <!-- Left Eye -->
+                            <ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                            <circle cx="53" cy="38" r="3.5" fill="#1e272e" />
+                            <circle cx="54" cy="36" r="1.2" fill="#ffffff" />
+                            <!-- Right Eye -->
+                            <ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                            <circle cx="67" cy="38" r="3.5" fill="#1e272e" />
+                            <circle cx="68" cy="36" r="1.2" fill="#ffffff" />
+                            <!-- Red Nose -->
+                            <circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                            <circle cx="58" cy="47" r="2" fill="#ffffff" />
+                            <!-- Nose line to mouth -->
+                            <line x1="60" y1="55.5" x2="60" y2="76" stroke="#1e272e" stroke-width="2" />
+                            <!-- Smiling Mouth -->
+                            <path d="M 33 66 Q 60 92 87 66" fill="none" stroke="#1e272e" stroke-width="2.5" stroke-linecap="round" />
+                            <!-- Whiskers Left -->
+                            <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2" />
+                            <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2" />
+                            <line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2" />
+                            <!-- Whiskers Right -->
+                            <line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2" />
+                            <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2" />
+                            <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2" />
+                            <!-- Red Collar -->
+                            <rect x="25" y="93" width="70" height="9" rx="4.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                            <!-- Bell -->
+                            <circle cx="60" cy="102" r="10" fill="#ffd32a" stroke="#1e272e" stroke-width="2" />
+                            <line x1="52" y1="98" x2="68" y2="98" stroke="#1e272e" stroke-width="1.5" />
+                            <line x1="51" y1="101" x2="69" y2="101" stroke="#1e272e" stroke-width="1.5" />
+                            <circle cx="60" cy="104" r="2.2" fill="#2c3e50" />
+                            <line x1="60" y1="106.2" x2="60" y2="112" stroke="#1e272e" stroke-width="1.5" />
+                        </svg>
+                        <div class="doraemon-talk-mini-sparkle">✨</div>
                     </div>
                 </div>
             </div>
