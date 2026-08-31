@@ -1440,7 +1440,7 @@ body::after {
 .centerpiece {
     text-align: center;
     position: relative;
-    z-index: 25;
+    z-index: 100;
     margin-top: 15px;
     display: flex;
     flex-direction: column;
@@ -1451,7 +1451,7 @@ body::after {
 
 .happy-text {
     position: relative;
-    z-index: 26;
+    z-index: 101;
     font-family: 'Pacifico', cursive;
     font-size: 3.6rem;
     background: linear-gradient(45deg, #ff6b81, #ff9ff3, #feca57);
@@ -1464,7 +1464,7 @@ body::after {
 
 .name-text {
     position: relative;
-    z-index: 26;
+    z-index: 101;
     font-family: 'Montserrat', sans-serif;
     font-size: 2.4rem;
     font-weight: 800;
@@ -1478,7 +1478,7 @@ body::after {
 
 .date-text {
     position: relative;
-    z-index: 26;
+    z-index: 101;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.15rem;
     font-weight: 700;
@@ -1501,7 +1501,7 @@ body::after {
 
 .big-cake {
     position: relative;
-    z-index: 27;
+    z-index: 102;
     width: 220px;
     height: 220px;
     margin: 20px auto 16px;
@@ -1750,7 +1750,7 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 30;
+    z-index: 105;
     pointer-events: auto;
 }
 
@@ -1901,7 +1901,7 @@ body::after {
     pointer-events: none;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
     opacity: 0;
-    z-index: 20;
+    z-index: 6;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -2302,14 +2302,15 @@ body::after {
     transform: rotateY(-180deg);
 }
 
-#p1 { z-index: 8; }
-#p2 { z-index: 7; }
-#p3 { z-index: 6; }
-#p4 { z-index: 5; }
-#p5 { z-index: 4; }
-#p6 { z-index: 3; }
-#p7 { z-index: 2; }
-#p8 { z-index: 1; }
+#p1 { z-index: 9; }
+#p2 { z-index: 8; }
+#p3 { z-index: 7; }
+#p4 { z-index: 6; }
+#p5 { z-index: 5; }
+#p6 { z-index: 4; }
+#p7 { z-index: 3; }
+#p8 { z-index: 2; }
+#p9 { z-index: 1; }
 
 /* Single Sentence Pages inside Book */
 /* Single Sentence Pages inside Book */
@@ -2642,10 +2643,10 @@ h2 {
     margin-bottom: 9px;
 }
 
-/* Polaroid */
 .polaroid {
+    position: relative;
     background: #ffffff;
-    padding: 12px 12px 16px 12px;
+    padding: 14px 12px 14px 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 6px;
@@ -2697,14 +2698,111 @@ h2 {
     transform: scale(1.02);
 }
 
+.polaroid-tape {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 18px;
+    background: linear-gradient(135deg, rgba(255, 192, 203, 0.85), rgba(255, 239, 213, 0.9));
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.78rem;
+    color: #ff4757;
+    z-index: 5;
+    border-left: 2px dashed rgba(255, 255, 255, 0.8);
+    border-right: 2px dashed rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(2px);
+}
+
+.flower-sticker {
+    position: absolute;
+    font-size: 1.4rem;
+    pointer-events: none;
+    user-select: none;
+    z-index: 3;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+    animation: flowerFloat 3s ease-in-out infinite alternate;
+}
+
+.flower-sticker.top-left {
+    top: 10px;
+    left: 12px;
+    transform: rotate(-12deg);
+}
+
+.flower-sticker.top-right {
+    top: 10px;
+    right: 12px;
+    transform: rotate(12deg);
+    animation-delay: 0.5s;
+}
+
+.flower-sticker.bottom-left {
+    bottom: 12px;
+    left: 14px;
+    font-size: 1.15rem;
+    transform: rotate(-8deg);
+    animation-delay: 1s;
+}
+
+.flower-sticker.bottom-right {
+    bottom: 12px;
+    right: 14px;
+    font-size: 1.15rem;
+    transform: rotate(8deg);
+    animation-delay: 1.5s;
+}
+
+@keyframes flowerFloat {
+    0% {
+        transform: translateY(0px) rotate(-6deg);
+    }
+    100% {
+        transform: translateY(-4px) rotate(6deg);
+    }
+}
+
+.cover-flower-garland {
+    font-size: 1.15rem;
+    letter-spacing: 5px;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    animation: flowerGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes flowerGlow {
+    0% {
+        transform: scale(0.96);
+        opacity: 0.88;
+    }
+    100% {
+        transform: scale(1.04);
+        opacity: 1;
+    }
+}
+
 .polaroid-text {
     font-family: 'Dancing Script', cursive;
     color: #333;
-    font-size: 1.85rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-top: 8px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
     line-height: 1;
+}
+
+.polaroid-text .mini-flower {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    animation: flowerFloat 2.5s ease-in-out infinite alternate;
 }
 
 .signature {
@@ -2919,13 +3017,19 @@ h2 {
     }
 }
 
+.balloons.boss-active {
+    z-index: 150 !important;
+    pointer-events: auto !important;
+}
+
 .balloon.is-last-balloon {
     left: 50% !important;
     margin-left: -42px !important;
     bottom: 35%;
-    /* Bỏ !important để animation có thể chạy */
-    animation: floatUpBoss 4s ease-out forwards, lastBalloonHover 3s ease-in-out infinite alternate !important;
+    animation: floatUpBoss 3s ease-out forwards, lastBalloonHover 3s ease-in-out infinite alternate !important;
     z-index: 3000 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
     transition: none !important;
 }
 
@@ -3857,9 +3961,13 @@ h2 {
 }
 
 .image-modal-emoji {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin-top: 12px;
     line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .image-modal-hint {

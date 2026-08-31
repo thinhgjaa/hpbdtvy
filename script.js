@@ -15,12 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'image/doremon/4.jpg',
         'image/doremon/5.jpg',
         'image/doremon/6.jpg',
+        'image/doremon/7.png',
         'image/tvy/1.jpg',
         'image/tvy/2.jpg',
         'image/tvy/3.jpg',
         'image/tvy/4.jpg',
         'image/tvy/5.jpg',
-        'image/tvy/6.jpg'
+        'image/tvy/6.jpg',
+        'image/tvy/7.jpg'
     ];
     const preloadAudio = [
         'music/countdown.mp3',
@@ -104,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 4000);
 
-    // Typewriter Utility Function with Quick-Skip capability (Global screen tap support)
-    function typeWriterEffect(element, text, speed = 35, callback = null) {
+    // Typewriter Utility Function
+    function typeWriterEffect(element, text, speed = 35, callback = null, allowSkip = false) {
         if (!element) {
             if (callback) callback();
             return () => { };
@@ -113,10 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (element._typingTimeout) clearTimeout(element._typingTimeout);
         if (element._skipHandler) {
-            document.removeEventListener('click', element._skipHandler, true);
-            document.removeEventListener('touchend', element._skipHandler, true);
             element.removeEventListener('click', element._skipHandler);
-            element.removeEventListener('touchend', element._skipHandler);
+            element._skipHandler = null;
         }
 
         element.innerHTML = '';
@@ -128,36 +128,19 @@ document.addEventListener('DOMContentLoaded', () => {
             isDone = true;
             if (element._typingTimeout) clearTimeout(element._typingTimeout);
             element.innerHTML = text;
-            cleanup();
+            if (element._skipHandler) {
+                element.removeEventListener('click', element._skipHandler);
+                element._skipHandler = null;
+            }
             if (callback) callback();
         }
 
-        function cleanup() {
-            if (element._skipHandler) {
-                document.removeEventListener('click', element._skipHandler, true);
-                document.removeEventListener('touchend', element._skipHandler, true);
-                element.removeEventListener('click', element._skipHandler);
-                element.removeEventListener('touchend', element._skipHandler);
-                element._skipHandler = null;
-            }
+        if (allowSkip) {
+            element._skipHandler = (e) => {
+                if (!isDone) finishImmediately();
+            };
+            element.addEventListener('click', element._skipHandler);
         }
-
-        element._skipHandler = (e) => {
-            if (!isDone) {
-                finishImmediately();
-            }
-        };
-
-        // Attach listener to element and global document so ANY tap on screen skips instantly
-        element.addEventListener('click', element._skipHandler);
-        element.addEventListener('touchend', element._skipHandler, { passive: true });
-
-        setTimeout(() => {
-            if (!isDone) {
-                document.addEventListener('click', element._skipHandler, true);
-                document.addEventListener('touchend', element._skipHandler, { passive: true, capture: true });
-            }
-        }, 40);
 
         function type() {
             if (isDone) return;
@@ -519,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Birthday intro sequence with quick-skip capability
+    // Birthday intro sequence (Không thể tua để thưởng thức trọn vẹn từng khoảnh khắc)
     function runBirthdayIntro() {
         const wishText = document.getElementById('unifiedWishText') || document.querySelector('.wish-text');
         const wishContainer = document.getElementById('wishContainer') || document.querySelector('.wish-container');
@@ -533,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentStep++;
             if (currentStep === 1) {
                 typeWriterEffect(wishText, "Chúccc mừnggg sinhhh nhậttt 21 tủiiii Thanh Vy nhannn !!!! 🎉✨", 40, () => {
-                    stepTimer = setTimeout(nextStep, 4000);
+                    stepTimer = setTimeout(nextStep, 2500);
                 });
             } else if (currentStep === 2) {
                 typeWriterEffect(wishText, "Nàooooooo!!! ✨", 45, () => {
@@ -546,25 +529,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             blowCandleBtn.classList.remove('hidden');
                             blowCandleBtn.style.display = '';
                         }
-                    }, 4800);
+                    }, 1000);
                 });
             }
         }
 
         if (wishContainer) {
-            wishContainer.style.cursor = 'pointer';
-            wishContainer.title = 'Chạm để hiện nhanh';
-            wishContainer.addEventListener('click', (e) => {
-                if (candle.classList.contains('blown-out')) return;
-                if (e.target === blowCandleBtn || (blowCandleBtn && blowCandleBtn.contains(e.target))) return;
-
-                if (currentStep < 3) {
-                    nextStep();
-                } else if (currentStep === 3 && blowCandleBtn && blowCandleBtn.classList.contains('hidden')) {
-                    blowCandleBtn.classList.remove('hidden');
-                    blowCandleBtn.style.display = '';
-                }
-            });
+            wishContainer.style.cursor = 'default';
+            wishContainer.removeAttribute('title');
         }
 
         nextStep();
@@ -764,6 +736,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scene) scene.classList.remove('blurred');
             const hint = document.querySelector('.book-hint-bubble');
             if (hint) hint.classList.remove('hidden');
+
+            const balloonsContainer = document.querySelector('.balloons');
+            if (balloonsContainer) {
+                balloonsContainer.classList.remove('boss-active');
+                balloonsContainer.style.zIndex = '5';
+            }
         }, 500);
     }
 
@@ -1006,7 +984,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bossBalloon && bossBalloon.style.display === 'none') {
                 bossBalloon.style.display = 'block';
                 bossBalloon.classList.add('is-last-balloon');
-                bossBalloon.style.zIndex = '35';
+                const balloonsContainer = document.querySelector('.balloons');
+                if (balloonsContainer) {
+                    balloonsContainer.classList.add('boss-active');
+                    balloonsContainer.style.zIndex = '50';
+                }
 
                 const miniBook = document.createElement('div');
                 miniBook.className = 'mini-book-tie';
@@ -1031,6 +1013,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const hud = document.getElementById('balloonCounter');
                 if (hud) hud.classList.add('hidden');
+
+                const balloonsContainer = document.querySelector('.balloons');
+                if (balloonsContainer) {
+                    balloonsContainer.classList.remove('boss-active');
+                    balloonsContainer.style.zIndex = '5';
+                }
 
                 triggerHaptic([100, 50, 100, 50, 200]);
                 firePremiumConfetti(2.2);
