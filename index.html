@@ -87,12 +87,132 @@
         <source src="music/hpbd.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- 0.5. Password Lock Screen (Doraemon Theme) -->
+    <div id="password-screen" class="screen hidden">
+        <!-- Floating background elements -->
+        <div class="pass-bg-decorations">
+            <span class="pass-float-item pfi-1">⭐</span>
+            <span class="pass-float-item pfi-2">🔔</span>
+            <span class="pass-float-item pfi-3">🌸</span>
+            <span class="pass-float-item pfi-4">✨</span>
+            <span class="pass-float-item pfi-5">🎂</span>
+            <span class="pass-float-item pfi-6">🪄</span>
+        </div>
+
+        <div class="password-card">
+            <!-- Doraemon Red Collar & Bell Header -->
+            <div class="pass-card-collar">
+                <div class="pass-card-bell">
+                    <span class="bell-line"></span>
+                    <span class="bell-hole"></span>
+                </div>
+            </div>
+
+            <div class="pass-badge">
+                <i class="fa-solid fa-lock"></i> MẬT MÃ BẢO BỐI
+            </div>
+
+            <h2 class="pass-title">Cánh Cửa Thần Kỳ</h2>
+
+            <!-- Doraemon Talking Comic Dialog -->
+            <div class="pass-comic-dialog">
+                <!-- Cute Vector Doraemon Head Speaker -->
+                <div class="pass-doraemon-speaker" title="Doraemon">
+                    <svg class="doraemon-head-svg" viewBox="0 0 120 120">
+                        <!-- Blue Head -->
+                        <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
+                        <!-- White Face -->
+                        <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e"
+                            stroke-width="2.5" />
+                        <!-- Blushing Cheeks -->
+                        <ellipse cx="32" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
+                        <ellipse cx="88" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
+                        <!-- Left Eye -->
+                        <ellipse cx="50" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                        <circle cx="53" cy="38" r="3.5" fill="#1e272e" />
+                        <circle cx="54" cy="36" r="1.2" fill="#ffffff" />
+                        <!-- Right Eye -->
+                        <ellipse cx="70" cy="38" rx="10" ry="13" fill="#ffffff" stroke="#1e272e" stroke-width="2" />
+                        <circle cx="67" cy="38" r="3.5" fill="#1e272e" />
+                        <circle cx="68" cy="36" r="1.2" fill="#ffffff" />
+                        <!-- Red Nose -->
+                        <circle cx="60" cy="49" r="6.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                        <circle cx="58" cy="47" r="2" fill="#ffffff" />
+                        <!-- Nose line to mouth -->
+                        <line x1="60" y1="55.5" x2="60" y2="76" stroke="#1e272e" stroke-width="2" />
+                        <!-- Smiling Mouth -->
+                        <path d="M 33 66 Q 60 92 87 66" fill="none" stroke="#1e272e" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        <!-- Whiskers Left -->
+                        <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2" />
+                        <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2" />
+                        <line x1="22" y1="72" x2="48" y2="69" stroke="#1e272e" stroke-width="2" />
+                        <!-- Whiskers Right -->
+                        <line x1="72" y1="55" x2="98" y2="52" stroke="#1e272e" stroke-width="2" />
+                        <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2" />
+                        <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2" />
+                        <!-- Red Collar -->
+                        <rect x="25" y="93" width="70" height="9" rx="4.5" fill="#e74c3c" stroke="#1e272e"
+                            stroke-width="2" />
+                        <!-- Bell -->
+                        <circle cx="60" cy="102" r="10" fill="#ffd32a" stroke="#1e272e" stroke-width="2" />
+                        <line x1="52" y1="98" x2="68" y2="98" stroke="#1e272e" stroke-width="1.5" />
+                        <line x1="51" y1="101" x2="69" y2="101" stroke="#1e272e" stroke-width="1.5" />
+                        <circle cx="60" cy="104" r="2.2" fill="#2c3e50" />
+                        <line x1="60" y1="106.2" x2="60" y2="112" stroke="#1e272e" stroke-width="1.5" />
+                    </svg>
+                    <div class="doraemon-talk-mini-sparkle">✨</div>
+                </div>
+
+                <!-- Comic Speech Bubble -->
+                <div class="pass-speech-bubble">
+                    <p class="pass-speech-text">
+                        🚪 Cánh cửa này chỉ dành cho mụt ngừi dệ huông 🌸💖<br>
+                        🔐 Nhập mật mã xác nhận danh tính để lấy cánh cửa thần kì nè ✨🔔
+                    </p>
+                    <div class="pass-bubble-tail-up"></div>
+                    <div class="pass-bubble-tail-up-inner"></div>
+                </div>
+            </div>
+
+            <!-- PIN Display Dots -->
+            <div class="pin-display" id="pinDisplay">
+                <div class="pin-slot" data-index="0"></div>
+                <div class="pin-slot" data-index="1"></div>
+                <div class="pin-slot" data-index="2"></div>
+                <div class="pin-slot" data-index="3"></div>
+            </div>
+
+            <div class="pin-status" id="pinStatus"></div>
+
+            <!-- Virtual Keypad -->
+            <div class="pass-keypad" id="passKeypad">
+                <button type="button" class="key-btn" data-key="1">1</button>
+                <button type="button" class="key-btn" data-key="2">2</button>
+                <button type="button" class="key-btn" data-key="3">3</button>
+                <button type="button" class="key-btn" data-key="4">4</button>
+                <button type="button" class="key-btn" data-key="5">5</button>
+                <button type="button" class="key-btn" data-key="6">6</button>
+                <button type="button" class="key-btn" data-key="7">7</button>
+                <button type="button" class="key-btn" data-key="8">8</button>
+                <button type="button" class="key-btn" data-key="9">9</button>
+                <button type="button" class="key-btn key-action" data-key="clear" title="Xóa tất cả"><i
+                        class="fa-solid fa-rotate-left"></i></button>
+                <button type="button" class="key-btn" data-key="0">0</button>
+                <button type="button" class="key-btn key-action" data-key="backspace" title="Xóa 1 số"><i
+                        class="fa-solid fa-delete-left"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- 1. Mystery Gate -->
-    <div id="mystery-gate" class="screen active">
+    <div id="mystery-gate" class="screen hidden">
         <div class="mystery-content">
-            <h2 class="mystery-text">Cánh Cửa Thần Kỳ dành cho Thanh Vy...</h2>
-            <p class="mystery-subtext">Để cảm nhận trọn vẹn điều bất ngờ này, hãy tìm một góc yên tĩnh, đeo tai nghe
-                hoặc bật loa thật to nhé! 🔊</p>
+            <h2 class="mystery-text">Cánh Cửa Thần Kỳ Đã Sẵn Sàng... ✨</h2>
+            <p class="mystery-subtext">
+                Trước khi bước qua cánh cửa, Thanh Vy hãy tìm một góc thật yên tĩnh 🌸<br>
+                Đeo tai nghe hoặc bật âm lượng thật to để cảm nhận trọn vẹn điều bất ngờ này nhen! 🎧🔊💖
+            </p>
         </div>
 
         <!-- Pull Cord Mechanism -->
@@ -396,7 +516,8 @@
                             <!-- Blue Head -->
                             <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
                             <!-- White Face -->
-                            <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                            <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e"
+                                stroke-width="2.5" />
                             <!-- Blushing Cheeks -->
                             <ellipse cx="32" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
                             <ellipse cx="88" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
@@ -414,7 +535,8 @@
                             <!-- Nose line to mouth -->
                             <line x1="60" y1="55.5" x2="60" y2="76" stroke="#1e272e" stroke-width="2" />
                             <!-- Smiling Mouth -->
-                            <path d="M 33 66 Q 60 92 87 66" fill="none" stroke="#1e272e" stroke-width="2.5" stroke-linecap="round" />
+                            <path d="M 33 66 Q 60 92 87 66" fill="none" stroke="#1e272e" stroke-width="2.5"
+                                stroke-linecap="round" />
                             <!-- Whiskers Left -->
                             <line x1="22" y1="52" x2="48" y2="55" stroke="#1e272e" stroke-width="2" />
                             <line x1="20" y1="62" x2="47" y2="62" stroke="#1e272e" stroke-width="2" />
@@ -424,7 +546,8 @@
                             <line x1="73" y1="62" x2="100" y2="62" stroke="#1e272e" stroke-width="2" />
                             <line x1="72" y1="69" x2="98" y2="72" stroke="#1e272e" stroke-width="2" />
                             <!-- Red Collar -->
-                            <rect x="25" y="93" width="70" height="9" rx="4.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2" />
+                            <rect x="25" y="93" width="70" height="9" rx="4.5" fill="#e74c3c" stroke="#1e272e"
+                                stroke-width="2" />
                             <!-- Bell -->
                             <circle cx="60" cy="102" r="10" fill="#ffd32a" stroke="#1e272e" stroke-width="2" />
                             <line x1="52" y1="98" x2="68" y2="98" stroke="#1e272e" stroke-width="1.5" />
@@ -495,7 +618,8 @@
                                         <img src="image/doremon/1.jpg" alt="Doraemon 1" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>✨<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>✨<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -513,7 +637,8 @@
                                         <img src="image/tvy/1.jpg" alt="Thanh Vy 1" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>✨<span class="mini-flower">🌷</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>✨<span
+                                            class="mini-flower">🌷</span></div>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +652,8 @@
                                         <img src="image/doremon/2.jpg" alt="Doraemon 2" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌼</span>☀️<span class="mini-flower">🌼</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌼</span>☀️<span
+                                            class="mini-flower">🌼</span></div>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +671,8 @@
                                         <img src="image/tvy/2.jpg" alt="Thanh Vy 2" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌻</span>☀️<span class="mini-flower">🌻</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌻</span>☀️<span
+                                            class="mini-flower">🌻</span></div>
                                 </div>
                             </div>
                         </div>
@@ -559,7 +686,8 @@
                                         <img src="image/doremon/3.jpg" alt="Doraemon 3" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🍀</span>🌿<span class="mini-flower">🍀</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🍀</span>🌿<span
+                                            class="mini-flower">🍀</span></div>
                                 </div>
                             </div>
                         </div>
@@ -577,7 +705,8 @@
                                         <img src="image/tvy/3.jpg" alt="Thanh Vy 3" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🌿<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🌿<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -591,7 +720,8 @@
                                         <img src="image/doremon/4.jpg" alt="Doraemon 4" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎓<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎓<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -609,7 +739,8 @@
                                         <img src="image/tvy/4.jpg" alt="Thanh Vy 4" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">💐</span>🎓<span class="mini-flower">💐</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">💐</span>🎓<span
+                                            class="mini-flower">💐</span></div>
                                 </div>
                             </div>
                         </div>
@@ -623,7 +754,8 @@
                                         <img src="image/doremon/5.jpg" alt="Doraemon 5" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌺</span>💖<span class="mini-flower">🌺</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌺</span>💖<span
+                                            class="mini-flower">🌺</span></div>
                                 </div>
                             </div>
                         </div>
@@ -641,7 +773,8 @@
                                         <img src="image/tvy/5.jpg" alt="Thanh Vy 5" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>💖<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>💖<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -655,7 +788,8 @@
                                         <img src="image/doremon/6.jpg" alt="Doraemon 6" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>🎂<span class="mini-flower">🌷</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>🎂<span
+                                            class="mini-flower">🌷</span></div>
                                 </div>
                             </div>
                         </div>
@@ -673,7 +807,8 @@
                                         <img src="image/tvy/6.jpg" alt="Thanh Vy 6" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎂<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎂<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -687,7 +822,8 @@
                                         <img src="image/doremon/7.png" alt="Doraemon 7" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎁<span class="mini-flower">🌸</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌸</span>🎁<span
+                                            class="mini-flower">🌸</span></div>
                                 </div>
                             </div>
                         </div>
@@ -705,7 +841,8 @@
                                         <img src="image/tvy/7.jpg" alt="Thanh Vy 7" decoding="async" loading="eager"
                                             style="width:100%; height:100%; object-fit:contain;">
                                     </div>
-                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>🎁<span class="mini-flower">🌷</span></div>
+                                    <div class="polaroid-text"><span class="mini-flower">🌷</span>🎁<span
+                                            class="mini-flower">🌷</span></div>
                                 </div>
                             </div>
                         </div>

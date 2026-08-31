@@ -70,14 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
 
         setTimeout(() => {
-            // Ẩn preloader, hiện Cánh Cửa Thần Kỳ
+            // Ẩn preloader, hiện Màn hình Nhập Mật Khẩu Doraemon
             if (preloader) preloader.classList.add('hidden');
-
-            // Chờ 6 giây để Thanh Vy đọc xong hướng dẫn bật loa to, rồi dây kéo mới từ từ thả xuống
-            setTimeout(() => {
-                const startBtn = document.getElementById('start-btn');
-                if (startBtn) startBtn.classList.add('drop-cord-active');
-            }, 6000);
+            const passwordScreen = document.getElementById('password-screen');
+            if (passwordScreen) passwordScreen.classList.remove('hidden');
         }, 500);
     }
 
@@ -365,6 +361,215 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSoundBtnUI();
         });
     }
+
+    // --- PASSWORD SCREEN LOGIC (Doraemon 0309) ---
+    const passwordScreen = document.getElementById('password-screen');
+    const pinSlots = document.querySelectorAll('.pin-slot');
+    const pinDisplay = document.getElementById('pinDisplay');
+    const pinStatus = document.getElementById('pinStatus');
+    const keyBtns = document.querySelectorAll('.pass-keypad .key-btn');
+    const CORRECT_PIN = '0309';
+    let enteredPin = '';
+    let isPinValidating = false;
+
+    function playKeySound() {
+        if (!audioCtx) initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520 + (enteredPin.length * 90), now);
+        osc.frequency.exponentialRampToValueAtTime(750, now + 0.05);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.05);
+    }
+
+    function playErrorSound() {
+        if (!audioCtx) initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.linearRampToValueAtTime(120, now + 0.22);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.22);
+    }
+
+    function playSuccessChime() {
+        if (!audioCtx) initAudio();
+        if (!audioCtx) return;
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const startTime = audioCtx.currentTime + idx * 0.09;
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, startTime);
+            gain.gain.setValueAtTime(0.3, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.35);
+        });
+    }
+
+    function updatePinUI() {
+        pinSlots.forEach((slot, idx) => {
+            slot.className = 'pin-slot';
+            if (idx < enteredPin.length) {
+                slot.classList.add('filled');
+            }
+        });
+    }
+
+    function handlePinInput(key) {
+        if (isPinValidating || !passwordScreen || passwordScreen.classList.contains('hidden')) return;
+        initAudio();
+
+        if (key === 'clear') {
+            triggerHaptic(30);
+            enteredPin = '';
+            updatePinUI();
+            if (pinStatus) {
+                pinStatus.textContent = '';
+                pinStatus.className = 'pin-status';
+            }
+            return;
+        }
+
+        if (key === 'backspace') {
+            triggerHaptic(30);
+            if (enteredPin.length > 0) {
+                enteredPin = enteredPin.slice(0, -1);
+                updatePinUI();
+                if (pinStatus) {
+                    pinStatus.textContent = '';
+                    pinStatus.className = 'pin-status';
+                }
+            }
+            return;
+        }
+
+        if (/^[0-9]$/.test(key) && enteredPin.length < 4) {
+            enteredPin += key;
+            playKeySound();
+            triggerHaptic(25);
+            updatePinUI();
+
+            if (enteredPin.length === 4) {
+                validatePin();
+            }
+        }
+    }
+
+    function validatePin() {
+        isPinValidating = true;
+
+        if (enteredPin === CORRECT_PIN) {
+            // Correct PIN!
+            pinSlots.forEach(s => {
+                s.className = 'pin-slot success';
+            });
+            if (pinStatus) {
+                pinStatus.textContent = 'Chính xác rùi! Đang mở Cánh Cửa Thần Kỳ... ✨';
+                pinStatus.className = 'pin-status success';
+            }
+            playSuccessChime();
+            triggerHaptic([40, 60, 80]);
+
+            // Confetti mini burst
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            setTimeout(() => {
+                // Fade out password screen, reveal mystery gate
+                passwordScreen.classList.add('hidden');
+                if (mysteryGate) {
+                    mysteryGate.classList.remove('hidden');
+                }
+
+                // Sau 6 giây thả dây kéo xuống để người xem kịp đọc hướng dẫn
+                setTimeout(() => {
+                    if (startBtn) startBtn.classList.add('drop-cord-active');
+                }, 6000);
+            }, 900);
+        } else {
+            // Wrong PIN
+            pinSlots.forEach(s => {
+                s.className = 'pin-slot error';
+            });
+            if (pinDisplay) pinDisplay.classList.add('shake');
+            if (pinStatus) {
+                pinStatus.textContent = 'Mật khẩu chưa đúng rùi nè! Thử lại nha 🥺';
+                pinStatus.className = 'pin-status error';
+            }
+            playErrorSound();
+            triggerHaptic([60, 60, 60]);
+
+            setTimeout(() => {
+                enteredPin = '';
+                updatePinUI();
+                if (pinDisplay) pinDisplay.classList.remove('shake');
+                isPinValidating = false;
+            }, 650);
+        }
+    }
+
+    // Keypad Click Event Listeners
+    keyBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const key = btn.getAttribute('data-key');
+            btn.classList.add('pressed');
+            setTimeout(() => btn.classList.remove('pressed'), 150);
+            handlePinInput(key);
+        });
+    });
+
+    // Keyboard Support
+    window.addEventListener('keydown', (e) => {
+        if (!passwordScreen || passwordScreen.classList.contains('hidden')) return;
+
+        if (e.key >= '0' && e.key <= '9') {
+            const btn = document.querySelector(`.key-btn[data-key="${e.key}"]`);
+            if (btn) {
+                btn.classList.add('pressed');
+                setTimeout(() => btn.classList.remove('pressed'), 150);
+            }
+            handlePinInput(e.key);
+        } else if (e.key === 'Backspace') {
+            const btn = document.querySelector(`.key-btn[data-key="backspace"]`);
+            if (btn) {
+                btn.classList.add('pressed');
+                setTimeout(() => btn.classList.remove('pressed'), 150);
+            }
+            handlePinInput('backspace');
+        } else if (e.key === 'Escape' || e.key === 'Delete') {
+            const btn = document.querySelector(`.key-btn[data-key="clear"]`);
+            if (btn) {
+                btn.classList.add('pressed');
+                setTimeout(() => btn.classList.remove('pressed'), 150);
+            }
+            handlePinInput('clear');
+        }
+    });
 
     // Cinematic Flow Elements
     const startBtn = document.getElementById('start-btn');
