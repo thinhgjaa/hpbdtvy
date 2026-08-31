@@ -726,12 +726,26 @@ body::after {
 .mystery-subtext {
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-    max-width: 80%;
+    max-width: 85%;
     margin: 0 auto;
-    line-height: 1.5;
+    line-height: 1.55;
+}
+
+.device-hint-pill {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 18px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid #ffffff;
+    border-radius: 24px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e84118;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15), 0 0 12px rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.2px;
 }
 
 @keyframes pulseGlow {
