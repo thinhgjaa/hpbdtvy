@@ -9,12 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
         'image/doremon/fumble.jpg',
         'image/doremon/hpbd.png',
         'image/doremon/Doraemon_character.png',
+        'image/doremon/1.jpg',
+        'image/doremon/2.jpg',
+        'image/doremon/3.jpg',
+        'image/doremon/4.jpg',
+        'image/doremon/5.jpg',
+        'image/doremon/6.jpg',
         'image/tvy/1.jpg',
         'image/tvy/2.jpg',
         'image/tvy/3.jpg',
         'image/tvy/4.jpg',
         'image/tvy/5.jpg',
-        'image/tvy/7.jpg'
+        'image/tvy/6.jpg'
     ];
     const preloadAudio = [
         'music/countdown.mp3',

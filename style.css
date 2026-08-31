@@ -2660,9 +2660,11 @@ h2 {
 .polaroid-text {
     font-family: 'Dancing Script', cursive;
     color: #333;
-    font-size: 1.85rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-top: 12px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 1;
 }
 
 .signature {
