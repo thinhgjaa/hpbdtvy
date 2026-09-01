@@ -122,8 +122,7 @@
                         <!-- Blue Head -->
                         <circle cx="60" cy="55" r="48" fill="#0096e6" stroke="#1e272e" stroke-width="3" />
                         <!-- White Face -->
-                        <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e"
-                            stroke-width="2.5" />
+                        <ellipse cx="60" cy="62" rx="40" ry="34" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
                         <!-- Blushing Cheeks -->
                         <ellipse cx="32" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
                         <ellipse cx="88" cy="64" rx="6" ry="3.5" fill="#ff7675" opacity="0.6" />
@@ -212,17 +211,10 @@
             <h2 class="mystery-text">Cánh Cửa Thần Kỳ Đã Sẵn Sàng... ✨</h2>
             <p class="mystery-subtext">
                 Trước khi bước qua cánh cửa, Thanh Vy hãy tìm một góc thật yên tĩnh 🌸<br>
-                Đeo tai nghe (hoặc bật loa to) và nhớ bật Micro ở bên dưới nhen! 🎧🎙️💖<br>
-                <span class="device-hint-pill">💻 Khuyên dùng trên Laptop hoặc iPad để có trải nghiệm mượt mà nhất ✨</span>
+                Đeo tai nghe (hoặc bật loa to) để tận hưởng trọn vẹn nhen! 🎧💖<br>
+                <span class="device-hint-pill">💻 Khuyên dùng trên Laptop hoặc iPad để có trải nghiệm mượt mà nhất
+                    ✨</span>
             </p>
-
-            <!-- Microphone Status / Permission Button -->
-            <div class="mic-btn-wrapper">
-                <button type="button" class="mic-toggle-btn" id="micToggleBtn">
-                    <i class="fa-solid fa-microphone"></i> Bật Micro
-                </button>
-            </div>
-            <div class="mic-status-badge hidden" id="micStatusBadge"></div>
         </div>
 
         <!-- Pull Cord Mechanism -->
@@ -509,17 +501,6 @@
                         <button id="blowCandleBtn" class="glowing-btn blow-btn hidden">
                             <i class="fa-solid fa-cake-candles"></i> Thổi Nến ✨
                         </button>
-
-                        <!-- Microphone Blowing Visual HUD -->
-                        <div id="micBlowingHud" class="mic-blowing-hud hidden">
-                            <div class="mic-hud-content">
-                                <span class="mic-hud-icon"><i class="fa-solid fa-microphone-lines"></i></span>
-                                <span class="mic-hud-text">Thổi mạnh vào Mic để thổi tắt nến nhen! 💨✨</span>
-                            </div>
-                            <div class="mic-meter-track">
-                                <div class="mic-meter-bar" id="micMeterBar"></div>
-                            </div>
-                        </div>
 
                         <!-- Balloon Counter (Minigame HUD) -->
                         <div id="balloonCounter" class="balloon-counter hidden">

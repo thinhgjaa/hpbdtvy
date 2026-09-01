@@ -571,213 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- MICROPHONE CANDLE BLOWING LOGIC ---
-    const micPermissionCard = document.getElementById('micPermissionCard');
-    const micToggleBtn = document.getElementById('micToggleBtn');
-    const micStatusBadge = document.getElementById('micStatusBadge');
-    let micStream = null;
-    let micAudioCtx = null;
-    let micAnalyser = null;
-    let micSource = null;
-    let isMicGranted = false;
-    let isMicListening = false;
-    let micAnimationId = null;
 
-    async function requestMicrophonePermission() {
-        initAudio();
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            if (micStatusBadge) {
-                micStatusBadge.classList.remove('hidden');
-                micStatusBadge.innerHTML = '<i class="fa-solid fa-circle-info"></i> Trình duyệt không hỗ trợ micro nhen ✨';
-            }
-            return false;
-        }
-
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: false,
-                    autoGainControl: false
-                }
-            });
-            micStream = stream;
-            isMicGranted = true;
-
-            if (micToggleBtn) {
-                micToggleBtn.classList.add('granted');
-                micToggleBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đã Bật Micro';
-            }
-            if (micStatusBadge) {
-                micStatusBadge.classList.remove('hidden');
-                micStatusBadge.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Đã bật Micro thành công! ✨';
-            }
-            triggerHaptic(40);
-            playPopSound();
-            return true;
-        } catch (err) {
-            console.log("Microphone permission denied / dismissed:", err);
-            isMicGranted = false;
-            if (micToggleBtn) {
-                micToggleBtn.classList.remove('granted');
-                micToggleBtn.innerHTML = '<i class="fa-solid fa-microphone-slash"></i> Chưa Bật Micro';
-            }
-            if (micStatusBadge) {
-                micStatusBadge.classList.remove('hidden');
-                micStatusBadge.innerHTML = 'Không sao nè! Cậu vẫn có thể tiếp tục trải nghiệm nhen ✨';
-            }
-            return false;
-        }
-    }
-
-    if (micToggleBtn) {
-        micToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            requestMicrophonePermission();
-        });
-    }
-
-    function startMicListening() {
-        if (!isMicGranted || !micStream || isMicListening) return;
-        try {
-            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-            micAudioCtx = new AudioContextClass();
-            if (micAudioCtx.state === 'suspended') {
-                micAudioCtx.resume();
-            }
-
-            micSource = micAudioCtx.createMediaStreamSource(micStream);
-
-            // Biquad filter: Isolate low-frequency breath turbulence (60Hz - 450Hz)
-            const hpFilter = micAudioCtx.createBiquadFilter();
-            hpFilter.type = 'highpass';
-            hpFilter.frequency.value = 60;
-
-            const lpFilter = micAudioCtx.createBiquadFilter();
-            lpFilter.type = 'lowpass';
-            lpFilter.frequency.value = 450;
-
-            micAnalyser = micAudioCtx.createAnalyser();
-            micAnalyser.fftSize = 512;
-            micAnalyser.smoothingTimeConstant = 0.3;
-
-            micSource.connect(hpFilter);
-            hpFilter.connect(lpFilter);
-            lpFilter.connect(micAnalyser);
-
-            isMicListening = true;
-
-            const micBlowingHud = document.getElementById('micBlowingHud');
-            if (micBlowingHud) micBlowingHud.classList.remove('hidden');
-
-            const dataArray = new Uint8Array(micAnalyser.frequencyBinCount);
-            const micMeterBar = document.getElementById('micMeterBar');
-            const flame = document.querySelector('.candle .flame');
-
-            let baselineAmbient = 0.15;
-            let calibrationFrames = 50; // ~0.8s initial room noise calibration period
-            let blowConsecutiveFrames = 0;
-            const TARGET_BLOW_FRAMES = 24; // ~400ms of sustained strong blow required
-
-            function checkAudioLevel() {
-                if (!isMicListening || candle.classList.contains('blown-out')) return;
-
-                micAnalyser.getByteFrequencyData(dataArray);
-
-                // Low-frequency band energy (bins 1..14 ~ 50Hz to 350Hz)
-                let sumLow = 0;
-                const lowBins = Math.min(15, dataArray.length);
-                for (let i = 1; i < lowBins; i++) {
-                    sumLow += dataArray[i];
-                }
-                const avgLow = (sumLow / (lowBins - 1)) / 255;
-
-                // 1. Initial warm-up calibration
-                if (calibrationFrames > 0) {
-                    calibrationFrames--;
-                    baselineAmbient = baselineAmbient * 0.85 + avgLow * 0.15;
-                    blowConsecutiveFrames = 0;
-                    if (micMeterBar) micMeterBar.style.width = '0%';
-                    micAnimationId = requestAnimationFrame(checkAudioLevel);
-                    return;
-                }
-
-                // 2. Slow adaptive ambient tracking when not blowing
-                if (avgLow < baselineAmbient + 0.15) {
-                    baselineAmbient = baselineAmbient * 0.98 + avgLow * 0.02;
-                }
-
-                const excess = Math.max(0, avgLow - baselineAmbient);
-                // Blow intensity ratio (0 to 1) with higher resistance
-                const blowIntensity = Math.min(1, excess / 0.45);
-
-                // 3. Dynamic Flame Reaction (tilts and flickers under strong breath)
-                if (flame && !candle.classList.contains('blown-out')) {
-                    if (blowIntensity > 0.18) {
-                        const skew = (blowIntensity * 38);
-                        const scaleY = Math.max(0.28, 1 - blowIntensity * 0.72);
-                        flame.style.transform = `translateX(-50%) skewX(${skew}deg) scaleY(${scaleY})`;
-                    } else {
-                        flame.style.transform = '';
-                    }
-                }
-
-                // 4. Firm, strong sustained breath detection (Yêu cầu luồng hơi dứt khoát và mạnh mẽ)
-                if (excess > 0.32 && avgLow > 0.48) {
-                    // Thổi rất mạnh: tăng nhanh
-                    blowConsecutiveFrames += 1.4;
-                } else if (excess > 0.24 && avgLow > 0.38) {
-                    // Thổi mức khá: tăng từ từ
-                    blowConsecutiveFrames += 0.8;
-                } else if (excess > 0.15) {
-                    // Thở nhẹ / tiếng nói: giảm chậm
-                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.35);
-                } else {
-                    // Im lặng / tiếng ồn phòng thông thường: giảm nhanh về 0
-                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.85);
-                }
-
-                // 5. Update visual level meter smoothly based on blow progress
-                if (micMeterBar) {
-                    const progressPercent = Math.min(100, Math.round((blowConsecutiveFrames / TARGET_BLOW_FRAMES) * 100));
-                    micMeterBar.style.width = `${progressPercent}%`;
-                }
-
-                // 6. Extinguish once sustained strong blow threshold is reached
-                if (blowConsecutiveFrames >= TARGET_BLOW_FRAMES) {
-                    extinguishCandle();
-                    return;
-                }
-
-                micAnimationId = requestAnimationFrame(checkAudioLevel);
-            }
-
-            micAnimationId = requestAnimationFrame(checkAudioLevel);
-        } catch (e) {
-            console.log("Error starting mic listener:", e);
-        }
-    }
-
-    function stopMicListening() {
-        isMicListening = false;
-        if (micAnimationId) {
-            cancelAnimationFrame(micAnimationId);
-            micAnimationId = null;
-        }
-        if (micStream) {
-            try {
-                micStream.getTracks().forEach(track => track.stop());
-            } catch (e) { }
-        }
-        if (micAudioCtx) {
-            try {
-                micAudioCtx.close();
-            } catch (e) { }
-            micAudioCtx = null;
-        }
-        const micBlowingHud = document.getElementById('micBlowingHud');
-        if (micBlowingHud) micBlowingHud.classList.add('hidden');
-    }
 
     // Cinematic Flow Elements
     const startBtn = document.getElementById('start-btn');
@@ -939,19 +733,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 typeWriterEffect(wishText, "Hãy nhắm mắt lại và ước một điều ước đi nhé... ✨", 40, () => {
                     stepTimer = setTimeout(() => {
                         if (!candle.classList.contains('blown-out')) {
-                            if (isMicGranted) {
-                                typeWriterEffect(wishText, "Ước xong rùi thì hãy thổi nến thật mạnh vào Mic nhen! 🎂💨", 35);
-                                duckAudio(true); // Hạ nhỏ nhạc nền để không nhiễu vào Micro
-                                startMicListening();
-                            } else {
-                                typeWriterEffect(wishText, "Ước xong rùi thì hãy nhấn nút Thổi Nến nha! 🎂✨", 35);
-                                if (blowCandleBtn) {
-                                    blowCandleBtn.classList.remove('hidden');
-                                    blowCandleBtn.style.display = '';
-                                }
+                            typeWriterEffect(wishText, "Ước xong rùi thì hãy Thổi Nến nha! 🎂✨", 35);
+                            if (blowCandleBtn) {
+                                blowCandleBtn.classList.remove('hidden');
+                                blowCandleBtn.style.display = '';
                             }
                         }
-                    }, 4500); // 4.5s lắng đọng để Thanh Vy kịp nhắm mắt và ước một điều ước
+                    }, 9500); // 9.5s lắng đọng để Thanh Vy có đủ thời gian nhắm mắt và gửi gắm điều ước sinh nhật
                 });
             }
         }
@@ -964,12 +752,10 @@ document.addEventListener('DOMContentLoaded', () => {
         nextStep();
     }
 
-    // Unified Candle Extinguishing Function (supports both Mic and Button/Click)
+    // Candle Extinguishing Function
     function extinguishCandle() {
         if (candle.classList.contains('blown-out')) return;
         candle.classList.add('blown-out');
-        stopMicListening();
-        duckAudio(false); // Bật lại âm lượng nhạc nền tưng bừng ăn mừng
         triggerHaptic([80, 50, 150]);
 
         // Hide blow button permanently
@@ -992,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wishText) {
             typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
                 setTimeout(() => {
-                    typeWriterEffect(wishText, "🎈 Hãy chạm vào bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
+                    typeWriterEffect(wishText, "🎈 Hã bắt lấy những quả bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
                         const balloonCounter = document.getElementById('balloonCounter');
                         if (balloonCounter) balloonCounter.classList.remove('hidden');
 
