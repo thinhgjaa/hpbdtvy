@@ -675,9 +675,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const flame = document.querySelector('.candle .flame');
 
             let baselineAmbient = 0.15;
-            let calibrationFrames = 40; // ~0.65s initial room noise calibration period
+            let calibrationFrames = 50; // ~0.8s initial room noise calibration period
             let blowConsecutiveFrames = 0;
-            const TARGET_BLOW_FRAMES = 18; // ~300ms of sustained blow required
+            const TARGET_BLOW_FRAMES = 24; // ~400ms of sustained strong blow required
 
             function checkAudioLevel() {
                 if (!isMicListening || candle.classList.contains('blown-out')) return;
@@ -703,39 +703,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // 2. Slow adaptive ambient tracking when not blowing
-                if (avgLow < baselineAmbient + 0.12) {
+                if (avgLow < baselineAmbient + 0.15) {
                     baselineAmbient = baselineAmbient * 0.98 + avgLow * 0.02;
                 }
 
                 const excess = Math.max(0, avgLow - baselineAmbient);
-                // Blow intensity ratio (0 to 1)
-                const blowIntensity = Math.min(1, excess / 0.32);
+                // Blow intensity ratio (0 to 1) with higher resistance
+                const blowIntensity = Math.min(1, excess / 0.45);
 
-                // 3. Dynamic Flame Reaction
+                // 3. Dynamic Flame Reaction (tilts and flickers under strong breath)
                 if (flame && !candle.classList.contains('blown-out')) {
-                    if (blowIntensity > 0.15) {
-                        const skew = (blowIntensity * 36);
-                        const scaleY = Math.max(0.3, 1 - blowIntensity * 0.7);
+                    if (blowIntensity > 0.18) {
+                        const skew = (blowIntensity * 38);
+                        const scaleY = Math.max(0.28, 1 - blowIntensity * 0.72);
                         flame.style.transform = `translateX(-50%) skewX(${skew}deg) scaleY(${scaleY})`;
                     } else {
                         flame.style.transform = '';
                     }
                 }
 
-                // 4. Firm, sustained breath detection
-                // Only count as blowing if signal is significantly louder than baseline ambient AND passes minimum threshold
-                if (excess > 0.18 && avgLow > 0.32) {
-                    if (excess > 0.28) {
-                        blowConsecutiveFrames += 1.5; // Strong blow builds faster
-                    } else {
-                        blowConsecutiveFrames += 1.0;
-                    }
-                } else if (excess > 0.10) {
-                    // Slight wind: hold progress or decay very slowly
-                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.25);
+                // 4. Firm, strong sustained breath detection (Yêu cầu luồng hơi dứt khoát và mạnh mẽ)
+                if (excess > 0.32 && avgLow > 0.48) {
+                    // Thổi rất mạnh: tăng nhanh
+                    blowConsecutiveFrames += 1.4;
+                } else if (excess > 0.24 && avgLow > 0.38) {
+                    // Thổi mức khá: tăng từ từ
+                    blowConsecutiveFrames += 0.8;
+                } else if (excess > 0.15) {
+                    // Thở nhẹ / tiếng nói: giảm chậm
+                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.35);
                 } else {
-                    // Silence / background: decay progress smoothly
-                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.9);
+                    // Im lặng / tiếng ồn phòng thông thường: giảm nhanh về 0
+                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.85);
                 }
 
                 // 5. Update visual level meter smoothly based on blow progress
@@ -744,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     micMeterBar.style.width = `${progressPercent}%`;
                 }
 
-                // 6. Extinguish once sustained threshold is reached
+                // 6. Extinguish once sustained strong blow threshold is reached
                 if (blowConsecutiveFrames >= TARGET_BLOW_FRAMES) {
                     extinguishCandle();
                     return;
