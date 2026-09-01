@@ -307,21 +307,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function duckAudio(isDucked) {
         if (!audio || isMuted) return;
         if (audioDuckInterval) clearInterval(audioDuckInterval);
-        const targetVolume = isDucked ? 0.28 : 0.8;
+        const targetVolume = isDucked ? 0.15 : 0.8;
         const step = isDucked ? -0.05 : 0.05;
 
         audioDuckInterval = setInterval(() => {
             let currentVol = audio.volume;
             if ((isDucked && currentVol > targetVolume) || (!isDucked && currentVol < targetVolume)) {
                 currentVol += step;
-                if (currentVol < 0.25) currentVol = 0.25;
+                if (currentVol < 0.12) currentVol = 0.12;
                 if (currentVol > 0.8) currentVol = 0.8;
                 audio.volume = currentVol;
             } else {
                 audio.volume = targetVolume;
                 clearInterval(audioDuckInterval);
             }
-        }, 60);
+        }, 50);
     }
 
 
@@ -596,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: {
-                    echoCancellation: false,
+                    echoCancellation: true,
                     noiseSuppression: false,
                     autoGainControl: false
                 }
@@ -648,18 +648,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             micSource = micAudioCtx.createMediaStreamSource(micStream);
 
-            // Biquad filter: Isolate low-frequency breath turbulence (50Hz - 420Hz)
+            // Biquad filter: Isolate low-frequency breath turbulence (60Hz - 450Hz)
             const hpFilter = micAudioCtx.createBiquadFilter();
             hpFilter.type = 'highpass';
-            hpFilter.frequency.value = 50;
+            hpFilter.frequency.value = 60;
 
             const lpFilter = micAudioCtx.createBiquadFilter();
             lpFilter.type = 'lowpass';
-            lpFilter.frequency.value = 420;
+            lpFilter.frequency.value = 450;
 
             micAnalyser = micAudioCtx.createAnalyser();
             micAnalyser.fftSize = 512;
-            micAnalyser.smoothingTimeConstant = 0.2;
+            micAnalyser.smoothingTimeConstant = 0.3;
 
             micSource.connect(hpFilter);
             hpFilter.connect(lpFilter);
@@ -674,15 +674,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const micMeterBar = document.getElementById('micMeterBar');
             const flame = document.querySelector('.candle .flame');
 
-            let baselineAmbient = 0.08;
+            let baselineAmbient = 0.15;
+            let calibrationFrames = 40; // ~0.65s initial room noise calibration period
             let blowConsecutiveFrames = 0;
+            const TARGET_BLOW_FRAMES = 18; // ~300ms of sustained blow required
 
             function checkAudioLevel() {
                 if (!isMicListening || candle.classList.contains('blown-out')) return;
 
                 micAnalyser.getByteFrequencyData(dataArray);
 
-                // Low-frequency band energy (bins 1..14 ~ 40Hz to 320Hz)
+                // Low-frequency band energy (bins 1..14 ~ 50Hz to 350Hz)
                 let sumLow = 0;
                 const lowBins = Math.min(15, dataArray.length);
                 for (let i = 1; i < lowBins; i++) {
@@ -690,36 +692,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const avgLow = (sumLow / (lowBins - 1)) / 255;
 
-                // Dynamic background noise calibration
-                baselineAmbient = baselineAmbient * 0.95 + avgLow * 0.05;
-                const excess = Math.max(0, avgLow - baselineAmbient);
-                const blowIntensity = Math.min(1, excess / 0.25);
-
-                // Update visual level meter
-                if (micMeterBar) {
-                    micMeterBar.style.width = `${Math.round(blowIntensity * 100)}%`;
+                // 1. Initial warm-up calibration
+                if (calibrationFrames > 0) {
+                    calibrationFrames--;
+                    baselineAmbient = baselineAmbient * 0.85 + avgLow * 0.15;
+                    blowConsecutiveFrames = 0;
+                    if (micMeterBar) micMeterBar.style.width = '0%';
+                    micAnimationId = requestAnimationFrame(checkAudioLevel);
+                    return;
                 }
 
-                // Interactive flame reaction
+                // 2. Slow adaptive ambient tracking when not blowing
+                if (avgLow < baselineAmbient + 0.12) {
+                    baselineAmbient = baselineAmbient * 0.98 + avgLow * 0.02;
+                }
+
+                const excess = Math.max(0, avgLow - baselineAmbient);
+                // Blow intensity ratio (0 to 1)
+                const blowIntensity = Math.min(1, excess / 0.32);
+
+                // 3. Dynamic Flame Reaction
                 if (flame && !candle.classList.contains('blown-out')) {
-                    if (blowIntensity > 0.12) {
-                        const skew = (blowIntensity * 38);
-                        const scaleY = Math.max(0.35, 1 - blowIntensity * 0.65);
+                    if (blowIntensity > 0.15) {
+                        const skew = (blowIntensity * 36);
+                        const scaleY = Math.max(0.3, 1 - blowIntensity * 0.7);
                         flame.style.transform = `translateX(-50%) skewX(${skew}deg) scaleY(${scaleY})`;
                     } else {
                         flame.style.transform = '';
                     }
                 }
 
-                // Firm blow detection threshold (yêu cầu thổi mạnh hơn một chút)
-                if (excess > 0.14 && avgLow > 0.25) {
-                    blowConsecutiveFrames++;
-                    if (blowConsecutiveFrames >= 4) {
-                        extinguishCandle();
-                        return;
+                // 4. Firm, sustained breath detection
+                // Only count as blowing if signal is significantly louder than baseline ambient AND passes minimum threshold
+                if (excess > 0.18 && avgLow > 0.32) {
+                    if (excess > 0.28) {
+                        blowConsecutiveFrames += 1.5; // Strong blow builds faster
+                    } else {
+                        blowConsecutiveFrames += 1.0;
                     }
+                } else if (excess > 0.10) {
+                    // Slight wind: hold progress or decay very slowly
+                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.25);
                 } else {
-                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 1);
+                    // Silence / background: decay progress smoothly
+                    blowConsecutiveFrames = Math.max(0, blowConsecutiveFrames - 0.9);
+                }
+
+                // 5. Update visual level meter smoothly based on blow progress
+                if (micMeterBar) {
+                    const progressPercent = Math.min(100, Math.round((blowConsecutiveFrames / TARGET_BLOW_FRAMES) * 100));
+                    micMeterBar.style.width = `${progressPercent}%`;
+                }
+
+                // 6. Extinguish once sustained threshold is reached
+                if (blowConsecutiveFrames >= TARGET_BLOW_FRAMES) {
+                    extinguishCandle();
+                    return;
                 }
 
                 micAnimationId = requestAnimationFrame(checkAudioLevel);
@@ -913,17 +941,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     stepTimer = setTimeout(() => {
                         if (!candle.classList.contains('blown-out')) {
                             if (isMicGranted) {
-                                // Khi đã bật mic, KHÔNG hiển thị nút bấm
+                                typeWriterEffect(wishText, "Ước xong rùi thì hãy thổi nến thật mạnh vào Mic nhen! 🎂💨", 35);
+                                duckAudio(true); // Hạ nhỏ nhạc nền để không nhiễu vào Micro
                                 startMicListening();
                             } else {
-                                // Chỉ hiển thị nút bấm khi chưa/không bật mic
+                                typeWriterEffect(wishText, "Ước xong rùi thì hãy nhấn nút Thổi Nến nha! 🎂✨", 35);
                                 if (blowCandleBtn) {
                                     blowCandleBtn.classList.remove('hidden');
                                     blowCandleBtn.style.display = '';
                                 }
                             }
                         }
-                    }, 5000); // 5s lắng đọng để Thanh Vy kịp nhắm mắt và ước một điều ước
+                    }, 4500); // 4.5s lắng đọng để Thanh Vy kịp nhắm mắt và ước một điều ước
                 });
             }
         }
@@ -936,11 +965,12 @@ document.addEventListener('DOMContentLoaded', () => {
         nextStep();
     }
 
-    // Unified Candle Extinguishing Function (supports both Mic and Button)
+    // Unified Candle Extinguishing Function (supports both Mic and Button/Click)
     function extinguishCandle() {
         if (candle.classList.contains('blown-out')) return;
         candle.classList.add('blown-out');
         stopMicListening();
+        duckAudio(false); // Bật lại âm lượng nhạc nền tưng bừng ăn mừng
         triggerHaptic([80, 50, 150]);
 
         // Hide blow button permanently
@@ -967,7 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const balloonCounter = document.getElementById('balloonCounter');
                         if (balloonCounter) balloonCounter.classList.remove('hidden');
 
-                        // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm 0/2
+                        // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm
                         setTimeout(() => {
                             wishText.style.transition = "opacity 0.6s ease, max-height 0.6s ease";
                             wishText.style.opacity = "0";
@@ -983,14 +1013,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setTimeout(() => {
-            firePremiumConfetti(1);
+            firePremiumConfetti(1.2);
             document.querySelector('.balloons').classList.add('interactive');
-        }, 800);
+        }, 600);
     }
 
-    // Candle Blowing Button Click
+    // Candle Blowing Button Click & Candle Direct Click Fallback
     if (blowCandleBtn) {
         blowCandleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            extinguishCandle();
+        });
+    }
+
+    if (candle) {
+        candle.style.cursor = 'pointer';
+        candle.setAttribute('title', 'Thổi hoặc chạm vào nến để thổi tắt nến');
+        candle.addEventListener('click', (e) => {
             e.stopPropagation();
             extinguishCandle();
         });
