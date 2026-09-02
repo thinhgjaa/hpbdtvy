@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. Smart Preloader Logic (Cinematic pacing & Real Asset Tracking)
+    // 0. Asset Preloader Tracking
     const preloader = document.getElementById('preloader');
     const loadingBar = document.getElementById('loadingBar');
     const loadingText = document.getElementById('loadingText');
     let isPreloaderFinished = false;
+    let progressTicker = null;
 
     const preloadImages = [
         'image/doremon/fumble.jpg',
@@ -31,69 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalAssets = preloadImages.length + preloadAudio.length;
     let loadedAssetsCount = 0;
-    let visualProgress = 0;
-    const startTime = Date.now();
-    const MIN_PRELOAD_DURATION = 2200; // Giữ màn hình Doraemon lục túi 2.2s để người xem kịp ngắm
-
-    // Smooth visual progress ticker
-    const progressTicker = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const timeRatio = Math.min(1, elapsed / MIN_PRELOAD_DURATION);
-        const realAssetRatio = totalAssets > 0 ? (loadedAssetsCount / totalAssets) : 1;
-
-        // Kết hợp giữa tiến độ load thật và nhịp thời gian điện ảnh
-        const targetPercent = Math.floor(Math.min(99, Math.max(timeRatio * 90, realAssetRatio * 90)));
-
-        if (visualProgress < targetPercent) {
-            visualProgress += Math.ceil((targetPercent - visualProgress) * 0.25);
-            if (visualProgress > targetPercent) visualProgress = targetPercent;
-            if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
-            if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${visualProgress}%`;
-        }
-
-        // Khi cả asset thật đã xong và đủ thời gian tối thiểu 2.2s
-        if (loadedAssetsCount >= totalAssets && elapsed >= MIN_PRELOAD_DURATION && !isPreloaderFinished) {
-            clearInterval(progressTicker);
-            completePreload();
-        }
-    }, 50);
 
     function checkAssetLoaded() {
         loadedAssetsCount++;
-    }
-
-    function completePreload() {
-        if (isPreloaderFinished) return;
-        isPreloaderFinished = true;
-        clearInterval(progressTicker);
-        if (loadingBar) loadingBar.style.width = `100%`;
-        if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
-
-        // Dừng hoạt ảnh lục túi hoảng loạn và hiện trạng thái đã tìm thấy bảo bối
-        const loaderBadge = document.getElementById('loaderBadge') || document.querySelector('.doraemon-badge');
-        const loaderBadgeText = document.getElementById('loaderBadgeText');
-        const panicStage = document.querySelector('.doraemon-panic-stage');
-
-        if (preloader) preloader.classList.add('preloader-found');
-        if (panicStage) panicStage.classList.add('found-gadget');
-
-        // Đổi chữ phía dưới thành: "A... TÌM THẤY RỒI! ✨🚪🎁"
-        if (loaderBadge) {
-            loaderBadge.classList.add('badge-found');
-            if (loaderBadgeText) {
-                loaderBadgeText.innerHTML = 'A... TÌM THẤY RỒI! ✨🚪🎁';
-            } else {
-                loaderBadge.innerHTML = '<i class="fa-solid fa-sparkles"></i> A... TÌM THẤY RỒI! ✨🚪🎁';
-            }
-        }
-
-        // Dừng lại và giữ màn hình đủ thời gian (2.2 giây) để người dùng đọc thoải mái
-        setTimeout(() => {
-            // Ẩn preloader, chuyển mượt sang Màn hình Nhập Mật Khẩu Doraemon
-            if (preloader) preloader.classList.add('hidden');
-            const passwordScreen = document.getElementById('password-screen');
-            if (passwordScreen) passwordScreen.classList.remove('hidden');
-        }, 2200);
     }
 
     preloadImages.forEach(src => {
@@ -114,12 +55,91 @@ document.addEventListener('DOMContentLoaded', () => {
         aud.src = src;
     });
 
-    // Fallback an toàn (tối đa 4s)
-    setTimeout(() => {
-        if (!isPreloaderFinished) {
-            completePreload();
+    // Hàm bắt đầu màn hình Doraemon load lục túi sau khi nhập đúng mật mã
+    function startPreloadScreen() {
+        if (!preloader) return;
+        preloader.classList.remove('hidden');
+        preloader.classList.remove('preloader-found');
+        
+        const panicStage = document.querySelector('.doraemon-panic-stage');
+        if (panicStage) panicStage.classList.remove('found-gadget');
+
+        const loaderBadge = document.getElementById('loaderBadge') || document.querySelector('.doraemon-badge');
+        const loaderBadgeText = document.getElementById('loaderBadgeText');
+        if (loaderBadge) loaderBadge.classList.remove('badge-found');
+        if (loaderBadgeText) loaderBadgeText.innerHTML = 'NÓ ĐOU RỒI... NÓ ĐOU RỒI TAAA? 🎒🎁';
+
+        let visualProgress = 0;
+        const startTime = Date.now();
+        const MIN_PRELOAD_DURATION = 2600; // Thời gian Doraemon lục túi 2.6s sinh động
+
+        progressTicker = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const timeRatio = Math.min(1, elapsed / MIN_PRELOAD_DURATION);
+            const realAssetRatio = totalAssets > 0 ? (loadedAssetsCount / totalAssets) : 1;
+            const targetPercent = Math.floor(Math.min(99, Math.max(timeRatio * 90, realAssetRatio * 90)));
+
+            if (visualProgress < targetPercent) {
+                visualProgress += Math.ceil((targetPercent - visualProgress) * 0.25);
+                if (visualProgress > targetPercent) visualProgress = targetPercent;
+                if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
+                if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${visualProgress}%`;
+            }
+
+            if (loadedAssetsCount >= totalAssets && elapsed >= MIN_PRELOAD_DURATION && !isPreloaderFinished) {
+                clearInterval(progressTicker);
+                completePreload();
+            }
+        }, 50);
+
+        // Fallback tối đa 4.5s
+        setTimeout(() => {
+            if (!isPreloaderFinished) {
+                if (progressTicker) clearInterval(progressTicker);
+                completePreload();
+            }
+        }, 4500);
+    }
+
+    function completePreload() {
+        if (isPreloaderFinished) return;
+        isPreloaderFinished = true;
+        if (progressTicker) clearInterval(progressTicker);
+        if (loadingBar) loadingBar.style.width = `100%`;
+        if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
+
+        // Dừng hoạt ảnh lục túi hoảng loạn và chuyển sang trạng thái tìm thấy bảo bối
+        const loaderBadge = document.getElementById('loaderBadge') || document.querySelector('.doraemon-badge');
+        const loaderBadgeText = document.getElementById('loaderBadgeText');
+        const panicStage = document.querySelector('.doraemon-panic-stage');
+
+        if (preloader) preloader.classList.add('preloader-found');
+        if (panicStage) panicStage.classList.add('found-gadget');
+
+        // Đổi chữ thông báo thành: "A... TÌM THẤY RỒI! ✨🚪🎁"
+        if (loaderBadge) {
+            loaderBadge.classList.add('badge-found');
+            if (loaderBadgeText) {
+                loaderBadgeText.innerHTML = 'A... TÌM THẤY RỒI! ✨🚪🎁';
+            } else {
+                loaderBadge.innerHTML = '<i class="fa-solid fa-sparkles"></i> A... TÌM THẤY RỒI! ✨🚪🎁';
+            }
         }
-    }, 4000);
+
+        // Dừng lại và giữ màn hình 2.2 giây để người dùng đọc thoải mái
+        setTimeout(() => {
+            // Ẩn preloader, chuyển mượt sang Giao diện Chuẩn Bị (Mystery Gate)
+            if (preloader) preloader.classList.add('hidden');
+            if (mysteryGate) {
+                mysteryGate.classList.remove('hidden');
+            }
+
+            // Sau 8 giây thả dây kéo xuống để người xem kịp đọc hướng dẫn
+            setTimeout(() => {
+                if (startBtn) startBtn.classList.add('drop-cord-active');
+            }, 8000);
+        }, 2200);
+    }
 
     // Typewriter Utility Function
     function typeWriterEffect(element, text, speed = 35, callback = null, allowSkip = false) {
@@ -502,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 s.className = 'pin-slot success';
             });
             if (pinStatus) {
-                pinStatus.textContent = 'Chính xác rùi! Đang mở Cánh Cửa Thần Kỳ... ✨';
+                pinStatus.textContent = 'Chính xác rùi! Đang tìm bảo bối trong túi thần kỳ... ✨';
                 pinStatus.className = 'pin-status success';
             }
             playSuccessChime();
@@ -518,17 +538,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setTimeout(() => {
-                // Fade out password screen, reveal mystery gate
+                // Ẩn màn hình mật mã, mở màn hình Doraemon load lục túi
                 passwordScreen.classList.add('hidden');
-                if (mysteryGate) {
-                    mysteryGate.classList.remove('hidden');
-                }
-
-                // Sau 9 giây thả dây kéo xuống để người xem kịp đọc hướng dẫn
-                setTimeout(() => {
-                    if (startBtn) startBtn.classList.add('drop-cord-active');
-                }, 9000);
-            }, 900);
+                startPreloadScreen();
+            }, 850);
         } else {
             // Wrong PIN
             pinSlots.forEach(s => {

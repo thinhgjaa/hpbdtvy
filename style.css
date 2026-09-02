@@ -77,10 +77,12 @@ body::after {
 }
 
 .hidden,
+.screen.hidden,
 .birthday-scene.hidden,
 .click-book-hint.hidden {
     opacity: 0 !important;
-    pointer-events: none;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
 
 /* Cuốn sổ bay vào từ dưới lên */
