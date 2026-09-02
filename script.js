@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wishText) {
             typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
                 setTimeout(() => {
-                    typeWriterEffect(wishText, "🎈 Hã bắt lấy những quả bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
+                    typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
                         const balloonCounter = document.getElementById('balloonCounter');
                         if (balloonCounter) balloonCounter.classList.remove('hidden');
 
@@ -1130,41 +1130,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Wish Tooltip & Pop Balloon logic (35 Iconic Non-Overlapping Doraemon Gadgets & Wishes)
     const allBalloons = document.querySelectorAll('.balloon');
     const randomWishes = [
-        "🎒 Nhận được Chong Chóng Tre! Chúc Thanh Vy tuổi mới tự do bay cao bay xa, chạm đến mọi ước mơ hoài bão! 🚀",
-        "🚪 Nhận được Cánh Cửa Thần Kỳ! Mở ra cánh cửa dẫn lối đến những chân trời du lịch mới và trải nghiệm kỳ thú! ✈️🌍",
-        "🍞 Nhận được Bánh Mì Chuyển Ngữ! Chúc Thanh Vy giao tiếp khéo léo, kết nối vạn người thương và luôn được yêu quý! 💬✨",
-        "⏱️ Nhận được Cỗ Máy Thời Gian! Chúc Thanh Vy luôn trân trọng từng phút giây thanh xuân tươi đẹp và rạng ngời! ⏳💖",
-        "🔦 Nhận được Đèn Pin Thu Nhỏ! Mọi khó khăn, áp lực và muộn phiền trong cuộc sống đều sẽ thu bé lại xíu xiu rồi biến mất! 🪄💫",
-        "🏮 Nhận được Đèn Pin Phóng To! Chúc niềm vui, sự tự tin và may mắn của Thanh Vy được phóng to gấp ngàn lần! 🌟📈",
-        "🕰️ Nhận được Khăn Trùm Thời Gian! Tuổi mới luôn giữ mãi nét tươi trẻ, da dẻ mịn màng và thần thái rạng rỡ! 🌸💆‍♀️",
-        "💊 Nhận được Bánh Mì Ghi Nhớ! Học gì hiểu nấy, làm việc thăng hoa, thi cử hanh thông và luôn đứng đầu bảng vàng! 📚💯",
-        "📷 Nhận được Máy Ảnh Tạo Mốt! Chúc Thanh Vy mỗi ngày bước ra đường đều xinh đẹp ngút ngàn, ăn diện cực chất và sang chảnh! 👗👠",
-        "☁️ Nhận được Mây Đông Đặc! Chúc Thanh Vy luôn có những giấc ngủ thật êm ái, bồng bềnh và không bao giờ mất ngủ! 🛌💤",
-        "📞 Nhận được Điện Thoại Yêu Cầu! Bất cứ điều ước hay kế hoạch nào Thanh Vy ấp ủ đều sẽ trở thành hiện thực rực rỡ! 🍀📞",
-        "🍰 Nhận được Bánh Rán Dorayaki Thượng Hạng! Chúc Thanh Vy thỏa sức ăn ngon cả thế giới mà dáng vẫn luôn chuẩn đẹp! 🧁😋",
-        "🎀 Nhận được Nơ Đổi Giọng! Chúc Thanh Vy nói lời nào cũng ngọt ngào, truyền cảm hứng và mang lại tiếng cười cho mọi người! 🎤🎶",
-        "💍 Nhận được Vòng Xuyên Thấu! Chúc Thanh Vy dễ dàng vượt qua mọi rào cản và thử thách trong công việc lẫn cuộc sống! 🎯🔓",
+        "🎒 Nhận được Chong Chóng Tre! Chúc Thanh Vy tuổi 21 tự do bay cao bay xa, nhẹ nhàng chạm đến mọi ước mơ và hoài bão! 🚀🌸",
+        "🚪 Nhận được Cánh Cửa Thần Kỳ! Mở ra cánh cửa đưa Thanh Vy đến những chân trời du lịch mới, vi vu khám phá thế giới thật vui! ✈️🌍",
+        "🍞 Nhận được Bánh Mì Chuyển Ngữ! Chúc Thanh Vy ăn nói duyên dáng, đi đến đâu cũng được vạn người mến, triệu người thương! 💬✨",
+        "⏱️ Nhận được Cỗ Máy Thời Gian! Chúc Thanh Vy luôn lưu giữ trọn vẹn những khoảnh khắc thanh xuân rực rỡ và tươi đẹp nhất! ⏳💖",
+        "🪄 Nhận được Đèn Pin Thu Nhỏ! Mọi khó khăn, áp lực hay chuyện buồn phiền đều sẽ thu bé lại xíu xiu rồi biến mất tăm! 🪄💫",
+        "🏮 Nhận được Đèn Pin Phóng To! Chúc niềm vui, sự tự tin, nét đáng yêu và may mắn của Thanh Vy được phóng to gấp ngàn lần! 🌟📈",
+        "🕰️ Nhận được Khăn Trùm Thời Gian! Tuổi mới luôn giữ mãi nét trẻ trung, làn da mịn màng trắng xinh và nụ cười rạng rỡ! 🌸💆‍♀️",
+        "📚 Nhận được Bánh Mì Ghi Nhớ! Chúc Thanh Vy học siêu nhớ lâu, làm việc thăng hoa, thi cử hanh thông và ra trường đúng hạn xuất sắc! 🎓💯",
+        "👗 Nhận được Máy Ảnh Tạo Mốt! Mỗi ngày bước ra đường đều xinh lung linh, ăn diện cực gu và luôn là phiên bản tỏa sáng nhất! 💄👠✨",
+        "☁️ Nhận được Mây Đông Đặc! Chúc Thanh Vy mỗi tối đều có những giấc ngủ thật êm ái, bồng bềnh và không bao giờ bị mất ngủ! 🛌💤",
+        "📞 Nhận được Điện Thoại Yêu Cầu! Bất cứ mong ước hay dự định nào Thanh Vy ấp ủ trong tuổi mới đều trở thành hiện thực mỹ mãn! 🍀📞",
+        "🍰 Nhận được Bánh Rán Dorayaki Thượng Hạng! Thỏa sức thưởng thức cả thế giới đồ ăn ngon mê ly mà dáng vẫn luôn chuẩn đẹp! 🧁😋",
+        "🎀 Nhận được Nơ Đổi Giọng! Chúc Thanh Vy nói lời nào cũng ngọt ngào, dễ thương và luôn mang lại tiếng cười cho mọi người! 🎤🎶",
+        "🎯 Nhận được Vòng Xuyên Thấu! Chúc Thanh Vy dễ dàng vượt qua mọi rào cản và thử thách trong công việc lẫn cuộc sống một cách êm đẹp! 🔓✨",
         "🪞 Nhận được Gương Nhân Đôi! Chúc tài lộc, may mắn và số dư tài khoản của Thanh Vy cứ thế tự động nhân đôi liên tục! 💰💳",
-        "🧥 Nhận được Áo Choàng Tàng Hình! Chúc Thanh Vy luôn được bảo bọc an toàn, tránh xa mọi thị phi, rắc rối và năng lượng tiêu cực! 🛡️🍃",
-        "✏️ Nhận được Bút Chì Máy Tính! Mọi bài toán hay quyết định trong cuộc sống đều được giải quyết nhanh gọn, sáng suốt và chính xác! 🧠💡",
-        "🌬️ Nhận được Pháo Không Khí! Thổi bay mọi cơn stress, mệt mỏi trong tích tắc, trả lại tâm hồn sảng khoái và tràn đầy năng lượng! 💨🔥",
-        "⏳ Nhận được Đồng Hồ Ngưng Đọng Thời Gian! Những khoảnh khắc hạnh phúc bên gia đình và người thân yêu sẽ mãi đọng lại ngọt ngào! 🕰️💐",
-        "🍄 Nhận được Đèn Phục Hồi! Chúc sức khỏe của Thanh Vy luôn dồi dào, hồi phục năng lượng siêu tốc sau mỗi ngày bận rộn! ⚡💪",
-        "👟 Nhận được Giày Đi Vào Tranh! Chúc cuộc đời của Thanh Vy rực rỡ và lãng mạn như bước ra từ câu chuyện cổ tích đẹp nhất! 📖✨",
-        "🎋 Nhận được Cây Điều Ước! Cầu được ước thấy, mọi tâm nguyện của Thanh Vy trong tuổi mới đều sẽ sớm đơm hoa kết trái! 🎋🌠",
-        "🧲 Nhận được Nam Châm Tình Bạn! Luôn được bao quanh bởi những người bạn chân thành, tri kỷ và luôn sẵn sàng sẻ chia! 🤝❤️",
-        "🪶 Nhận được Lông Vũ Trọng Lượng! Chúc tâm hồn Thanh Vy luôn nhẹ tênh, thong dong bước qua giông bão với nụ cười trên môi! 🪶🕊️",
-        "🌧️ Nhận được Cây Dù Tình Yêu! Chúc Thanh Vy luôn được yêu thương, có một tình cảm thật dịu dàng che chở và đồng hành! ☂️💑",
-        "🍵 Nhận được Trà Thấu Hiểu! Luôn có một nội tâm an yên, sáng suốt và tìm thấy sự bình yên sâu lắng trong tâm hồn! 🍵🧘‍♀️",
-        "🚀 Nhận được Tàu Vũ Trụ Mini! Chúc sự nghiệp và học tập của Thanh Vy cất cánh bay vút lên những đỉnh cao mới! 🌌🏆",
-        "🥊 Nhận được Găng Tay Siêu Nhân! Trao cho Thanh Vy sức mạnh kiên cường để tự tay gặt hái những thành công rực rỡ nhất! 🥊🔥",
-        "🖌️ Nhận được Bút Vẽ Đồ Thật! Mọi ý tưởng sáng tạo trong đầu Thanh Vy đều sẽ được hiện thực hóa một cách hoàn hảo! 🖌️🌈",
-        "🫧 Nhận được Bong Bóng Bảo Vệ! Giữ cho Thanh Vy luôn vô ưu vô lo, được yêu thương và nâng niu trong thế giới của riêng mình! 🫧👑",
-        "🧭 Nhận được La Bàn Hạnh Phúc! Dù đi bất cứ đâu, la bàn cuộc đời cũng sẽ luôn chỉ đúng hướng dẫn lối Thanh Vy đến niềm vui ngập tràn! 🧭☀️",
-        "🪙 Nhận được Đồng Xu May Mắn! Ra đường gặp quý nhân, làm việc gặp thời cơ, vạn sự hanh thông như ý! 🍀✨",
-        "📻 Nhận được Chiếc Loa Cảm Hứng! Mỗi ngày thức dậy đều tràn đầy cảm hứng, năng lượng tích cực và nhiệt huyết tuổi trẻ! 📻🎉",
-        "🎁 Nhận được Hộp Quà Thần Kỳ! Cuộc sống tuổi mới của Thanh Vy sẽ luôn ngập tràn những món quà bất ngờ đáng yêu mỗi ngày! 🎁🎊",
-        "🌟 Nhận được Ngôi Sao May Mắn & Túi Thần Kỳ! Toàn bộ vũ trụ gửi đến Thanh Vy muôn vàn phước lành, tình yêu thương và nụ cười rạng rỡ nhất! 🌟🥰"
+        "🧥 Nhận được Áo Choàng Tàng Hình! Giúp Thanh Vy tránh xa mọi thị phi, drama, rắc rối và luôn được bình yên bảo bọc! 🛡️🍃",
+        "✏️ Nhận được Bút Chì Máy Tính! Mọi bài toán hay quyết định trong cuộc sống đều được giải quyết nhanh gọn, sáng suốt và chuẩn xác! 🧠💡",
+        "🌬️ Nhận được Pháo Không Khí! Thổi bay mọi cơn stress, áp lực mệt mỏi trong tích tắc, trả lại tâm trạng phơi phới yêu đời! 💨🔥",
+        "🕰️ Nhận được Đồng Hồ Ngưng Đọng Thời Gian! Lưu giữ từng khoảnh khắc ấm áp, hạnh phúc bên gia đình, bạn bè và những người thân yêu! 💐👨‍👩‍👧‍👦",
+        "✨ Nhận được Đèn Phục Hồi! Sức khỏe luôn dồi dào, hồi phục 100% năng lượng siêu tốc sau mỗi ngày học tập và làm việc chăm chỉ! ⚡💪",
+        "👠 Nhận được Giày Đi Vào Tranh! Chúc cuộc đời của Thanh Vy luôn ngập tràn sắc màu ngọt ngào và lãng mạn như một câu chuyện cổ tích! 📖✨",
+        "🎋 Nhận được Cây Điều Ước! Cầu được ước thấy, mọi tâm nguyện của Thanh Vy trong tuổi mới đều sẽ sớm đơm hoa kết trái ngọt ngào! 🎋🌠",
+        "🤝 Nhận được Nam Châm Tình Bạn! Luôn được vây quanh bởi những người bạn chân thành, tri kỷ và luôn sẵn sàng ở bên sẻ chia! 🤝❤️",
+        "🪶 Nhận được Lông Vũ Trọng Lượng! Chúc tâm hồn Thanh Vy luôn nhẹ tênh, thảnh thơi bước qua mọi thăng trầm bằng nụ cười tươi tắn! 🪶🕊️",
+        "☂️ Nhận được Cây Dù Tình Yêu! Chúc Thanh Vy luôn nhận được sự yêu thương chân thành, được nâng niu, che chở và đồng hành ấm áp! 💖🥰",
+        "🍵 Nhận được Trà Thấu Hiểu! Giữ cho nội tâm luôn an yên, sáng suốt và tìm thấy sự bình yên sâu lắng trong trẻo mỗi ngày! 🍵🧘‍♀️",
+        "🚀 Nhận được Tàu Vũ Trụ Mini! Chúc con đường học vấn và sự nghiệp của Thanh Vy cất cánh bay vút lên những đỉnh cao rực rỡ! 🌌🏆",
+        "💪 Nhận được Găng Tay Cổ Vũ! Tiếp thêm 1000% tự tin và động lực để Thanh Vy vượt qua mọi thử thách dễ như ăn kẹo! 🥊🌟",
+        "🖌️ Nhận được Bút Vẽ Đồ Thật! Mọi ý tưởng sáng tạo tuyệt vời trong đầu Thanh Vy đều sẽ được hiện thực hóa một cách hoàn hảo! 🖌️🌈",
+        "🫧 Nhận được Bong Bóng Bảo Vệ! Giữ cho cô gái nhỏ luôn vô tư, yêu đời, được yêu thương và nâng niu trong thế giới của riêng mình! 🫧👑",
+        "🧭 Nhận được La Bàn Hạnh Phúc! Dù đi bất cứ đâu, la bàn cuộc đời cũng sẽ luôn chỉ đúng hướng dẫn lối Thanh Vy đến ngập tràn niềm vui! 🧭☀️",
+        "🍀 Nhận được Đồng Xu May Mắn! Ra đường gặp quý nhân, làm việc gặp thời cơ thuận lợi, vạn sự hanh thông như ý! 🪙✨",
+        "📻 Nhận được Chiếc Loa Cảm Hứng! Mỗi sớm mai thức dậy đều tràn đầy cảm hứng, năng lượng tích cực và nhiệt huyết tuổi 21! 📻🎉",
+        "🎁 Nhận được Hộp Quà Thần Kỳ! Cuộc sống tuổi mới của Thanh Vy sẽ luôn ngập tràn những bất ngờ ngọt ngào và đáng yêu mỗi ngày! 🎁🎊",
+        "🌟 Nhận được Ngôi Sao May Mắn & Túi Thần Kỳ! Vũ trụ gửi đến Thanh Vy tất cả những phước lành, tình yêu thương và nụ cười rạng rỡ nhất! 🌟🥰"
     ];
 
     let availableWishes = [...randomWishes];
