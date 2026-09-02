@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wishText) {
             typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
                 setTimeout(() => {
-                    typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay secret để bắt lấy nhìu secret và may mắn nhé!", 35, () => {
+                    typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay secret để có thật nhiều secret và may mắn nhé!", 35, () => {
                         const balloonCounter = document.getElementById('balloonCounter');
                         if (balloonCounter) {
                             balloonCounter.classList.remove('hidden');
