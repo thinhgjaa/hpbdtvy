@@ -608,35 +608,86 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cinematic Flow Elements
     const startBtn = document.getElementById('start-btn');
     const mysteryGate = document.getElementById('mystery-gate');
-    // --- AUTO FULLSCREEN CONTROLLER ---
-    function triggerAutoFullscreen() {
-        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-            return;
-        }
-        try {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch(() => {});
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            }
-        } catch (e) {}
+    const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+    const fullscreenBtnText = document.getElementById('fullscreenBtnText');
+    const countdownScreen = document.getElementById('countdown-screen');
+    const countdownNum = document.getElementById('countdown-number');
+    const countdownText = document.getElementById('countdown-text');
+    const clickBookHint = document.getElementById('clickBookHint') || document.querySelector('.book-hint-bubble');
+    const candle = document.querySelector('.candle');
+    const blowCandleBtn = document.getElementById('blowCandleBtn');
+    const wishContainer = document.querySelector('.wish-container');
+
+    // --- FULLSCREEN CONTROLLER VIA BUTTON ---
+    function isFullScreenActive() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
     }
 
-    // Auto trigger on first user gesture (click, tap, keypress)
-    const handleFirstInteraction = () => {
-        triggerAutoFullscreen();
-        document.removeEventListener('click', handleFirstInteraction);
-        document.removeEventListener('touchstart', handleFirstInteraction);
-        document.removeEventListener('keydown', handleFirstInteraction);
-    };
-    document.addEventListener('click', handleFirstInteraction, { once: true });
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
-    document.addEventListener('keydown', handleFirstInteraction, { once: true });
+    function updateFullscreenBtnUI() {
+        if (!fullscreenToggleBtn) return;
+        const active = isFullScreenActive();
+        if (active) {
+            fullscreenToggleBtn.classList.add('is-fullscreen');
+            if (fullscreenIcon) {
+                fullscreenIcon.className = 'fa-solid fa-compress';
+            }
+            if (fullscreenBtnText) {
+                fullscreenBtnText.textContent = 'Thu Nhỏ Màn Hình';
+            }
+        } else {
+            fullscreenToggleBtn.classList.remove('is-fullscreen');
+            if (fullscreenIcon) {
+                fullscreenIcon.className = 'fa-solid fa-expand';
+            }
+            if (fullscreenBtnText) {
+                fullscreenBtnText.textContent = 'Mở Toàn Màn Hình';
+            }
+        }
+    }
+
+    function toggleFullScreen() {
+        initAudio();
+        triggerHaptic(40);
+        try {
+            if (!isFullScreenActive()) {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(err => console.log('Exit fullscreen error:', err));
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        } catch (e) {
+            console.log('Fullscreen toggle failed', e);
+        }
+    }
+
+    if (fullscreenToggleBtn) {
+        fullscreenToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFullScreen();
+        });
+    }
+
+    document.addEventListener('fullscreenchange', updateFullscreenBtnUI);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenBtnUI);
+    document.addEventListener('mozfullscreenchange', updateFullscreenBtnUI);
+    document.addEventListener('MSFullscreenChange', updateFullscreenBtnUI);
 
     const countdownMessages = [
         "Một ngày đặc biệt... ",
@@ -692,7 +743,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startBtn.addEventListener('click', () => {
         initAudio();
-        triggerAutoFullscreen();
         triggerHaptic([50, 40, 80]); // Haptic on pull cord
 
         // Start Countdown Audio
@@ -738,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
             countdownNum.style.opacity = "0";
             countdownText.style.opacity = "0";
 
-            // 3.5s cinematic pause
+            // Seamless cinematic transition to birthday scene
             setTimeout(() => {
                 countdownScreen.classList.add('hidden');
 
@@ -750,18 +800,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Show the scene
                 scene.classList.remove('hidden');
+                scene.classList.add('scene-active');
                 initDynamicSkyIcons();
 
                 // Pop confetti as background fully bursts into view
                 setTimeout(() => {
                     firePremiumConfetti(1.5);
-                }, 3600);
+                }, 1200);
 
                 // Type out the birthday celebration & wish instruction after the wish note appears
                 setTimeout(() => {
                     runBirthdayIntro();
-                }, 5300);
-            }, 3000);
+                }, 2200);
+            }, 800);
         }
     }
 
