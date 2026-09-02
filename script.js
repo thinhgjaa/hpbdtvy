@@ -727,6 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Show the scene
                 scene.classList.remove('hidden');
+                initDynamicSkyIcons();
 
                 // Pop confetti as background fully bursts into view
                 setTimeout(() => {
@@ -803,6 +804,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             triggerHaptic(30);
         });
+    }
+
+    // Dynamic Ambient Background Icons (Xuất hiện ngẫu nhiên tự nhiên)
+    let dynamicIconsInterval = null;
+    function initDynamicSkyIcons() {
+        const container = document.getElementById('dynamicSkyIcons');
+        if (!container || dynamicIconsInterval) return;
+
+        const iconList = [
+            '🚪', '🥞', '🍞', '🔦', '🔔', '🎁', '🎂', '🍰',
+            '🌸', '🪄', '💖', '🎵', '🎶', '✨', '⭐', '🌟', '🎈'
+        ];
+
+        function spawnAmbientIcon() {
+            if (!scene || scene.classList.contains('hidden')) return;
+
+            // Pick a random side (Left wing: 4% - 30%, Right wing: 70% - 96%)
+            const isLeft = Math.random() < 0.5;
+            const leftPercent = isLeft 
+                ? (4 + Math.random() * 26) 
+                : (70 + Math.random() * 26);
+
+            const icon = iconList[Math.floor(Math.random() * iconList.length)];
+            const duration = 10 + Math.random() * 8; // 10s đến 18s trôi êm ái
+            const size = 18 + Math.random() * 16; // 18px đến 34px
+            const targetOpacity = 0.45 + Math.random() * 0.4;
+            const swayDistance = (Math.random() * 32 - 16) + 'px';
+
+            const el = document.createElement('div');
+            el.className = 'dynamic-floating-icon';
+            el.textContent = icon;
+            el.style.left = `${leftPercent}%`;
+            el.style.fontSize = `${size}px`;
+            el.style.animationDuration = `${duration}s`;
+            el.style.setProperty('--target-opacity', targetOpacity);
+            el.style.setProperty('--sway-distance', swayDistance);
+
+            container.appendChild(el);
+
+            el.addEventListener('animationend', () => {
+                el.remove();
+            });
+        }
+
+        // Tạo nhịp xuất hiện ngẫu nhiên mỗi 1.2s - 1.8s
+        dynamicIconsInterval = setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                spawnAmbientIcon();
+            }
+        }, 1400);
+
+        // Khởi tạo một vài icon trôi nhẹ ban đầu
+        for (let i = 0; i < 5; i++) {
+            setTimeout(spawnAmbientIcon, i * 500);
+        }
     }
 
     // Candle Extinguishing Function
