@@ -48,10 +48,217 @@
         </div>
 
         <div class="loader-content doraemon-loader-wrapper">
-            <!-- Magnificent Fumbling Doraemon Artwork Card with Glow Effect -->
-            <div class="doraemon-showcase-card">
+            <!-- Magnificent Animated Doraemon Panic Rummage Stage -->
+            <div class="doraemon-panic-stage">
                 <div class="card-glow-aura"></div>
-                <img src="image/doremon/fumble.jpg" alt="Doraemon Lúng Túng Lục Túi" class="fumble-art-img">
+
+                <!-- Swirling / Flying Rummaged Gadgets Bursting Out -->
+                <div class="flying-gadgets-container">
+                    <span class="fly-item fi-1" title="Cánh Cửa Thần Kỳ">🚪</span>
+                    <span class="fly-item fi-2" title="Chong Chóng Tre">🎒</span>
+                    <span class="fly-item fi-3" title="Bánh Mì Chuyển Ngữ">🍞</span>
+                    <span class="fly-item fi-4" title="Đèn Pin Thu Nhỏ">🔦</span>
+                    <span class="fly-item fi-5" title="Bánh Rán Dorayaki">🍰</span>
+                    <span class="fly-item fi-6" title="Khăn Trùm Thời Gian">🕰️</span>
+                    <span class="fly-item fi-7" title="Nơ Đổi Giọng">🎀</span>
+                    <span class="fly-item fi-8" title="Máy Ảnh Tạo Mốt">📷</span>
+                    <span class="fly-item fi-9" title="Hộp Quà Thần Kỳ">🎁</span>
+                    <span class="fly-item fi-10" title="Bảo Bối Thần Kỳ">🪄</span>
+                    <span class="fly-item fi-11">✨</span>
+                    <span class="fly-item fi-12">💨</span>
+                </div>
+
+                <!-- Expressive Vector SVG Panicked Doraemon Character -->
+                <svg class="doraemon-panic-svg" viewBox="0 0 240 240" width="220" height="220">
+                    <defs>
+                        <!-- Blue gradient for body/head -->
+                        <radialGradient id="doraBlue" cx="40%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="#00a8ff" />
+                            <stop offset="70%" stop-color="#0090e3" />
+                            <stop offset="100%" stop-color="#006bb3" />
+                        </radialGradient>
+                        <!-- Gold gradient for bell -->
+                        <radialGradient id="bellGold" cx="35%" cy="35%" r="60%">
+                            <stop offset="0%" stop-color="#fff200" />
+                            <stop offset="65%" stop-color="#ffd32a" />
+                            <stop offset="100%" stop-color="#d18200" />
+                        </radialGradient>
+                        <!-- Pocket glow -->
+                        <radialGradient id="pocketGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#fffbe0" stop-opacity="1" />
+                            <stop offset="60%" stop-color="#ffd32a" stop-opacity="0.6" />
+                            <stop offset="100%" stop-color="#ffd32a" stop-opacity="0" />
+                        </radialGradient>
+                        <!-- Drop shadow filter -->
+                        <filter id="shadowFilter" x="-10%" y="-10%" width="120%" height="120%">
+                            <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.35" />
+                        </filter>
+                    </defs>
+
+                    <g filter="url(#shadowFilter)" class="doraemon-character-group">
+                        <!-- Body (Blue background behind belly) -->
+                        <path d="M 68 145 C 55 170 55 210 80 225 C 105 235 135 235 160 225 C 185 210 185 170 172 145 Z"
+                            fill="url(#doraBlue)" stroke="#1e272e" stroke-width="3.5" stroke-linejoin="round" />
+
+                        <!-- White Belly -->
+                        <ellipse cx="120" cy="180" rx="46" ry="40" fill="#ffffff" stroke="#1e272e" stroke-width="3" />
+
+                        <!-- 4D Pocket Dark Interior Cavity (Deep Portal Slit) -->
+                        <path d="M 84 172 Q 120 180 156 172 Q 152 208 120 208 Q 88 208 84 172 Z" fill="#dfe4ea" />
+                        <!-- Deep black 4D portal opening where hands plunge into -->
+                        <ellipse cx="120" cy="174" rx="36" ry="8" fill="#1e272e" />
+
+                        <!-- Frantically Digging Arms & Paws PLUNGING INTO POCKET -->
+                        <!-- Left Arm & Paw dipping deep into pocket slot -->
+                        <g class="svg-paw-left">
+                            <path d="M 64 150 Q 82 168 104 178" fill="none" stroke="url(#doraBlue)" stroke-width="17"
+                                stroke-linecap="round" />
+                            <!-- White Paw deep in slot -->
+                            <circle cx="106" cy="178" r="13" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                            <!-- Mini Wrench pulled out of pocket -->
+                            <path d="M 98 172 L 91 156 L 97 153 L 102 168 Z" fill="#ced6e0" stroke="#1e272e"
+                                stroke-width="1.8" />
+                            <circle cx="94" cy="154" r="3.5" fill="none" stroke="#1e272e" stroke-width="1.8" />
+                        </g>
+
+                        <!-- Right Arm & Paw dipping deep into pocket slot -->
+                        <g class="svg-paw-right">
+                            <path d="M 176 150 Q 158 168 136 178" fill="none" stroke="url(#doraBlue)" stroke-width="17"
+                                stroke-linecap="round" />
+                            <!-- White Paw deep in slot -->
+                            <circle cx="134" cy="178" r="13" fill="#ffffff" stroke="#1e272e" stroke-width="2.5" />
+                            <!-- Mini Screwdriver pulled out of pocket -->
+                            <path d="M 142 172 L 149 155 L 145 153 L 138 168 Z" fill="#ffd32a" stroke="#1e272e"
+                                stroke-width="1.8" />
+                        </g>
+
+                        <!-- 4D Pocket Front Pouch (Rendered OVER paws so paws are inside!) -->
+                        <g class="svg-pocket-pouch">
+                            <path d="M 85 174 Q 85 212 120 212 Q 155 212 155 174 Z" fill="#ffffff" stroke="#1e272e"
+                                stroke-width="3" />
+                            <!-- Stretched Open Pocket Lip (Curved down as hands push inside) -->
+                            <path d="M 82 174 Q 120 182 158 174" fill="none" stroke="#1e272e" stroke-width="3.5"
+                                stroke-linecap="round" />
+                        </g>
+
+                        <!-- Pocket Magic Burst Glow & Sparks Shooting from Opening -->
+                        <ellipse cx="120" cy="174" rx="28" ry="10" fill="url(#pocketGlow)" class="pocket-burst-glow" />
+                        <g class="pocket-sparkles" stroke="#ffd32a" stroke-width="2" stroke-linecap="round">
+                            <line x1="120" y1="170" x2="120" y2="158" />
+                            <line x1="110" y1="171" x2="100" y2="162" />
+                            <line x1="130" y1="171" x2="140" y2="162" />
+                        </g>
+
+                        <!-- Blue Head -->
+                        <circle cx="120" cy="85" r="62" fill="url(#doraBlue)" stroke="#1e272e" stroke-width="3.5" />
+
+                        <!-- Classic Manga Stress Hatching Lines on Forehead -->
+                        <g stroke="#1e272e" stroke-width="2.2" stroke-linecap="round" opacity="0.65">
+                            <line x1="106" y1="36" x2="104" y2="48" />
+                            <line x1="113" y1="33" x2="111" y2="47" />
+                            <line x1="120" y1="31" x2="119" y2="46" />
+                            <line x1="127" y1="33" x2="128" y2="47" />
+                            <line x1="134" y1="36" x2="136" y2="48" />
+                        </g>
+
+                        <!-- White Face Area -->
+                        <ellipse cx="120" cy="94" rx="52" ry="44" fill="#ffffff" stroke="#1e272e" stroke-width="3" />
+
+                        <!-- Heavy Worry / Panic Eyebrows (Steep diagonal \ /) -->
+                        <path d="M 86 52 Q 102 42 114 54" fill="none" stroke="#1e272e" stroke-width="3"
+                            stroke-linecap="round" />
+                        <path d="M 154 52 Q 138 42 126 54" fill="none" stroke="#1e272e" stroke-width="3"
+                            stroke-linecap="round" />
+
+                        <!-- Left Eye (Wide terrified anime eye with tiny pinpoint shivering pupil) -->
+                        <ellipse cx="105" cy="62" rx="14" ry="18" fill="#ffffff" stroke="#1e272e" stroke-width="2.8" />
+                        <!-- Left Pupil (Pinpoint in shock, looking down) -->
+                        <g class="svg-eye-pupil">
+                            <circle cx="106" cy="69" r="4.5" fill="#1e272e" />
+                            <circle cx="107.5" cy="67.5" r="1.5" fill="#ffffff" />
+                            <!-- Worry wave in eye -->
+                            <path d="M 98 73 Q 105 77 112 73" fill="none" stroke="#48dbfb" stroke-width="2"
+                                opacity="0.85" />
+                        </g>
+
+                        <!-- Right Eye (Wide terrified anime eye with tiny pinpoint shivering pupil) -->
+                        <ellipse cx="135" cy="62" rx="14" ry="18" fill="#ffffff" stroke="#1e272e" stroke-width="2.8" />
+                        <!-- Right Pupil (Pinpoint in shock, looking down) -->
+                        <g class="svg-eye-pupil">
+                            <circle cx="134" cy="69" r="4.5" fill="#1e272e" />
+                            <circle cx="135.5" cy="67.5" r="1.5" fill="#ffffff" />
+                            <!-- Worry wave in eye -->
+                            <path d="M 128 73 Q 135 77 142 73" fill="none" stroke="#48dbfb" stroke-width="2"
+                                opacity="0.85" />
+                        </g>
+
+                        <!-- Red Nose (Jiggling in panic) -->
+                        <circle cx="120" cy="76" r="8.5" fill="#e74c3c" stroke="#1e272e" stroke-width="2.5" />
+                        <circle cx="117.5" cy="73.5" r="2.5" fill="#ffffff" />
+
+                        <!-- Nose Line meeting the center of the mouth curve -->
+                        <line x1="120" y1="84.5" x2="120" y2="96" stroke="#1e272e" stroke-width="2.5" />
+
+                        <!-- Classic Wide Open Screaming Mouth Hanging from Upper Lip Curve -->
+                        <!-- 1. Open mouth cavity (Dark red) -->
+                        <path d="M 78 96 Q 120 102 162 96 Q 152 136 120 136 Q 88 136 78 96 Z" fill="#961b1e"
+                            stroke="#1e272e" stroke-width="3" stroke-linejoin="round" />
+
+                        <!-- 2. Pink Tongue at Bottom -->
+                        <path d="M 94 122 Q 120 108 146 122 Q 138 134 120 134 Q 102 134 94 122 Z" fill="#ff7675"
+                            stroke="#1e272e" stroke-width="1.8" />
+
+                        <!-- 3. Upper Lip Scream Line spanning across face -->
+                        <path d="M 70 93 Q 120 102 170 93" fill="none" stroke="#1e272e" stroke-width="3"
+                            stroke-linecap="round" />
+
+                        <!-- 4. Corner Dimples / Crease lines at mouth corners -->
+                        <path d="M 68 89 Q 70 94 72 98" fill="none" stroke="#1e272e" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        <path d="M 172 89 Q 170 94 168 98" fill="none" stroke="#1e272e" stroke-width="2.5"
+                            stroke-linecap="round" />
+
+
+
+                        <!-- Trembling Whiskers -->
+                        <g stroke="#1e272e" stroke-width="2.2" stroke-linecap="round" class="svg-whiskers-tremble">
+                            <!-- Left Whiskers -->
+                            <line x1="64" y1="76" x2="98" y2="80" />
+                            <line x1="60" y1="89" x2="96" y2="89" />
+                            <line x1="64" y1="102" x2="98" y2="97" />
+                            <!-- Right Whiskers -->
+                            <line x1="176" y1="76" x2="142" y2="80" />
+                            <line x1="180" y1="89" x2="144" y2="89" />
+                            <line x1="176" y1="102" x2="142" y2="97" />
+                        </g>
+
+                        <!-- Red Collar -->
+                        <rect x="74" y="137" width="92" height="15" rx="7.5" fill="#eb2f06" stroke="#1e272e"
+                            stroke-width="3" />
+
+                        <!-- Golden Bell -->
+                        <circle cx="120" cy="154" r="14" fill="url(#bellGold)" stroke="#1e272e" stroke-width="2.5"
+                            class="bell-swing" />
+                        <line x1="109" y1="149" x2="131" y2="149" stroke="#1e272e" stroke-width="2" />
+                        <line x1="108" y1="153" x2="132" y2="153" stroke="#1e272e" stroke-width="2" />
+                        <circle cx="120" cy="157" r="3.2" fill="#2c3e50" />
+                        <line x1="120" y1="160" x2="120" y2="167" stroke="#1e272e" stroke-width="2" />
+
+                        <!-- Big Dynamic Anime Sweat Drops Flying off Head -->
+                        <g class="svg-sweat-drops">
+                            <!-- Left Big Drops -->
+                            <path d="M 56 42 C 46 54 42 66 52 72 C 60 76 68 64 56 42 Z" fill="#48dbfb" stroke="#0984e3"
+                                stroke-width="2" class="sweat-drop-1" />
+                            <path d="M 72 24 C 66 32 64 40 72 44 C 78 46 82 38 72 24 Z" fill="#48dbfb" stroke="#0984e3"
+                                stroke-width="1.8" class="sweat-drop-3" />
+                            <!-- Right Big Drops -->
+                            <path d="M 184 42 C 194 54 198 66 188 72 C 180 76 172 64 184 42 Z" fill="#48dbfb"
+                                stroke="#0984e3" stroke-width="2" class="sweat-drop-2" />
+                            <path d="M 168 24 C 174 32 176 40 168 44 C 162 46 158 38 168 24 Z" fill="#48dbfb"
+                                stroke="#0984e3" stroke-width="1.8" class="sweat-drop-3" />
+                        </g>
+                    </g>
+                </svg>
             </div>
 
             <!-- Doraemon Themed Progress Bar -->
@@ -578,7 +785,7 @@
                 <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Túi Bảo Bối Của Thanh Vy</h3>
                 <button id="closeWishBagBtn" class="close-bag-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="wish-bag-subtitle">Những món quà & lời chúc may mắn cậu đã mở được:</p>
+            <p class="wish-bag-subtitle">Những món quà & lời chúc may mắn đã mở được:</p>
             <div id="wishBagList" class="wish-bag-list">
                 <!-- Dynamically populated -->
             </div>
