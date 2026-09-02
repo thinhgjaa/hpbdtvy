@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let visualProgress = 0;
         const startTime = Date.now();
-        const MIN_PRELOAD_DURATION = 2600; // Thời gian Doraemon lục túi 2.6s sinh động
+        const MIN_PRELOAD_DURATION = 5000; // Tăng thời gian Doraemon lục túi lên 5 giây để người xem ngắm lâu hơn và thích thú
 
         progressTicker = setInterval(() => {
             const elapsed = Date.now() - startTime;
@@ -92,13 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 50);
 
-        // Fallback tối đa 4.5s
+        // Fallback an toàn (tối đa 7.5s)
         setTimeout(() => {
             if (!isPreloaderFinished) {
                 if (progressTicker) clearInterval(progressTicker);
                 completePreload();
             }
-        }, 4500);
+        }, 7500);
     }
 
     function completePreload() {
