@@ -1371,6 +1371,150 @@ body::after {
     }
 }
 
+/* =========================================================
+   MAGICAL CELEBRATORY SKY FIREWORKS (PHÁO HOA BẦU TRỜI)
+   ========================================================= */
+.sky-firework {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 13;
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
+.firework-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Individual Firework Coordinates & Animation Staggering */
+/* 1. Upper Left Starburst (Spot 1: between Happy Birthday and Door) */
+.fw-1 {
+    top: 17%;
+    left: 21%;
+    width: 68px;
+    height: 68px;
+    animation: fireworkBurst 4.2s ease-in-out infinite 0.2s;
+    filter: drop-shadow(0 0 16px rgba(255, 215, 0, 0.85));
+}
+
+/* 2. Upper Right Starburst (Spot 2: between Happy Birthday and Door) */
+.fw-2 {
+    top: 17%;
+    right: 21%;
+    width: 68px;
+    height: 68px;
+    animation: fireworkBurst 4.5s ease-in-out infinite 1.4s;
+    filter: drop-shadow(0 0 16px rgba(255, 118, 117, 0.85));
+}
+
+/* 3. Mid Left (Spot 3: Open sky left of Cake) */
+.fw-3 {
+    top: 40%;
+    left: 17%;
+    width: 62px;
+    height: 62px;
+    animation: fireworkBurst 4.8s ease-in-out infinite 2.6s;
+    filter: drop-shadow(0 0 14px rgba(72, 219, 251, 0.85));
+}
+
+/* 4. Mid Right (Spot 4: Open sky right of Cake) */
+.fw-4 {
+    top: 40%;
+    right: 17%;
+    width: 62px;
+    height: 62px;
+    animation: fireworkBurst 4.4s ease-in-out infinite 0.9s;
+    filter: drop-shadow(0 0 14px rgba(255, 211, 42, 0.85));
+}
+
+/* 5. Top Left Corner (Spot 5: Under Bunting) */
+.fw-5 {
+    top: 6%;
+    left: 14%;
+    width: 52px;
+    height: 52px;
+    animation: fireworkBurst 5s ease-in-out infinite 2.1s;
+    filter: drop-shadow(0 0 12px rgba(253, 121, 168, 0.75));
+}
+
+/* 6. Top Right Corner (Spot 6: Under Bunting) */
+.fw-6 {
+    top: 6%;
+    right: 14%;
+    width: 52px;
+    height: 52px;
+    animation: fireworkBurst 4.6s ease-in-out infinite 3.3s;
+    filter: drop-shadow(0 0 12px rgba(72, 219, 251, 0.75));
+}
+
+/* 7. Lower Left Flare (Spot 7: Lower open sky) */
+.fw-7 {
+    top: 66%;
+    left: 13%;
+    width: 48px;
+    height: 48px;
+    animation: fireworkBurst 4.7s ease-in-out infinite 1.8s;
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.75));
+}
+
+/* 8. Lower Right Flare (Spot 8: Lower open sky) */
+.fw-8 {
+    top: 66%;
+    right: 13%;
+    width: 48px;
+    height: 48px;
+    animation: fireworkBurst 4.3s ease-in-out infinite 3.0s;
+    filter: drop-shadow(0 0 12px rgba(255, 118, 117, 0.75));
+}
+
+/* Firework Burst & Sparkling Cycle Animation */
+@keyframes fireworkBurst {
+    0% {
+        transform: scale(0.15) rotate(0deg);
+        opacity: 0;
+    }
+    18% {
+        transform: scale(1.22) rotate(16deg);
+        opacity: 1;
+    }
+    38% {
+        transform: scale(1.05) rotate(28deg);
+        opacity: 0.92;
+    }
+    65% {
+        transform: scale(0.96) rotate(42deg);
+        opacity: 0.65;
+    }
+    85% {
+        transform: scale(0.75) rotate(54deg);
+        opacity: 0.15;
+    }
+    100% {
+        transform: scale(0.4) rotate(60deg);
+        opacity: 0;
+    }
+}
+
+.fw-spark {
+    animation: sparkFlicker 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes sparkFlicker {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1.25);
+        opacity: 1;
+    }
+}
+
 /* Mini Sky Doraemons (Cute Background Floating Decorations) */
 .sky-doraemon {
     position: absolute;

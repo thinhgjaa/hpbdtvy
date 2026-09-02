@@ -752,6 +752,27 @@ document.addEventListener('DOMContentLoaded', () => {
         nextStep();
     }
 
+    // Interactive Sky Fireworks on Click in empty areas
+    if (scene) {
+        scene.addEventListener('click', (e) => {
+            if (e.target.closest('.balloon') || e.target.closest('.candle') || e.target.closest('#blowCandleBtn') || e.target.closest('.book-wrapper') || e.target.closest('#wishBagBtn') || e.target.closest('.modal') || e.target.closest('.sound-btn')) return;
+            
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            if (typeof myConfetti === 'function') {
+                myConfetti({
+                    particleCount: 30,
+                    spread: 65,
+                    origin: { x, y },
+                    colors: ['#ffd700', '#ff9ff3', '#48dbfb', '#ff6b6b', '#1dd1a1', '#ffffff', '#fd79a8'],
+                    zIndex: 20
+                });
+            }
+            triggerHaptic(30);
+        });
+    }
+
     // Candle Extinguishing Function
     function extinguishCandle() {
         if (candle.classList.contains('blown-out')) return;
