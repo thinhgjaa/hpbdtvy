@@ -69,12 +69,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loadingBar) loadingBar.style.width = `100%`;
         if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... 100%`;
 
+        // Dừng hoạt ảnh lục túi hoảng loạn và hiện trạng thái đã tìm thấy bảo bối
+        const loaderBadge = document.getElementById('loaderBadge') || document.querySelector('.doraemon-badge');
+        const loaderBadgeText = document.getElementById('loaderBadgeText');
+        const panicStage = document.querySelector('.doraemon-panic-stage');
+
+        if (preloader) preloader.classList.add('preloader-found');
+        if (panicStage) panicStage.classList.add('found-gadget');
+
+        // Đổi chữ phía dưới thành: "A... TÌM THẤY RỒI! ✨🚪🎁"
+        if (loaderBadge) {
+            loaderBadge.classList.add('badge-found');
+            if (loaderBadgeText) {
+                loaderBadgeText.innerHTML = 'A... TÌM THẤY RỒI! ✨🚪🎁';
+            } else {
+                loaderBadge.innerHTML = '<i class="fa-solid fa-sparkles"></i> A... TÌM THẤY RỒI! ✨🚪🎁';
+            }
+        }
+
+        // Dừng lại và giữ màn hình đủ thời gian (2.2 giây) để người dùng đọc thoải mái
         setTimeout(() => {
-            // Ẩn preloader, hiện Màn hình Nhập Mật Khẩu Doraemon
+            // Ẩn preloader, chuyển mượt sang Màn hình Nhập Mật Khẩu Doraemon
             if (preloader) preloader.classList.add('hidden');
             const passwordScreen = document.getElementById('password-screen');
             if (passwordScreen) passwordScreen.classList.remove('hidden');
-        }, 500);
+        }, 2200);
     }
 
     preloadImages.forEach(src => {
