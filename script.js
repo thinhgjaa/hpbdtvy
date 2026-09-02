@@ -889,7 +889,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
                         const balloonCounter = document.getElementById('balloonCounter');
-                        if (balloonCounter) balloonCounter.classList.remove('hidden');
+                        if (balloonCounter) {
+                            balloonCounter.classList.remove('hidden');
+                            updateHUD();
+                        }
 
                         // Sau 3.5s đọc hướng dẫn, ẩn dòng chữ phía trên và chỉ giữ lại bộ đếm
                         setTimeout(() => {
