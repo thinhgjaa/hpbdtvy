@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!preloader) return;
         preloader.classList.remove('hidden');
         preloader.classList.remove('preloader-found');
-        
+
         const panicStage = document.querySelector('.doraemon-panic-stage');
         if (panicStage) panicStage.classList.remove('found-gadget');
 
@@ -71,17 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let visualProgress = 0;
         const startTime = Date.now();
-        const MIN_PRELOAD_DURATION = 5000; // Tăng thời gian Doraemon lục túi lên 5 giây để người xem ngắm lâu hơn và thích thú
+        const MIN_PRELOAD_DURATION = 6500; // Chạy chậm và đều trong ~6.5 giây để người xem ngắm hoạt ảnh Doraemon lục túi dễ thương
 
         progressTicker = setInterval(() => {
             const elapsed = Date.now() - startTime;
             const timeRatio = Math.min(1, elapsed / MIN_PRELOAD_DURATION);
-            const realAssetRatio = totalAssets > 0 ? (loadedAssetsCount / totalAssets) : 1;
-            const targetPercent = Math.floor(Math.min(99, Math.max(timeRatio * 90, realAssetRatio * 90)));
+
+            // Tiến độ tăng dần đều, mượt mà từ 0% -> 98% theo thời gian
+            const targetPercent = Math.min(98, Math.floor(timeRatio * 98));
 
             if (visualProgress < targetPercent) {
-                visualProgress += Math.ceil((targetPercent - visualProgress) * 0.25);
-                if (visualProgress > targetPercent) visualProgress = targetPercent;
+                visualProgress += 1;
                 if (loadingBar) loadingBar.style.width = `${visualProgress}%`;
                 if (loadingText) loadingText.innerHTML = `Đang chuẩn bị bảo bối từ túi thần kỳ cho Thanh Vy... ${visualProgress}%`;
             }
@@ -92,13 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 50);
 
-        // Fallback an toàn (tối đa 7.5s)
+        // Fallback an toàn (tối đa 8.5s)
         setTimeout(() => {
             if (!isPreloaderFinished) {
                 if (progressTicker) clearInterval(progressTicker);
                 completePreload();
             }
-        }, 7500);
+        }, 8500);
     }
 
     function completePreload() {
@@ -789,10 +789,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scene) {
         scene.addEventListener('click', (e) => {
             if (e.target.closest('.balloon') || e.target.closest('.candle') || e.target.closest('#blowCandleBtn') || e.target.closest('.book-wrapper') || e.target.closest('#wishBagBtn') || e.target.closest('.modal') || e.target.closest('.sound-btn')) return;
-            
+
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
-            
+
             if (typeof myConfetti === 'function') {
                 myConfetti({
                     particleCount: 30,
@@ -822,8 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Pick a random side (Left wing: 4% - 30%, Right wing: 70% - 96%)
             const isLeft = Math.random() < 0.5;
-            const leftPercent = isLeft 
-                ? (4 + Math.random() * 26) 
+            const leftPercent = isLeft
+                ? (4 + Math.random() * 26)
                 : (70 + Math.random() * 26);
 
             const icon = iconList[Math.floor(Math.random() * iconList.length)];
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wishText) {
             typeWriterEffect(wishText, "Điều ước của Thanh Vy nhất định sẽ thành sự thật... 💖", 40, () => {
                 setTimeout(() => {
-                    typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay để bắt lấy nhìu may mắn nhé!", 35, () => {
+                    typeWriterEffect(wishText, "🎈 Hãy bắt lấy những quả bóng bay secret để bắt lấy nhìu secret và may mắn nhé!", 35, () => {
                         const balloonCounter = document.getElementById('balloonCounter');
                         if (balloonCounter) {
                             balloonCounter.classList.remove('hidden');

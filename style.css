@@ -504,7 +504,7 @@ body::after {
     background: linear-gradient(90deg, #0096e6, #00d2d3, #ffd32a);
     border-radius: 15px;
     position: relative;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.12s linear;
     box-shadow: 0 0 16px rgba(0, 210, 211, 0.9);
 }
 
