@@ -2325,17 +2325,23 @@ body::after {
 
 .wish-note-badge {
     position: absolute;
-    top: -12px;
-    right: 20px;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
     background: linear-gradient(135deg, #ff6b81, #ff4757);
     color: white;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    padding: 4px 14px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+    padding: 5px 18px;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgba(255, 71, 87, 0.45);
     letter-spacing: 0.5px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
 }
 
 #wishPaperText {
@@ -2349,17 +2355,7 @@ body::after {
 
 /* Washi Tape at Top */
 .wish-note-tape {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 95px;
-    height: 28px;
-    background: rgba(224, 242, 254, 0.85);
-    border: 1px solid rgba(186, 230, 253, 0.8);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2px);
-    pointer-events: none;
+    display: none;
 }
 
 .wish-skip-hint {

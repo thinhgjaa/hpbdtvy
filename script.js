@@ -586,8 +586,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const countdownMessages = [
         "Một ngày đặc biệt... ",
-        "Dành cho một người đặc biệt... ",
-        "Một món quà thật đặc biệt... "
+        "Một người đặc biệt... ",
+        "Và một món quà đặc biệt... "
     ];
 
     let countdownValue = 3;
