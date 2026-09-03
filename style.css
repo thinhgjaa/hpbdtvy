@@ -1222,25 +1222,25 @@ body::after {
 }
 
 /* Gradual Reveal Animations - Sequenced: 1. Cake -> 2. Happy Birthday -> 3. Background -> 4. Wish Note */
-.birthday-scene.hidden .big-cake,
-.birthday-scene.hidden .happy-text,
-.birthday-scene.hidden .name-text,
-.birthday-scene.hidden .date-text,
-.birthday-scene.hidden .bunting,
-.birthday-scene.hidden .balloons,
-.birthday-scene.hidden .sparkles-container,
-.birthday-scene.hidden .wish-container {
+.birthday-scene .big-cake,
+.birthday-scene .happy-text,
+.birthday-scene .name-text,
+.birthday-scene .date-text,
+.birthday-scene .bunting,
+.birthday-scene .balloons,
+.birthday-scene .sparkles-container,
+.birthday-scene .wish-container {
     opacity: 0;
 }
 
-/* 1. Bánh kem lên trước (Cake appears first: 0.2s) */
+/* 1. Bánh kem lên trước (Cake appears first: 0.3s) */
 .birthday-scene .big-cake {
     transform: scale(0.65) translateY(45px);
 }
 
 .birthday-scene:not(.hidden) .big-cake,
 .birthday-scene.scene-active .big-cake {
-    animation: cakeEntranceReveal 1.2s cubic-bezier(0.34, 1.45, 0.64, 1) forwards 0.2s;
+    animation: cakeEntranceReveal 1.3s cubic-bezier(0.34, 1.45, 0.64, 1) forwards 0.3s;
 }
 
 @keyframes cakeEntranceReveal {
@@ -1254,7 +1254,7 @@ body::after {
     }
 }
 
-/* 2. Sau đó thì chữ Happy Birthday hiển thị (Happy Birthday text: 0.8s - 1.2s) */
+/* 2. Sau đó thì chữ Happy Birthday hiển thị (Happy Birthday text: 1.7s - 2.2s) */
 .birthday-scene .happy-text,
 .birthday-scene .name-text,
 .birthday-scene .date-text {
@@ -1263,17 +1263,17 @@ body::after {
 
 .birthday-scene:not(.hidden) .happy-text,
 .birthday-scene.scene-active .happy-text {
-    animation: textEntranceReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
+    animation: textEntranceReveal 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.7s;
 }
 
 .birthday-scene:not(.hidden) .name-text,
 .birthday-scene.scene-active .name-text {
-    animation: textEntranceReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.0s;
+    animation: textEntranceReveal 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 2.0s;
 }
 
 .birthday-scene:not(.hidden) .date-text,
 .birthday-scene.scene-active .date-text {
-    animation: textEntranceReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.2s;
+    animation: textEntranceReveal 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 2.2s;
 }
 
 @keyframes textEntranceReveal {
@@ -1287,21 +1287,21 @@ body::after {
     }
 }
 
-/* 3. Sau đó thì background (Bunting, Clouds, Gadgets, Sparkles, Balloons: 1.5s - 1.8s) */
+/* 3. Sau đó thì background (Bunting, Clouds, Gadgets, Sparkles, Balloons: 3.1s - 3.3s) */
 .birthday-scene .bunting {
     transform: translateY(-50px);
 }
 
 .birthday-scene:not(.hidden) .bunting,
 .birthday-scene.scene-active .bunting {
-    animation: fadeDownReveal 1.2s ease forwards 1.5s;
+    animation: fadeDownReveal 1.4s ease forwards 3.1s;
 }
 
 .birthday-scene:not(.hidden) .sparkles-container,
 .birthday-scene:not(.hidden) .balloons,
 .birthday-scene.scene-active .sparkles-container,
 .birthday-scene.scene-active .balloons {
-    animation: fadeInReveal 1.4s ease forwards 1.7s;
+    animation: fadeInReveal 1.8s ease forwards 3.3s;
 }
 
 @keyframes fadeDownReveal {
@@ -1326,14 +1326,14 @@ body::after {
     }
 }
 
-/* 4. Rồi mới tới khung lời chúc & thoại Doraemon: 2.2s */
+/* 4. Rồi mới tới khung lời chúc & thoại Doraemon: 4.8s */
 .birthday-scene .wish-container {
     transform: translateY(25px);
 }
 
 .birthday-scene:not(.hidden) .wish-container,
 .birthday-scene.scene-active .wish-container {
-    animation: wishNoteReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 2.2s;
+    animation: wishNoteReveal 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 4.8s;
 }
 
 @keyframes wishNoteReveal {

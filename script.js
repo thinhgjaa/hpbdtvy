@@ -788,13 +788,13 @@ document.addEventListener('DOMContentLoaded', () => {
             countdownNum.style.opacity = "0";
             countdownText.style.opacity = "0";
 
-            // Seamless cinematic transition to birthday scene
+            // Khoảng lặng điện ảnh (3.5 giây) sau khi đếm ngược 3-2-1 để tạo sự hồi hộp đỉnh điểm
             setTimeout(() => {
                 countdownScreen.classList.add('hidden');
 
                 // Play Grand Reveal Audio
                 if (audio && audio.paused) {
-                    audio.volume = 0.8;
+                    audio.volume = 0.85;
                     audio.play().catch(e => console.log(e));
                 }
 
@@ -803,16 +803,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 scene.classList.add('scene-active');
                 initDynamicSkyIcons();
 
-                // Pop confetti as background fully bursts into view
+                // Pop confetti as background fully bursts into view (3.5s)
                 setTimeout(() => {
-                    firePremiumConfetti(1.5);
-                }, 1200);
+                    firePremiumConfetti(1.8);
+                }, 3500);
 
-                // Type out the birthday celebration & wish instruction after the wish note appears
+                // Type out the birthday celebration & wish instruction after the wish note appears (5.3s)
                 setTimeout(() => {
                     runBirthdayIntro();
-                }, 2200);
-            }, 800);
+                }, 5300);
+            }, 3500);
         }
     }
 
